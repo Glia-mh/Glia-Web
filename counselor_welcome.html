@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Team Roots</title>
+	<style>
+		#welcome {
+			width: 360px;
+			margin: 0 auto 60px;
+			color: gray;
+		}
+	</style>
+	<script>
+		
+	</script>
+</head>
+<body>
+	<div id="container">
+		<img id="title" src="img/team-roots-logo.png">
+		
+		<div id="welcome">
+			Welcome to Team Roots, {{name}}!<br>
+			<br>
+			Add a profile image and bio so students can learn more about you.
+		</div>
+		
+		<form>
+			<input type="text" class="form-field" placeholder="Choose image" onclick="this.nextElementSibling.click()">
+			<input type="file" class="hidden" accept="image/*" onchange="this.previousElementSibling.value = this.value">
+			<input type="button" value="Upload" class="button"><br>
+			<br>
+			<textarea cols="44" rows="5" placeholder="Bio"></textarea><br>
+			<br><br>
+			<input type="submit" value="Finish" class="button">
+			<p id="note"></p>
+		</form>
+	</div>
+
+	<div id="footer">
+		<a href="mailto:spencer@teamroots.org" class="get-notified">Contact us</a>
+	</div>
+</body>
+</html>

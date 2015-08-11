@@ -1,0 +1,116 @@
+@font-face {
+	font-family: SFLight;
+	src: url('../fonts/SF-UI-Text-Light.otf');
+}
+
+body {
+	display: table;
+	width: 100%;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	font-family: SFLight;
+	text-align: center;
+
+}
+
+.hidden {
+	display: none;
+}
+
+a:link {
+	color: rgb(200, 200, 200);
+	text-decoration: none;
+	-webkit-transition: .2s all;
+	-moz-transition: .2s all;
+	-o-transition: .2s all;
+	transition: .2s all;
+}
+
+a:hover {
+	color: gray;
+	text-decoration: none;
+}
+
+a:visited {
+	color: rgb(200, 200, 200);
+	text-decoration: none;
+}
+
+.form-field {
+	width: 250px;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: solid 1px rgb(210, 210, 210);
+	font-size: 12px;
+	outline: 0;
+	border-radius: 5px;
+}
+
+textarea {
+	padding: 8px;
+	border: solid 1px rgb(210, 210, 210);
+	font: inherit;
+	font-size: 12px;
+	border-radius: 5px;
+}
+
+.button {
+	padding: 9px 20px;
+	border: solid 1px #51C781;
+	color: white;
+	background-color: rgba(81, 199, 129, 0.85);
+	font-size: 12px;
+	border-radius: 5px;
+	-webkit-transition: .2s all;
+	-moz-transition: .2s all;
+	-o-transition: .2s all;
+	transition: .2s all;
+}
+
+.button:hover {
+	color: white;
+	background-color: rgba(81, 199, 129, 1.0);
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+	color: rgb(210, 210, 210);
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: rgb(210, 210, 210);
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: rgb(210, 210, 210);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color: rgb(210, 210, 210);
+}
+
+#container {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#title {
+	display: block;
+	height: 120px;
+	margin: 0 auto 60px;
+}
+
+#note {
+	font-size: 12px;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0; left: 0; right: 0;
+	height: 20px;
+	padding: 10px;
+	color: gray;
+	font-size: 12px;
+	text-align: center;
+}
