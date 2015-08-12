@@ -4,20 +4,45 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/style.css">
 	<title>Team Roots</title>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script>
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+	</script>
 </head>
 <body>
 	<div id="container">
 		<img id="title" src="img/team-roots-logo.png">
 
-		<form action="counselor_welcome.html">
-			<input type="email" class="form-field" placeholder="Email" required><br>
-			<input type="text" class="form-field" placeholder="Name"  required><br>
-			<input type="password" class="form-field" placeholder="Password"  required><br>
+		<form id="register-form">
+			<input type="email" name="email" class="form-field" placeholder="Email" required><br>
+			<input type="text" name="name" class="form-field" placeholder="Name" required><br>
+			<input type="password" name="password" class="form-field" placeholder="Password" required><br>
 			<br>
 			<input type="submit" class="button" value="Next">
 			<p id="note"></p>
 		</form>
 	</div>
+
+	<script>
+		document.getElementById("register-form").addEventListener("submit", function (e) {
+			e.preventDefault();
+
+			var user = new Parse.User();
+			user.set("email", this.elements["email"].value);
+			user.set("username", this.elements["name"].value);
+			user.set("name", this.elements["name"].value);
+			user.set("password", this.elements["password"].value);
+
+			user.signUp(null, {
+				success: function(user) {
+					window.location = "counselor_welcome.html";
+				},
+				error: function(user, error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		});
+	</script>
 
 	<div id="footer">
 		<a href="mailto:spencer@teamroots.org" class="get-notified">Contact us</a>
