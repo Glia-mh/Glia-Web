@@ -89,31 +89,25 @@ textarea {
 	color: rgb(210, 210, 210);
 }
 
+.modal-container {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+.modal-container.hidden {
+	display: block !important;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
 .overlay {
 	position: fixed;
 	top: 0; left: 0;
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.5);
-	visibility: visible;
-	opacity: 1;
-	-webkit-transition: opacity 0.3s;
-	-moz-transition: opacity 0.3s;
-	-ms-transition: opacity 0.3s;
-	-o-transition: opacity 0.3s;
-	transition: opacity 0.3s;
 	cursor: pointer;
-}
-
-.overlay.hidden {
-	display: block !important;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: opacity 0.3s, visibility 0s 0.3s;
-	-moz-transition: opacity 0.3s, visibility 0s 0.3s;
-	-ms-transition: opacity 0.3s, visibility 0s 0.3s;
-	-o-transition: opacity 0.3s, visibility 0s 0.3s;
-	transition: opacity 0.3s, visibility 0s 0.3s;
 }
 
 .modal {
