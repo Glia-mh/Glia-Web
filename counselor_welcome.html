@@ -10,6 +10,40 @@
 			margin: 0 auto 60px;
 			color: gray;
 		}
+
+		#profile-form .preview {
+			width: 100px;
+			height: 100px;
+			border-radius: 50px;
+		}
+
+		#crop-form .crop-container {
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		#crop-form img {
+			display: block;
+			width: 100%;
+			pointer-events: none;
+		}
+
+		#crop-form .crop-circle {
+			position: absolute;
+			top: 0; left: 0;
+			margin: -500px 0 0 -500px;
+			border: 500px solid rgba(0, 0, 0, 0.75);
+			border-radius: 50%;
+		}
+
+		#crop-form .crop-circle .handle {
+			position: absolute;
+			right: 0; bottom: 0;
+			border-right: 10px solid white;
+			border-top: 10px solid transparent;
+			cursor: se-resize;
+		}
 	</style>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	<script>
@@ -24,44 +58,183 @@
 		<img id="title" src="img/team-roots-logo.png">
 
 		<div id="welcome">
-			Welcome to Team Roots, <span id="counselor-name"></span>!<br>
-			<br>
-			Add a profile image and bio so students can learn more about you.
+			<p>Welcome to Team Roots, <span id="counselor-name"></span>!<br></p>
+			<p>Add a profile image and bio so students can learn more about you.</p>
 		</div>
 
 		<form id="profile-form">
+			<img class="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="><br>
+			<br>
 			<input type="text" class="form-field" placeholder="Choose image" onclick="this.nextElementSibling.click()">
-			<input type="file" name="image" class="hidden" accept="image/*" onchange="this.previousElementSibling.value = this.value">
-			<input type="button" value="Upload" class="button"><br>
+			<input type="file" name="image" class="hidden" accept="image/*" onchange="this.previousElementSibling.value = this.value; this.nextElementSibling.disabled = false">
+			<input type="button" value="Upload" id="upload-button" class="button"><br>
 			<br>
 			<textarea cols="44" rows="5" name="bio" placeholder="Bio"></textarea><br>
 			<br><br>
 			<input type="submit" value="Finish" class="button">
 			<p id="note"></p>
 		</form>
+
+		<div id="crop-modal" class="hidden">
+			<div class="overlay" onclick="this.parentNode.classList.add('hidden')"></div>
+			<div class="modal">
+				<a href="#" class="close" onclick="this.parentNode.parentNode.classList.add('hidden')">&times;</a>
+				<form id="crop-form">
+					<div class="crop-container">
+						<img src="" alt="">
+						<div class="crop-circle">
+							<div class="handle"></div>
+						</div>
+					</div>
+					<br>
+					<input type="submit" value="Crop" class="button">
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<script>
-		document.getElementById("counselor-name").textContent = currentUser.get("username");
+		// display counselor name
+		document.getElementById("counselor-name").textContent = currentUser.get("name");
 
-		document.getElementById("profile-form").addEventListener("submit", function (e) {
-			e.preventDefault();
+		(function () {
+			var form = document.getElementById("profile-form");
+			var preview = form.getElementsByClassName("preview")[0];
 
-			var form = this;
+			var cropModal = document.getElementById("crop-modal");
+			var cropImg = cropModal.getElementsByTagName("img")[0];
+			var cropContainer = cropModal.getElementsByClassName("crop-container")[0];
+			var cropCircle = cropModal.getElementsByClassName("crop-circle")[0];
+
+			// initialize cropping container on image load
 			var reader = new FileReader();
-
 			reader.onload = function () {
-				currentUser.set("photoURL", this.result);
-				currentUser.set("bio", form.elements["bio"].value);
-				currentUser.save(null, {
-					success: function (user) {
-						form.reset();
-					}
-				});
+				cropImg.src = this.result;
+
+				var size = Math.min(cropImg.width, cropImg.height);
+
+				cropCircle.style.width = size + "px";
+				cropCircle.style.height = size + "px";
+				cropCircle.style.left = (cropImg.width - size) / 2 + "px";
+				cropCircle.style.top = (cropImg.height - size) / 2 + "px";
 			};
 
-			reader.readAsDataURL(this.elements["image"].files[0]);
-		})
+			// show crop modal on image upload
+			document.getElementById("upload-button").addEventListener("click", function () {
+				if (!form.elements["image"].files[0]) return;
+				cropModal.classList.remove("hidden");
+				reader.readAsDataURL(form.elements["image"].files[0]);
+			});
+
+			// make crop circle resizable
+			(function (draggable, container) {
+				var x, y, top, left, maxTop, maxLeft;
+
+				var doDrag = function (e) {
+					var newTop = top + e.clientY - y;
+					var newLeft = left + e.clientX - x;
+
+					if (newTop < 0) newTop = 0;
+					else if (newTop > maxTop) newTop = maxTop;
+					if (newLeft < 0) newLeft = 0;
+					else if (newLeft > maxLeft) newLeft = maxLeft;
+
+					draggable.style.top = newTop + "px";
+					draggable.style.left = newLeft + "px";
+				};
+
+				var stopDrag = function () {
+					container.removeEventListener("mousemove", doDrag);
+					container.removeEventListener("mouseup", stopDrag);
+				};
+
+				draggable.addEventListener("mousedown", function (e) {
+					var style = window.getComputedStyle(this);
+					var containerStyle = window.getComputedStyle(container);
+
+					x = e.clientX;
+					y = e.clientY;
+					top = parseInt(style.top, 10);
+					left = parseInt(style.left, 10);
+					maxTop = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.height, 10));
+					maxLeft = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.width, 10));
+					console.log(containerStyle.height + " - " + style.height + " = " + maxTop);
+
+					container.addEventListener("mousemove", doDrag);
+					container.addEventListener("mouseup", stopDrag);
+				});
+			})(cropCircle, cropContainer);
+
+			// make crop circle resizable
+			(function (resizable, handle, container) {
+				var x, y, width, maxWidth, maxHeight;
+
+				var doResize = function (e) {
+					var newWidth = width + e.clientX - x;
+					newHeight = newWidth;
+
+					if (newWidth < 10) newWidth = newHeight = 10;
+					else if (newWidth > maxWidth) newWidth = newHeight = maxWidth;
+					if (newHeight < 10) newWidth = newHeight = 10;
+					else if (newHeight > maxHeight) newWidth = newHeight = maxHeight;
+
+					resizable.style.width = newWidth + "px";
+					resizable.style.height = newHeight + "px";
+				};
+
+				var stopResize = function () {
+					container.removeEventListener("mousemove", doResize);
+					container.removeEventListener("mouseup", stopResize);
+				};
+
+				handle.addEventListener("mousedown", function (e) {
+					e.stopPropagation();
+
+					var style = window.getComputedStyle(resizable);
+					var containerStyle = window.getComputedStyle(container);
+
+					x = e.clientX;
+					y = e.clientY;
+					width = parseFloat(style.width, 10);
+					maxWidth = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.left, 10));
+					maxHeight = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.top, 10));
+
+					container.addEventListener("mousemove", doResize);
+					container.addEventListener("mouseup", stopResize);
+				});
+			})(cropCircle, cropCircle.getElementsByClassName("handle")[0], cropContainer);
+
+			// handle crop form
+			document.getElementById("crop-form").addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				var ratio = cropImg.naturalWidth / cropImg.width;
+
+				var canvas = document.createElement('canvas');
+				canvas.width = 500;
+				canvas.height = 500;
+				var ctx = canvas.getContext("2d");
+				ctx.drawImage(cropImg, Math.round(parseFloat(cropCircle.style.left, 10) * ratio),
+						Math.round(parseFloat(cropCircle.style.top, 10) * ratio),
+						Math.round(parseFloat(cropCircle.style.width, 10) * ratio),
+						Math.round(parseFloat(cropCircle.style.height, 10) * ratio),
+						0, 0, 500, 500);
+
+				preview.src = canvas.toDataURL("image/jpeg");
+				cropModal.getElementsByClassName("close")[0].click();
+			});
+
+			// handle form submit
+			form.addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				currentUser.set("photoURL", preview.src);
+				currentUser.set("bio", form.elements["bio"].value);
+				currentUser.save(null, {
+					success: function (user) { form.reset(); }
+				});
+			});
+		})();
 	</script>
 
 	<div id="footer">

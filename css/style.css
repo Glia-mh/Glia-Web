@@ -15,7 +15,7 @@ body {
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 a:link {
@@ -87,6 +87,56 @@ textarea {
 
 :-ms-input-placeholder { /* Internet Explorer 10+ */
 	color: rgb(210, 210, 210);
+}
+
+.overlay {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.5);
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: opacity 0.3s;
+	-moz-transition: opacity 0.3s;
+	-ms-transition: opacity 0.3s;
+	-o-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+	cursor: pointer;
+}
+
+.overlay.hidden {
+	display: block !important;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, visibility 0s 0.3s;
+	-moz-transition: opacity 0.3s, visibility 0s 0.3s;
+	-ms-transition: opacity 0.3s, visibility 0s 0.3s;
+	-o-transition: opacity 0.3s, visibility 0s 0.3s;
+	transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+.modal {
+	position: absolute;
+	top: 10%;
+	left: 0; right: 0;
+	margin: auto;
+	padding: 20px;
+	background: white;
+	width: 50%;
+	max-width: 500px;
+	border-radius: 5px;
+}
+
+.modal .close {
+	float: right;
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.modal .close + * {
+	clear: both;
 }
 
 #container {
