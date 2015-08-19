@@ -35,6 +35,7 @@
 			margin: -500px 0 0 -500px;
 			border: 500px solid rgba(0, 0, 0, 0.75);
 			border-radius: 50%;
+			cursor: move;
 		}
 
 		#crop-form .crop-circle .handle {
@@ -106,24 +107,24 @@
 			var cropContainer = cropModal.getElementsByClassName("crop-container")[0];
 			var cropCircle = cropModal.getElementsByClassName("crop-circle")[0];
 
-			// initialize cropping container on image load
 			var reader = new FileReader();
-			reader.onload = function () {
-				cropImg.src = this.result;
-
-				var size = Math.min(cropImg.width, cropImg.height);
-
-				cropCircle.style.width = size + "px";
-				cropCircle.style.height = size + "px";
-				cropCircle.style.left = (cropImg.width - size) / 2 + "px";
-				cropCircle.style.top = (cropImg.height - size) / 2 + "px";
-			};
+			reader.onload = function () { cropImg.src = this.result; };
 
 			// show crop modal on image upload
 			document.getElementById("upload-button").addEventListener("click", function () {
 				if (!form.elements["image"].files[0]) return;
 				cropModal.classList.remove("hidden");
 				reader.readAsDataURL(form.elements["image"].files[0]);
+			});
+
+			// initialize crop circle on image load
+			cropImg.addEventListener("load", function () {
+				var size = Math.min(cropImg.width, cropImg.height);
+
+				cropCircle.style.width = size + "px";
+				cropCircle.style.height = size + "px";
+				cropCircle.style.left = (cropImg.width - size) / 2 + "px";
+				cropCircle.style.top = (cropImg.height - size) / 2 + "px";
 			});
 
 			// make crop circle resizable
@@ -158,7 +159,6 @@
 					left = parseInt(style.left, 10);
 					maxTop = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.height, 10));
 					maxLeft = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.width, 10));
-					console.log(containerStyle.height + " - " + style.height + " = " + maxTop);
 
 					container.addEventListener("mousemove", doDrag);
 					container.addEventListener("mouseup", stopDrag);
