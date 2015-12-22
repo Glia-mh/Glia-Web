@@ -27,13 +27,13 @@ a:link {
 	transition: .2s all;
 }
 
-a:hover {
-	color: gray;
+a:visited {
+	color: rgb(200, 200, 200);
 	text-decoration: none;
 }
 
-a:visited {
-	color: rgb(200, 200, 200);
+a:hover {
+	color: gray;
 	text-decoration: none;
 }
 

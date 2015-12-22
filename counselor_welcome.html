@@ -51,7 +51,7 @@
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 
 		var currentUser = Parse.User.current();
-		if (!currentUser) window.location = "counselor_code.html";
+		if (!currentUser) window.location = "counselor_login.html";
 	</script>
 </head>
 <body>
@@ -127,7 +127,7 @@
 				cropCircle.style.top = (cropImg.height - size) / 2 + "px";
 			});
 
-			// make crop circle resizable
+			// make crop circle draggable
 			(function (draggable, container) {
 				var x, y, top, left, maxTop, maxLeft;
 
@@ -155,8 +155,8 @@
 
 					x = e.clientX;
 					y = e.clientY;
-					top = parseInt(style.top, 10);
-					left = parseInt(style.left, 10);
+					top = parseFloat(style.top, 10);
+					left = parseFloat(style.left, 10);
 					maxTop = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.height, 10));
 					maxLeft = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.width, 10));
 
