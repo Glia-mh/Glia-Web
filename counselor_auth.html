@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Team Roots</title>
+	<style>
+		#welcome {
+			width: 360px;
+			margin: 0 auto 60px;
+			color: gray;
+		}
+
+		#auth {
+			display: inline-block;
+			width: 700px;
+			text-align: left;
+			word-wrap: break-word;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script src="js/layer.js"></script>
+	<script>
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+
+		var currentUser = Parse.User.current();
+		if (!currentUser) window.location = "counselor_login.html";
+	</script>
+</head>
+<body>
+	<div id="container">
+		<img id="title" src="img/team-roots-logo.png">
+
+		<div id="welcome">
+			<p>Welcome to Team Roots, <span id="counselor-name"></span>!<br></p>
+		</div>
+
+		<code><p id="auth"></p></code>
+	</div>
+
+	<script>
+		document.getElementById("counselor-name").textContent = currentUser.get("name");
+
+		var auth = document.getElementById("auth");
+
+		layer.getNonce().then(function (nonce) {
+			auth.innerHTML += "Nonce:<br>" + nonce + "<br><br>";
+			return layer.getIdentityToken(nonce, currentUser.id);
+		}).then(function (identityToken) {
+			auth.innerHTML += "Identity Token:<br>" + identityToken + "<br><br>";
+			return layer.getSession(identityToken);
+		}).then(function (sessionToken) {
+			auth.innerHTML += "Session Token:<br>" + sesssionToken + "<br><br>";
+		});
+	</script>
+
+	<div id="footer">
+		<a href="mailto:spencer@teamroots.org" class="get-notified">Contact us</a>
+	</div>
+</body>
+</html>
