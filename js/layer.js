@@ -65,7 +65,7 @@ var layer = {
 		$.ajax({
 			url: "https://commonroots-auth.herokuapp.com/authenticate",
 			method: "POST",
-			data: JSON.stringify({
+			data: $.param({
 				app_id: window.layer.data.config.appId,
 				user_id: userId,
 				nonce: nonce
