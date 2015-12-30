@@ -4,7 +4,9 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/style.css">
 	<title>Team Roots</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script src="js/layer.js"></script>
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 	</script>
@@ -35,10 +37,17 @@
 			user.set("counselorType", "1");
 			user.set("isAvailable", true);
 
-			user.signUp(null).then(function (user) {
-				window.location = "counselor_welcome.html";
+			user.signUp(null)
+			.then(function (user) {
+				return layer.getNonce();
 			}, function (error) {
 				alert("Error: " + error.code + " " + error.message);
+			})
+			.then(function (nonce) {
+				return layer.authenticate(nonce, user.id)
+			})
+			.then(function (sessionToken) {
+				window.location = "counselor_welcome.html";
 			});
 		});
 	</script>

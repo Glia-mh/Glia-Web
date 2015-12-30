@@ -230,8 +230,9 @@
 
 				currentUser.set("photoURL", preview.src);
 				currentUser.set("bio", form.elements["bio"].value);
-				currentUser.save(null, {
-					success: function (user) { form.reset(); }
+				currentUser.save(null)
+				.then(function (user) {
+					form.reset();
 				});
 			});
 		})();

@@ -17,6 +17,9 @@
  */
 
 var layer = {
+	/**
+	 * Layer configuration and header data
+	 */
 	data: {
 		config: {
 			serverUrl: "https://api.layer.com",
@@ -24,9 +27,37 @@ var layer = {
 		},
 		headers: {
 			Accept: "application/vnd.layer+json; version=1.0",
-			Authorization: "",
+			Authorization: 'Layer session-token="' + localStorage["layer_session_token"] + '"',
 			"Content-type": "application/json"
 		}
+	},
+
+	/**
+	 * Authenticate user using nonce
+	 */
+	authenticate: function (nonce, userId) {
+		var d = new $.Deferred();
+		layer.getIdentityToken(nonce, userId)
+		.then(function (identityToken) {
+			return layer.getSession(identityToken);
+		})
+		.then(function (sessionToken) {
+			window.layer.data.headers = 'Layer session-token="' + sessionToken + '"';
+			console.log(sessionToken);
+			localStorage["layer_session_token"] = sessionToken;
+			localStorage["layer_user_id"] = userId;
+			d.resolve(sessionToken);
+		});
+	},
+
+	/**
+	 * Use as a callback for authenticated requests to reauthenticate on challenges
+	 */
+	catchAuthenticationChallenge: function (data, textStatus) {
+		if (textStatus === "401 Unauthorized") {
+			return authenticate(data.data.nonce, localStorage["layer_user_id"]);
+		}
+		return data;
 	},
 
 	/**
@@ -130,7 +161,8 @@ var layer = {
 					}
 				}
 			})
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 
@@ -148,6 +180,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -165,6 +198,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -182,6 +216,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -199,6 +234,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -226,7 +262,8 @@ var layer = {
 					mime_type: mimeType
 				}]
 			})
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -244,7 +281,8 @@ var layer = {
 			method: "POST",
 			headers: window.layer.data.headers,
 			data: JSON.stringify({type: "read"})
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -262,7 +300,8 @@ var layer = {
 			url: resourceUrl + "?destroy=true",
 			method: "DELETE",
 			headers: window.layer.data.headers
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 
@@ -289,7 +328,8 @@ var layer = {
 				"Upload-Content-Length": size,
 				"Upload-Origin": window.location.origin
 			}, window.layer.data.headers)
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -360,7 +400,8 @@ var layer = {
 					}
 				]
 			})
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -431,7 +472,8 @@ var layer = {
 				"Content-Type": "application/vnd.layer-patch+json"
 			}),
 			data: JSON.stringify(operations)
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	/**
@@ -467,7 +509,8 @@ var layer = {
 				"Content-Type": "application/vnd.layer-patch+json"
 			}),
 			data: JSON.stringify(operations)
-		});
+		})
+		.then(catchAuthenticationChallenge);
 	},
 
 	// For demoing only
