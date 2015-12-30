@@ -11,7 +11,7 @@
 			color: gray;
 		}
 
-		#auth {
+		#log {
 			display: inline-block;
 			width: 700px;
 			text-align: left;
@@ -36,23 +36,21 @@
 			<p>Welcome to Team Roots, <span id="counselor-name"></span>!<br></p>
 		</div>
 
-		<code><p id="auth"></p></code>
+		<code id="log"></code>
 	</div>
 
 	<script>
 		document.getElementById("counselor-name").textContent = currentUser.get("name");
 
-		var auth = document.getElementById("auth");
+		function log(msg) {
+			var p = document.createElement("p");
+			p.textContent = msg;
+			document.getElementById("log").appendChild(p);
+		}
 
-		layer.getNonce().then(function (nonce) {
-			auth.innerHTML += "Nonce:<br>" + nonce + "<br><br>";
-			return layer.getIdentityToken(nonce, currentUser.id);
-		}).then(function (identityToken) {
-			auth.innerHTML += "Identity Token:<br>" + identityToken + "<br><br>";
-			return layer.getSession(identityToken);
-		}).then(function (sessionToken) {
-			auth.innerHTML += "Session Token:<br>" + sessionToken + "<br><br>";
-		});
+		var ws = new WebSocket('wss://api.layer.com/websocket?session_token=' + localStorage["layer_session_token"], 'layer-1.0');
+		ws.addEventListener("open", function (e) { log("websocket open"); });
+		ws.addEventListener("message", function (e) { log("message recieved: " + e.data); });
 	</script>
 
 	<div id="footer">
