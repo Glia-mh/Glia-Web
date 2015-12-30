@@ -53,11 +53,14 @@ var layer = {
 	/**
 	 * Use as a callback for authenticated requests to reauthenticate on challenges
 	 */
-	catchAuthenticationChallenge: function (data, textStatus) {
-		if (textStatus === "401 Unauthorized") {
-			return authenticate(data.data.nonce, localStorage["layer_user_id"]);
-		}
-		return data;
+	reauthenticator: function (request) {
+		return function (data, textStatus) {
+			if (textStatus === "401 Unauthorized") {
+				return authenticate(data.data.nonce, localStorage["layer_user_id"])
+					.then(function (sessionToken) { request(); });
+			}
+			return data;
+		};
 	},
 
 	/**
@@ -150,19 +153,10 @@ var layer = {
 			headers: window.layer.data.headers,
 			data: JSON.stringify({
 				participants: participants,
-				distinct: Boolean(distinct),
-				metadata: {
-					"background-color": "#aaaacc",
-					"is_favorite": "true",
-					"last_3_participants": {
-						"fred_baggins": "2015-06-22T16:47:42.127Z",
-						"frodo_flinstone": "2015-06-22T15:47:40.327Z",
-						"gandalf_of_oz": "2015-06-22T16:43:42.127Z"
-					}
-				}
+				distinct: Boolean(distinct)
 			})
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.createConversation.apply(this, arguments); }));
 	},
 
 
@@ -180,7 +174,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.getConversations.apply(this, arguments); }));
 	},
 
 	/**
@@ -198,7 +192,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.getOneConversation.apply(this, arguments); }));
 	},
 
 	/**
@@ -216,7 +210,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.getMessages.apply(this, arguments); }));
 	},
 
 	/**
@@ -234,7 +228,7 @@ var layer = {
 			method: "GET",
 			headers: window.layer.data.headers
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.getOneMessage.apply(this, arguments); }));
 	},
 
 	/**
@@ -263,7 +257,7 @@ var layer = {
 				}]
 			})
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.sendMessage.apply(this, arguments); }));
 	},
 
 	/**
@@ -282,7 +276,7 @@ var layer = {
 			headers: window.layer.data.headers,
 			data: JSON.stringify({type: "read"})
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.markAsRead.apply(this, arguments); }));
 	},
 
 	/**
@@ -301,7 +295,7 @@ var layer = {
 			method: "DELETE",
 			headers: window.layer.data.headers
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.deleteResource.apply(this, arguments); }));
 	},
 
 
@@ -329,7 +323,7 @@ var layer = {
 				"Upload-Origin": window.location.origin
 			}, window.layer.data.headers)
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.initiateRichContentUpload.apply(this, arguments); }));
 	},
 
 	/**
@@ -401,7 +395,7 @@ var layer = {
 				]
 			})
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.sendRichContentMessage.apply(this, arguments); }));
 	},
 
 	/**
@@ -473,7 +467,7 @@ var layer = {
 			}),
 			data: JSON.stringify(operations)
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.addRemoveParticipants.apply(this, arguments); }));
 	},
 
 	/**
@@ -510,7 +504,7 @@ var layer = {
 			}),
 			data: JSON.stringify(operations)
 		})
-		.then(catchAuthenticationChallenge);
+		.then(reauthenticator(function () { layer.patchConversationMetadata.apply(this, arguments); }));
 	},
 
 	// For demoing only
