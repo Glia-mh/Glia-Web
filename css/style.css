@@ -2,6 +2,10 @@
 	font-family: SFLight;
 	src: url('../fonts/SF-UI-Text-Light.otf');
 }
+*p{
+	margin: 0;
+	padding: 0;
+}
 
 body {
 	display: table;
@@ -13,12 +17,149 @@ body {
 	text-align: center;
 
 }
+header {
+	background-color: #F2F2F2;
+	height: 60px;
+	width: 100%;
+	position: fixed;
+}
+
+#header-logo{
+	height: 52px;
+	float: left;
+	padding-top: 3px;
+	padding-left: 50px;
+}
+
+#profile-logo{
+	float: right;
+	height: 40px;
+	width: 40px;
+	padding: 10px;
+	border-radius: 40px;
+}
 
 
 
 .hidden {
 	display: none !important;
 }
+
+.sidebar {
+	position: fixed;
+	top: 60px;
+	left: 0; bottom: 0;
+	width: 300px;
+	height: 100%;
+	color: black;
+	border-right: 2px solid #F2F2F2;
+}
+
+.right-sidebar {
+	position: fixed;
+	top: 60px;
+	right: 0; bottom: 0;
+	width: 280px;
+	height: 100%;
+	color: black;
+	border-left: 2px solid #F2F2F2;
+}
+
+.center-container {
+	margin-left: 310px;
+	margin-right:290px;
+	margin-top: 60px;
+	
+}
+
+#id-logo{
+	float: left;
+	width: 45px;
+	height: 45px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	caption-side: right;
+}
+
+#id-logo-side {
+	width: 45px;
+	height: 45px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 20px;
+	padding-right: 20px;
+}
+
+#user-name{
+	font-size: 14px;
+	float: right;
+	padding-top: 25px;
+	padding-right: 85px;
+}
+
+#chat-name{
+	padding-top: 17px;
+	text-align: left;
+	float: left;
+	font-size: 16px;
+}
+
+.online{
+	height: 7px;
+	padding-top: 23px;
+}
+.time {
+	font-size: 10px;
+	float: right;
+	padding: 20px;
+}
+#preview-mssg{
+	color: gray;
+	float: left;
+	font-size: 12px;
+}
+
+.user {
+	height: 65px;
+	border-bottom: 2px solid #F2F2F2;
+}
+
+.user:hover{
+	background-color: #FAFAFA;
+}
+
+#textarea{
+	padding: 10px;
+	display: inline-block;
+	padding-top: 40px;
+	border-radius: 10px;
+	background-color: #FAFAFA;
+}
+
+#request{
+	background-color: #29D074;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 75px;
+	padding-right: 75px;
+	color: white;
+	border-radius: 7px;
+	font-size: 15px;
+}
+
+#report{
+	background-color: #DC2C32;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 70px;
+	padding-right: 60px;
+	color: white;
+	border-radius: 7px;
+	font-size: 15px;
+}
+
+
 
 a:link {
 	color: rgb(200, 200, 200);
@@ -160,3 +301,141 @@ textarea {
 	font-size: 12px;
 	text-align: center;
 }
+
+
+
+/*chat bubble css ************************* */
+.chat-container {
+	margin:0 30px;
+}
+.class-bubble {
+	position:relative;
+	font-family: "Helvetica Neue";
+	font-size: 20px;
+	font-weight: normal;
+	margin: 5px auto;
+	line-height: 24px;
+	border-radius:25px;
+	padding:10px 20px;
+	max-width: 50%;
+	word-wrap: break-word;
+	text-align:left;
+}
+
+.class-chat-list-container {
+	margin: 15px 0px;
+}
+
+.class-from-me {
+	color:white; 
+}
+.class-from-me .class-bubble {
+	background:#0B93F6;
+	float:right;
+}
+
+.class-from-me .class-bubble:before {
+		content:"";
+		position:absolute;
+		z-index:-1;
+		bottom:-2px;
+		right:-7px;
+		height:20px;
+		border-right:20px solid #0B93F6;
+		border-bottom-left-radius: 16px 14px;
+		-webkit-transform:translate(0, -2px);
+}
+
+.class-from-me .class-bubble:after {
+		content:"";
+		position:absolute;
+		z-index:1;
+		bottom:-2px;
+		right:-56px;
+		width:26px;
+		height:20px;
+		background:white;
+		border-bottom-left-radius: 10px;
+		-webkit-transform:translate(-30px, -2px);
+	}
+
+
+
+
+
+
+.class-from-them {
+	color: black;
+}
+
+.class-from-them .class-bubble {
+	background:#E5E5EA;
+	float:left;
+}
+
+
+	
+.class-from-them .class-bubble:before {
+		content:"";
+		position:absolute;
+		z-index:2;
+		bottom:-2px;
+		left:-7px;
+		height:20px;
+		border-left:20px solid #E5E5EA;
+		border-bottom-right-radius: 16px 14px;
+		-webkit-transform:translate(0, -2px);
+	}
+	
+	.class-from-them .class-bubble:after {
+		content:"";
+		position:absolute;
+		z-index:3;
+		bottom:-2px;
+		left:4px;
+		width:26px;
+		height:20px;
+		background:white;
+		border-bottom-right-radius: 10px;
+		-webkit-transform:translate(-30px, -2px);
+	}
+.class-descriptor {
+}
+.clear {clear: both}
+
+/*message box */
+
+.class-message-box-container {
+	padding:10px 20px;
+	position:fixed;
+	bottom: 0px;
+	width:100%;
+	margin-right:290px;
+	margin-left:310px;
+	border-top: solid 1px rgb(210, 210, 210);
+	text-align:left;
+	vertical-align:top;
+}
+.message-box {
+	width:90%;	
+	padding: 10px;
+	font-size: 12px;
+	border: solid 10px rgb(210, 210, 210);
+	outline: 0;
+	border-radius: 5px;
+	bottom:0px;
+	resize:none;
+	border:none;
+}
+#send-button {
+	margin-right:10px;
+	display: inline;
+}
+
+
+
+
+
+
+
+
