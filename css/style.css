@@ -138,10 +138,11 @@ header {
 	display: inline-block;
 	padding-top: 10px;
 	border-radius: 10px;
+	resize: none;
 }
 
 #request{
-	background-color: #29D074;
+	background-color: rgba(100, 200, 122, 1);
 	padding-top: 7px;
 	padding-bottom: 7px;
 	padding-left: 75px;
@@ -151,9 +152,12 @@ header {
 	font-size: 15px;
 	border: none;
 }
+#request:hover {
+	background-color: #5CA759;
+}
 
 #report{
-	background-color: #DC2C32;
+	background-color: #F45454;
 	padding-top: 7px;
 	padding-bottom: 7px;
 	padding-left: 63px;
@@ -163,6 +167,9 @@ header {
 	font-size: 15px;
 	border: none;
 	text-align: center;
+}
+#report:hover {
+	background-color: #F73939;
 }
 
 
@@ -202,13 +209,14 @@ textarea {
 	font: inherit;
 	font-size: 12px;
 	border-radius: 5px;
+	outline: none;
 }
 
 .button {
 	padding: 9px 20px;
 	border: solid 1px #51C781;
 	color: white;
-	background-color: rgba(81, 199, 129, 0.85);
+	background-color: rgba(100, 200, 122, 1);
 	font-size: 12px;
 	border-radius: 5px;
 	-webkit-transition: .2s all;
@@ -219,7 +227,7 @@ textarea {
 
 .button:hover {
 	color: white;
-	background-color: rgba(81, 199, 129, 1.0);
+	background-color: #5CA759;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -313,12 +321,12 @@ textarea {
 .class-bubble {
 	position:relative;
 	font-family: "Helvetica Neue";
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: normal;
 	margin: 5px auto;
 	line-height: 24px;
 	border-radius:25px;
-	padding:10px 20px;
+	padding:5px 15px;
 	max-width: 50%;
 	word-wrap: break-word;
 	text-align:left;
@@ -332,7 +340,7 @@ textarea {
 	color:white; 
 }
 .class-from-me .class-bubble {
-	background:#0B93F6;
+	background: rgba(100, 200, 122, 1);
 	float:right;
 }
 
@@ -343,7 +351,7 @@ textarea {
 		bottom:-2px;
 		right:-7px;
 		height:20px;
-		border-right:20px solid #0B93F6;
+		border-right:20px solid rgba(100, 200, 122, 1);
 		border-bottom-left-radius: 16px 14px;
 		-webkit-transform:translate(0, -2px);
 }
@@ -371,7 +379,7 @@ textarea {
 }
 
 .class-from-them .class-bubble {
-	background:#E5E5EA;
+	background: #F2EEEE;
 	float:left;
 }
 
@@ -384,7 +392,7 @@ textarea {
 		bottom:-2px;
 		left:-7px;
 		height:20px;
-		border-left:20px solid #E5E5EA;
+		border-left:20px solid #F2EEEE;
 		border-bottom-right-radius: 16px 14px;
 		-webkit-transform:translate(0, -2px);
 	}
@@ -414,8 +422,8 @@ textarea {
 /*message box */
 
 .class-message-box-container {
-	padding:10px 20px;
 	background: #FFF;
+	padding-top: 10px;
 	height: 100px;
 	bottom: 0px;
 	width:inherit;
@@ -429,16 +437,19 @@ textarea {
 	
 	padding: 10px;
 	font-size: 12px;
-	border: solid 10px rgb(210, 210, 210);
+	width: 85%;
+	border: solid 1px black;
 	outline: 0;
 	border-radius: 5px;
-	bottom:0px;
-	resize:none;
-	border:none;
+	bottom:0%;
+	float: left;
+	resize: none;
+	border: none;
 }
 #send-button {
-	margin-right:10px;
 	display: inline;
+	padding-left: 10px;
+	padding-top: 10px;
 }
 
 
