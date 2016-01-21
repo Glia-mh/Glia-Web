@@ -1,3 +1,7 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
 @font-face {
 	font-family: SFLight;
 	src: url('../fonts/SF-UI-Text-Light.otf');
@@ -22,6 +26,7 @@ header {
 	height: 60px;
 	width: 100%;
 	position: fixed;
+	z-index:2;
 }
 
 #header-logo{
@@ -66,8 +71,9 @@ header {
 .center-container {
 	margin-left: 310px;
 	margin-right:290px;
-	margin-top: 60px;
-	
+	height:100vh;
+	position:relative;
+	overflow:hidden;
 }
 
 #id-logo{
@@ -304,10 +310,6 @@ textarea {
 
 
 
-/*chat bubble css ************************* */
-.chat-container {
-	margin:0 30px;
-}
 .class-bubble {
 	position:relative;
 	font-family: "Helvetica Neue";
@@ -402,22 +404,29 @@ textarea {
 .class-descriptor {
 }
 .clear {clear: both}
+#chat-content-wrapper {	
+	overflow:auto;
+	height: calc(100% - 160px);
+	margin-top: 60px;
+	padding:0px 30px;
 
+}
 /*message box */
 
 .class-message-box-container {
 	padding:10px 20px;
-	position:fixed;
+	background: #FFF;
+	height: 100px;
 	bottom: 0px;
-	width:100%;
-	margin-right:290px;
-	margin-left:310px;
+	width:inherit;
 	border-top: solid 1px rgb(210, 210, 210);
 	text-align:left;
 	vertical-align:top;
+	right:0px;
+	left:0px;
 }
 .message-box {
-	width:90%;	
+	
 	padding: 10px;
 	font-size: 12px;
 	border: solid 10px rgb(210, 210, 210);
