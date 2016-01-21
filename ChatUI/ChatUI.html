@@ -8,6 +8,11 @@
 	 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 
+	<!-- Adding JQuery stylesheets -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 </head>
 
 <body>
@@ -76,13 +81,14 @@
 <aside class = "right-sidebar">
 	<section>
 		<br>
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aditya Aggarwal </span> <br> <span id= "preview-mssg"> University of Southern California </span>
-		<span id = "textarea"><textarea rows = "8" cols = "35"> Enter notes here... </textarea></span>
+		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aditya Aggarwal </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
+		<br><br><br>
+		<textarea rows = "8" cols = "35"> Enter notes here... </textarea>
 	</section>
 	<br>
-	<a href="#HOME" data-role="button" data-theme="e" id="request" data-inline="true">Request ID</a>
+	<button id = "request">Request ID</button>
 	<br><br>
-	<a href="#HOME" data-role="button" data-theme="e" id="report" data-inline="true">Report Urgent</a>
+	<button id = "report">Report Urgent</button>
 </aside>
 
 </body>
