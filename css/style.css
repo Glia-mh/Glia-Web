@@ -69,7 +69,7 @@ header {
 }
 
 .center-container {
-	margin-left: 310px;
+	margin-left: 300px;
 	margin-right:290px;
 	height:100vh;
 	position:relative;
@@ -336,8 +336,24 @@ textarea {
 	margin: 15px 0px;
 }
 
+.id-logo-from-me{ 
+	float: right;
+	width: 45px;
+	height: 45px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-left: 30px;
+}
+.id-logo-from-them{
+	float: left;
+	width: 45px;
+	height: 45px;
+	padding-top: 10px;
+	padding-right: 30px;
+}
 .class-from-me {
-	color:white; 
+	color: white; 
 }
 .class-from-me .class-bubble {
 	background: rgba(100, 200, 122, 1);
