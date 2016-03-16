@@ -33,15 +33,23 @@ header {
 	height: 52px;
 	float: left;
 	padding-top: 3px;
-	padding-left: 50px;
+	padding-left: 55px;
 }
 
 #profile-logo{
-	float: right;
 	height: 40px;
 	width: 40px;
 	padding: 10px;
-	border-radius: 40px;
+	padding-left: 0px;
+	border-radius: 25px;
+	float: right;
+}
+#signout {
+	height: 25px;
+	width: 25px;
+	padding: 20px;
+	float: right;
+	padding-right: 30px;
 }
 
 .hidden {
@@ -51,13 +59,17 @@ header {
 .sidebar {
 	position: fixed;
 	top: 60px;
-	left: 0; bottom: 0;
+	left: 0; 
+	bottom: 0;
 	width: 300px;
 	height: 100%;
 	color: black;
 	border-right: 2px solid #F2F2F2;
 }
 
+.condensed-sidebar {
+	display: none;
+}
 .right-sidebar {
 	position: fixed;
 	top: 60px;
@@ -97,9 +109,9 @@ header {
 
 #user-name{
 	font-size: 14px;
-	float: right;
 	padding-top: 25px;
-	padding-right: 85px;
+	padding-right: 0px;
+	float: right;
 }
 
 #chat-name{
@@ -171,8 +183,6 @@ header {
 #report:hover {
 	background-color: #F73939;
 }
-
-
 
 a:link {
 	color: rgb(200, 200, 200);
@@ -319,38 +329,37 @@ textarea {
 
 
 .class-bubble {
-	position:relative;
 	font-family: "Helvetica Neue";
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
 	margin: 5px auto;
-	line-height: 24px;
+	line-height: 20px;
 	border-radius:25px;
 	padding:5px 15px;
-	max-width: 50%;
+	max-width: 60%;
 	word-wrap: break-word;
 	text-align:left;
 }
 
 .class-chat-list-container {
-	margin: 15px 0px;
+	margin: 15px 0.2px;
 }
 
 .id-logo-from-me{ 
 	float: right;
-	width: 45px;
-	height: 45px;
-	padding-left: 10px;
-	padding-right: 10px;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
 	padding-top: 10px;
-	padding-left: 30px;
+	padding-left: 10px;
 }
 .id-logo-from-them{
+
 	float: left;
-	width: 45px;
-	height: 45px;
-	padding-top: 10px;
-	padding-right: 30px;
+	display: inherit;
+	width: 30px;
+	height: 30px;
+	padding-right: 10px;
 }
 .class-from-me {
 	color: white; 
@@ -440,32 +449,52 @@ textarea {
 .class-message-box-container {
 	background: #FFF;
 	padding-top: 10px;
-	height: 100px;
+	padding-left: 5px;
+	padding-bottom: 20px; 
+	min-height: 1000px;
 	bottom: 0px;
 	width:inherit;
+	margin-left: 10px;
 	border-top: solid 1px rgb(210, 210, 210);
 	text-align:left;
 	vertical-align:top;
 	right:0px;
 	left:0px;
 }
+
 .message-box {
-	
 	padding: 10px;
 	font-size: 12px;
 	width: 85%;
 	border: solid 1px black;
 	outline: 0;
 	border-radius: 5px;
-	bottom:0%;
+	bottom:2%;
 	float: left;
+	min-height: 50px;
 	resize: none;
+	overflow: hidden;
 	border: none;
 }
 #send-button {
 	display: inline;
-	padding-left: 10px;
+	padding-left: 20px;
 	padding-top: 10px;
+}
+
+.txtstuff {
+    resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
+    overflow: hidden;
+}
+
+.hiddendiv {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+}
+.lbr {
+    line-height: 3px;
 }
 
 
