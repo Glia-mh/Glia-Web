@@ -8,13 +8,71 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 
-	<!-- Adding JQuery stylesheets -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	<script>
-  		$('textarea').autoResize();
-  	</script>
+	<style>
+		@media (max-width: 1100px) {
+			.right-sidebar {
+				display: none;
+			}
+			.center-container {
+				margin-right: 10px;
+			}
+			.message-box {
+				width: calc(100% - 80px);
+			}
+		}
+
+		@media(max-width: 900px) {
+			.sidebar {
+				width: 70px;
+			}
+			#chat-name {
+				display: none;
+			}
+			.online {
+				display: none;
+			}
+			.time {
+				display: none;
+			}
+			#preview-mssg {
+				display: none;
+			}
+			.class-message-box-container {
+				margin-left: 22px;
+			}
+			.center-container {
+				margin-left: 60px;
+				margin-right: 0px;
+			}
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		$(window).load(function() {
+		var txt = $('#comments'),
+		    hiddenDiv = $(document.createElement('div')),
+		    content = null;
+
+		txt.addClass('txtstuff');
+		hiddenDiv.addClass('hiddendiv message-box');
+
+		$('class-message-box-container').append(hiddenDiv);
+
+		txt.on('keyup', function () {
+
+		    content = $(this).val();
+
+		    content = content.replace(/\n/g, '<br>');
+		    hiddenDiv.html(content + '<br class="lbr">');
+
+		    $(this).css('height', hiddenDiv.height());
+
+		});
+		});
+
+	</script>
+
 
 </head>
 
@@ -23,10 +81,13 @@
 
 
 <header>
-	<img src = "../img/team-roots-logo.png" id = "header-logo">
+	<img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
 	<span id = "user-name"> Tanuja Mohan </span>
 	<img src = "../img/id-logo.jpg" id = "profile-logo">
+	<img src = "../img/team-roots-logo.png" id = "header-logo">
+	
 </header>
+
 <aside class = "sidebar">
 
 	<section class = "user">
@@ -45,47 +106,59 @@
 		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aakash Thumaty </span> <span class = "time"> 11:57 AM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
 	</section>
 
-	
 </aside>
+
 <section class="center-container">
 		<section id="chat-content-wrapper">
 			<section class="class-chat-list-container class-from-me">
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
 					Hey there! What's up?
 				</div>
+			
 				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
 					Checking out iOS7 you know..
 				</div>
+				
 				<div class="clear"></div>
+
 			</section>
 
 			<section class="class-chat-list-container class-from-them">
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
 				<div class="class-bubble">
 					Hey there! What's up?
 				</div>
 				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
 				<div class="class-bubble">
 					Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..
 				</div>
+				<div class = "clear"></div>
+
 				<div class="clear"></div>
 			</section>
 			<section class="class-chat-list-container class-from-me">
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
 					Hey there! What's up?
 				</div>
 				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
 					Checking out iOS7 you know..
 				</div>
 				<div class="clear"></div>
 			</section>
 		</section>
-	<form class="class-message-box-container">
-		<textarea class="message-box" placeholder = "Enter a Message..."></textarea>
+	<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
 
-		<input type="submit" class="button" id="#send-button" value="Send" /> 
-
+			<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common"></textarea>
+			
+			<input type="submit" class="button" id="#send-button" value="Send" /> 
+	
 	</form>
 
 </section>
