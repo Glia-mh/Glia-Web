@@ -345,7 +345,6 @@ textarea {
 }
 
 .class-from-me .class-bubble:before {
-		content:"";
 		position:absolute;
 		z-index:-1;
 		bottom:-2px;
@@ -353,11 +352,10 @@ textarea {
 		height:20px;
 		border-right:20px solid rgba(100, 200, 122, 1);
 		border-bottom-left-radius: 16px 14px;
-		-webkit-transform:translate(0, -2px);
+		
 }
 
 .class-from-me .class-bubble:after {
-		content:"";
 		position:absolute;
 		z-index:1;
 		bottom:-2px;
@@ -366,7 +364,6 @@ textarea {
 		height:20px;
 		background:white;
 		border-bottom-left-radius: 10px;
-		-webkit-transform:translate(-30px, -2px);
 	}
 
 
@@ -386,7 +383,6 @@ textarea {
 
 	
 .class-from-them .class-bubble:before {
-		content:"";
 		position:absolute;
 		z-index:2;
 		bottom:-2px;
@@ -394,11 +390,9 @@ textarea {
 		height:20px;
 		border-left:20px solid #F2EEEE;
 		border-bottom-right-radius: 16px 14px;
-		-webkit-transform:translate(0, -2px);
 	}
 	
 	.class-from-them .class-bubble:after {
-		content:"";
 		position:absolute;
 		z-index:3;
 		bottom:-2px;
@@ -407,7 +401,6 @@ textarea {
 		height:20px;
 		background:white;
 		border-bottom-right-radius: 10px;
-		-webkit-transform:translate(-30px, -2px);
 	}
 .class-descriptor {
 }
