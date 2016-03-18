@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 	<title>Team Roots</title>
 	<style>
@@ -64,11 +65,12 @@
 		</div>
 
 		<form id="profile-form">
-			<img class="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="><br>
+			<img id = "image-icon" class="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="><br>
 			<br>
-			<input type="text" class="form-field" placeholder="Choose image" onclick="this.nextElementSibling.click()">
-			<input type="file" name="image" class="hidden" accept="image/*" onchange="this.previousElementSibling.value = this.value; this.nextElementSibling.disabled = false">
-			<input type="button" value="Upload" id="upload-button" class="button"><br>
+			<input type="text" class="form-field" id = "filepath" placeholder="Choose image" disabled="disabled">
+			<input type="button" value="Browse" id="upload-button" class="button">
+			<input type="file" name="image" id = "profile" class="hidden" accept="image/*">
+			<br>
 			<br>
 			<textarea cols="44" rows="5" name="bio" placeholder="Bio"></textarea><br>
 			<br><br>
@@ -110,11 +112,23 @@
 			var reader = new FileReader();
 			reader.onload = function () { cropImg.src = this.result; };
 
-			// show crop modal on image upload
-			document.getElementById("upload-button").addEventListener("click", function () {
+			document.getElementById("image-icon").addEventListener("click", function () {
 				if (!form.elements["image"].files[0]) return;
-				cropModal.classList.remove("hidden");
-				reader.readAsDataURL(form.elements["image"].files[0]);
+					cropModal.classList.remove("hidden");
+					reader.readAsDataURL(form.elements["image"].files[0]);
+			});
+
+			$("#profile").on("change", function() {
+				document.getElementById("upload-button").value = "Upload";
+				var value = this.value.split(/[\/\\]/).pop();
+				document.getElementById("filepath").value = value;
+				if (!form.elements["image"].files[0]) return;
+					cropModal.classList.remove("hidden");
+					reader.readAsDataURL(form.elements["image"].files[0]);
+			});
+
+			document.getElementById("upload-button").addEventListener("click", function () {
+				document.getElementById("profile").click();
 			});
 
 			// initialize crop circle on image load
