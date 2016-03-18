@@ -40,7 +40,10 @@
 				return layer.authenticate(nonce, currentUser.id);
 			})
 			.then(function (sessionToken) {
-				window.location = "./ChatUI/ChatUI.html";
+				if (currentUser.get("photoURL") && currentUser.get("bio"))
+					window.location = "./ChatUI/ChatUI.html";
+				else
+					window.location = "counselor_welcome.html";
 			});
 		});
 	</script>
