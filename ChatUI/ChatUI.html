@@ -81,12 +81,19 @@
 
 		});
 		});
-
 	</script>
+	<script>
+		function gotoBottom() {
+			alert("Alerting")
+			$('center-container').scrollTop = 1000;
+			
+		}
+	</script>
+
 
 </head>
 
-<body>
+<body onload = "window.location.hash = 'anchor'">
 
 
 
@@ -123,9 +130,15 @@
 
 </aside>
 
-<section class="center-container">
+<section class="center-container"3>
+
+	
+
 		<section id="chat-content-wrapper">
+			<br>
+			<span class = "container-time"> SAT 12:43PM </span>
 			<section class="class-chat-list-container class-from-me">
+
 				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
 					Hey there! What's up?
@@ -140,7 +153,7 @@
 				<div class="clear"></div>
 
 			</section>
-
+			<span class = "container-time"> SAT 12:47PM </span>
 			<section class="class-chat-list-container class-from-them">
 				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
 				<div class="class-bubble">
@@ -155,6 +168,7 @@
 
 				<div class="clear"></div>
 			</section>
+
 			<section class="class-chat-list-container class-from-me">
 				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
 				<div class="class-bubble">
@@ -166,7 +180,55 @@
 					Checking out iOS7 you know..
 				</div>
 				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
+				<div class="class-bubble">
+					Adding another chat bubble
+					Bubble 
+					Bubble
+				</div>
+				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
+				<div class="class-bubble">
+					Adding another chat bubble
+					Bubble 
+					Bubble
+				</div>
+				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
+				<div class="class-bubble">
+					Adding another chat bubble
+					Bubble 
+					Bubble
+				</div>
+				<div class="clear"></div>
 			</section>
+
+			<span class = "container-time"> SAT 12:59PM </span>
+			<section class="class-chat-list-container class-from-them">
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
+				<div class="class-bubble">
+					Hey there! What's up?
+				</div>
+				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
+				<div class="class-bubble">
+					Another bubble to test resizing
+				</div>
+				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
+				<div class="class-bubble">
+					Another bubble to test resizing <br>
+					la dida <br>
+					dida dida dida
+				</div>
+				<div class="clear"></div>
+				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
+				<div class="class-bubble">
+					Another bubble to test resizing
+				</div>
+
+			</section>
+
 		</section>
 	<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
 
@@ -180,6 +242,7 @@
 
 
 <aside class = "right-sidebar">
+
 	<section>
 		<br>
 		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aditya Aggarwal </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
