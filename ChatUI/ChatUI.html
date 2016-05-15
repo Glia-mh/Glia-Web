@@ -55,7 +55,7 @@
 		// current user info
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 		var currentUser = Parse.User.current();
-		if (!currentUser) window.location = "counselor_login.html";
+		if (!currentUser) window.location = "../counselor_login.html";
 		console.log(currentUser);
 		console.log(currentUser.attributes);
 		console.log(currentUser.attributes.name);
