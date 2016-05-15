@@ -71,19 +71,15 @@
 		});
 		});
 	</script>
-	<script>
-		function gotoBottom() {
-			alert("Alerting")
-			$('center-container').scrollTop = 1000;
-			
-		}
-	</script>
 
+	<script>
+		$('.center-container').scrollTop($('.center-container')[0].scrollHeight);
+	</script>
 
 
 </head>
 
-<body onload = "window.location.hash = 'anchor'">
+<body>
 
 
 
@@ -115,9 +111,9 @@
 
 </aside>
 
-<section class="center-container"3>
 
-	
+<section class="center-container">
+
 
 		<section id="chat-content-wrapper">
 			<br>
@@ -222,6 +218,7 @@
 			<input type="submit" class="button" id="#send-button" value="Send" /> 
 	
 	</form>
+
 
 </section>
 

@@ -438,6 +438,8 @@ textarea {
 	height: calc(100% - 160px);
 	margin-top: 60px;
 	padding:0px 30px;
+	position: relative;
+	bottom: 0;
 
 }
 /*message box */
