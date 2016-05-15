@@ -437,8 +437,8 @@ textarea {
 	overflow:auto;
 	height: calc(100% - 160px);
 	padding:0px 30px;
-
-}
+ 
+ }
 #chat-content-header {	
 	height: 35px;
 	margin-top: 60px;
