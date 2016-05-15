@@ -82,18 +82,15 @@
 		});
 		});
 	</script>
+
 	<script>
-		function gotoBottom() {
-			alert("Alerting")
-			$('center-container').scrollTop = 1000;
-			
-		}
+		$('.center-container').scrollTop($('.center-container')[0].scrollHeight);
 	</script>
 
 
 </head>
 
-<body onload = "window.location.hash = 'anchor'">
+<body>
 
 
 
@@ -133,7 +130,7 @@
 
 
 
-	
+
 
 
 <section class="center-container">
@@ -245,6 +242,7 @@
 			<input type="submit" class="button" id="#send-button" value="Send" /> 
 	
 	</form>
+
 
 </section>
 

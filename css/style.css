@@ -443,10 +443,15 @@ textarea {
 	height: 35px;
 	margin-top: 60px;
 	padding:0px 30px;
+
+	position: relative;
+	bottom: 0;
+
 	text-align: center;
 	width: 100%;
 	display: table;
 	border-bottom: 2px solid #F2F2F2;
+
 
 }
 #name-chatting-to-header{
