@@ -87,7 +87,10 @@ header {
 	position:relative;
 	overflow:hidden;
 }
-
+.container-time {
+	color: grey;
+	font-size: 12px;
+}
 #id-logo{
 	float: left;
 	width: 45px;
