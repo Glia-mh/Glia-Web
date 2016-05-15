@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Team Roots</title>
+	<script type="text/javascript">
+		var generator = function () {
+			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
+			var codeArray = [];
+			for (var i = 0; i < 15; i++) {
+				codeArray[i] = alphabet[Math.floor(Math.random() * 10)];
+				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
+					codeArray[i] = codeArray[i].toUpperCase();
+			}
+			console.log(codeArray.join(""));  
+		}
+
+		generator();
+	</script>
+</head>
+<body>
+	<form >
+		<input type="text" class="" id = "" placeholder="">
+		<input type="text" class="" id = "" placeholder="">
+		<input type="text" class="" id = "" placeholder="">
+		<input type="text" class="" id = "" placeholder="">
+		<input type="text" class="" id = "" placeholder="">
+		<input type="button" value="Add" class="">
+		<input type="submit" value="Finish" class="">
+		<p id="note"></p>
+	</form>
+
+	<script type="text/javascript">
+
+	</script>
+</body>
+</html>
