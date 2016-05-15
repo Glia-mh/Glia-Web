@@ -48,7 +48,18 @@
 
 	</style>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	<script type="text/javascript">
+
+		// current user info
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+		var currentUser = Parse.User.current();
+		if (!currentUser) window.location = "counselor_login.html";
+		console.log(currentUser);
+		console.log(currentUser.attributes);
+		console.log(currentUser.attributes.name);
+
 		$(window).load(function() {
 		var txt = $('#comments'),
 		    hiddenDiv = $(document.createElement('div')),
@@ -84,12 +95,17 @@
 
 
 <header>
+
 	<img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
-	<span id = "user-name"> Tanuja Mohan </span>
+	<span id = "user-name"></span>
 	<img src = "../img/id-logo.jpg" id = "profile-logo">
 	<img src = "../img/team-roots-logo.png" id = "header-logo">
 	
 </header>
+
+<script type="text/javascript">
+	document.getElementById("user-name").textContent = currentUser.get("name");
+</script>
 
 <aside class = "sidebar">
 
@@ -111,9 +127,21 @@
 
 </aside>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 
 <section class="center-container">
 
+
+
+<section class="center-container">
+		<section id="chat-content-header">
+			<div id="name-chatting-to-header"> Bob Miller</span>
+
+		</section>
 
 		<section id="chat-content-wrapper">
 			<br>
@@ -224,7 +252,6 @@
 
 
 
-
 <aside class = "right-sidebar">
 
 	<section>
@@ -238,8 +265,6 @@
 	<br><br>
 	<button id = "report">Report Urgent</button>
 </aside>
-
-
 
 </body>
 
