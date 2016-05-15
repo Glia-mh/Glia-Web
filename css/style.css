@@ -82,7 +82,7 @@ header {
 
 .center-container {
 	margin-left: 300px;
-	margin-right:290px;
+	margin-right:280px;
 	height:100vh;
 	position:relative;
 	overflow:hidden;
@@ -436,9 +436,23 @@ textarea {
 #chat-content-wrapper {	
 	overflow:auto;
 	height: calc(100% - 160px);
-	margin-top: 60px;
 	padding:0px 30px;
 
+}
+#chat-content-header {	
+	height: 35px;
+	margin-top: 60px;
+	padding:0px 30px;
+	text-align: center;
+	width: 100%;
+	display: table;
+	border-bottom: 2px solid #F2F2F2;
+
+}
+#name-chatting-to-header{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 }
 /*message box */
 
@@ -450,8 +464,8 @@ textarea {
 	min-height: 1000px;
 	bottom: 0px;
 	width:inherit;
-	margin-left: 10px;
-	border-top: solid 1px rgb(210, 210, 210);
+	border-top: 2px solid #F2F2F2;
+	border-left: 2px solid #F2F2F2;
 	text-align:left;
 	vertical-align:top;
 	right:0px;
