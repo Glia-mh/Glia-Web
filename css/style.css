@@ -491,11 +491,16 @@ textarea {
 	resize: none;
 	overflow: hidden;
 	border: none;
+	margin-right: 75px;
 }
-#send-button {
-	display: inline;
+#sendbutton {
 	padding-left: 20px;
 	padding-top: 10px;
+	float: right;
+	right: 8px;
+
+	margin-left: 15px;
+	position: absolute;
 }
 
 .txtstuff {
