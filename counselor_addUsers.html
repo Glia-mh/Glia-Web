@@ -3,35 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Team Roots</title>
-	<script type="text/javascript">
-		var generator = function () {
-			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
-			var codeArray = [];
-			for (var i = 0; i < 15; i++) {
-				codeArray[i] = alphabet[Math.floor(Math.random() * 10)];
-				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
-					codeArray[i] = codeArray[i].toUpperCase();
-			}
-			console.log(codeArray.join(""));  
-		}
-
-		generator();
-	</script>
 </head>
 <body>
 	<form >
-		<input type="text" class="" id = "" placeholder="">
-		<input type="text" class="" id = "" placeholder="">
-		<input type="text" class="" id = "" placeholder="">
-		<input type="text" class="" id = "" placeholder="">
-		<input type="text" class="" id = "" placeholder="">
-		<input type="button" value="Add" class="">
-		<input type="submit" value="Finish" class="">
-		<p id="note"></p>
+		<textarea id="email-list"></textarea>
+		<input type="button" value="Finish" id="submit-button">
 	</form>
 
 	<script type="text/javascript">
+		var generate = function () {
+			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
+			var code_array = [];
+			for (var i = 0; i < 15; i++) {
+				code_array[i] = alphabet[Math.floor(Math.random() * 10)];
+				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
+					code_array[i] = code_array[i].toUpperCase();
+			}
+			return code_array.join("");  
+		}
 
+		document.getElementById("submit-button").addEventListener("click", function () {
+			var email_text = document.getElementById("email-list").value.replace(/\s/g, '');
+			var email_array = [{}];
+			var num_commas = (email_text.match(/,/g) || []).length;
+			for (var i = 0; i < num_commas + 1; i++) {
+				if (email_text.indexOf(',') == -1) {
+					email_array[i] = {email: email_text, code: generate()};
+				} else {
+					email_array[i] = {email: email_text.substring(0, email_text.indexOf(',')), code: generate()};
+					email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
+				}
+			}
+
+			console.log(email_array);
+		});
 	</script>
 </body>
 </html>
