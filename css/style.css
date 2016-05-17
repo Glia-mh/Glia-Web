@@ -496,12 +496,20 @@ textarea {
 	resize: none;
 	overflow: hidden;
 	border: none;
+<<<<<<< HEAD
 
+=======
+	margin-right: 75px;
+>>>>>>> fdc4de73033ec1e0def3fa62e55fe58744ffabb3
 }
-#send-button {
-	display: inline;
+#sendbutton {
 	padding-left: 20px;
 	padding-top: 10px;
+	float: right;
+	right: 8px;
+
+	margin-left: 15px;
+	position: absolute;
 }
 
 .txtstuff {
