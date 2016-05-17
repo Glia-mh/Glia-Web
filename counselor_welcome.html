@@ -248,6 +248,11 @@
 				.then(function (user) {
 					form.reset();
 				});
+
+				if (currentUser.get("photoURL") && currentUser.get("bio"))
+					window.location = "./ChatUI/ChatUI.html";
+				else
+					window.alert("You must add a picture and a bio!");
 			});
 		})();
 	</script>
