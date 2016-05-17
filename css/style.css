@@ -414,8 +414,6 @@ textarea {
 	background: #F2EEEE;
 	float:left;
 }
-
-
 	
 .class-from-them .class-bubble:before {
 		position:absolute;
@@ -474,7 +472,6 @@ textarea {
 	padding-top: 10px;
 	padding-left: 5px;
 	padding-bottom: 20px; 
-	min-height: 1000px;
 	bottom: 0px;
 	width:inherit;
 	border-top: 2px solid #F2F2F2;
@@ -507,7 +504,7 @@ textarea {
 }
 
 .txtstuff {
-    resize: auto; 
+    resize: none; 
     overflow: visible;
 
 }
