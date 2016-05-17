@@ -83,6 +83,7 @@ header {
 .center-container {
 	margin-left: 300px;
 	margin-right:280px;
+	min-height: 95vh;
 	height:100vh;
 	position:relative;
 	overflow:hidden;
@@ -153,7 +154,13 @@ header {
 	display: inline-block;
 	padding-top: 10px;
 	border-radius: 10px;
-	resize: none;
+	resize: auto;
+}
+
+#notes {
+	max-width: 85%;
+	max-height: 70%;
+
 }
 
 #request{
@@ -434,6 +441,7 @@ textarea {
 }
 .clear {clear: both}
 #chat-content-wrapper {	
+	background: scroll;
 	overflow:auto;
 	height: calc(100% - 160px);
 	padding:0px 30px;
@@ -484,12 +492,13 @@ textarea {
 	border: solid 1px black;
 	outline: 0;
 	border-radius: 5px;
-	bottom:2%;
+	bottom:3%;
 	float: left;
-	min-height: 50px;
+	min-height: 100px;
 	resize: none;
 	overflow: hidden;
 	border: none;
+
 }
 #send-button {
 	display: inline;
@@ -498,15 +507,16 @@ textarea {
 }
 
 .txtstuff {
-    resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
-    overflow: hidden;
+    resize: auto; 
+    overflow: visible;
+
 }
 
 .hiddendiv {
     display: none;
     white-space: pre-wrap;
     word-wrap: break-word;
-    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+    overflow-wrap: break-word; 
 }
 .lbr {
     line-height: 3px;
