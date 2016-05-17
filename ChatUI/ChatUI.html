@@ -45,7 +45,6 @@
 				margin-right: 0px;
 			}
 		}
-
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -83,14 +82,16 @@
 		});
 	</script>
 
-	<script>
-		$('.center-container').scrollTop($('.center-container')[0].scrollHeight);
-	</script>
-
-
 </head>
 
-<body>
+<body onload = "scrollWindow()">
+
+	<script> 
+		function scrollWindow() {
+			var element = document.getElementById("chat-content-wrapper");
+			element.scrollTop = element.scrollHeight;
+		}
+	</script>
 
 
 
@@ -136,7 +137,6 @@
 <section class="center-container">
 		<section id="chat-content-header">
 			<div id="name-chatting-to-header"> Bob Miller</span>
-
 		</section>
 
 		<section id="chat-content-wrapper">
@@ -235,16 +235,16 @@
 			</section>
 
 		</section>
-	<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
+
+		<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
 
 			<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common"></textarea>
-			
+
 			<input type="submit" class="button" id="#send-button" value="Send" /> 
-	
-	</form>
-
-
+		
+		</form>
 </section>
+
 
 
 
@@ -254,7 +254,7 @@
 		<br>
 		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aditya Aggarwal </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
 		<br><br><br>
-		<textarea rows = "8" cols = "35" id = "textarea" placeholder = "Enter notes..."></textarea>
+		<textarea id = "notes" rows = "8" cols = "35" id = "textarea" placeholder = "Enter notes..."></textarea>
 	</section>
 	<br>
 	<button id = "request">Request ID</button>
