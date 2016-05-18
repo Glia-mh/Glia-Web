@@ -3,6 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Team Roots</title>
+	<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script type="text/javascript">
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+	</script>
 </head>
 <body>
 	<form >
@@ -11,6 +16,10 @@
 	</form>
 
 	<script type="text/javascript">
+		var check_parse = function (code) {
+			
+		}
+
 		var generate = function () {
 			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 			var code_array = [];
@@ -19,23 +28,67 @@
 				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
 					code_array[i] = code_array[i].toUpperCase();
 			}
-			return code_array.join("");  
+			var code = code_array.join("");
+
+			// Check Parse for existing code
+			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+			var query = new Parse.Query(Student_Code);
+			query.limit(1000); 
+			query.equalTo("code", code);
+			return query.find().then(function (results) {
+				if (results.length != 0) {
+					return generate();
+				}
+				else {
+					return code;
+				}
+			},
+			function (err) {
+				alert("Something bad has happened!");
+			});
+		}
+
+		var send_email = function (em_arr) {
+			for (var i = 0; i < em_arr.length; i++) {
+				var Student_Code = Parse.Object.extend("Confirmation_Codes");
+				var student_code = new Student_Code();
+				student_code.set("email", em_arr[i].email);
+				student_code.set("code", em_arr[i].code);
+				student_code.save();
+
+				var php_data = "email=" + em_arr[i].email + "&code=" + em_arr[i].code;
+				console.log(php_data);
+				$.ajax({
+					type: "POST",
+					url: 'email.php',
+					data: php_data,
+					success: function() {}
+				});
+			}
 		}
 
 		document.getElementById("submit-button").addEventListener("click", function () {
 			var email_text = document.getElementById("email-list").value.replace(/\s/g, '');
-			var email_array = [{}];
 			var num_commas = (email_text.match(/,/g) || []).length;
+			var promise_array = [];
 			for (var i = 0; i < num_commas + 1; i++) {
 				if (email_text.indexOf(',') == -1) {
-					email_array[i] = {email: email_text, code: generate()};
+					promise_array[i] = generate().then(function (code) {
+						return {email: email_text, code: code};
+					});
 				} else {
-					email_array[i] = {email: email_text.substring(0, email_text.indexOf(',')), code: generate()};
+					var email = email_text.substring(0, email_text.indexOf(','));
+					promise_array[i] = generate().then(function (code) {
+						return {email: email, code: code};
+					});
 					email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
 				}
 			}
 
-			console.log(email_array);
+			Promise.all(promise_array).then(function (email_array) {
+				send_email(email_array);
+				console.log(email_array);
+			});
 		});
 	</script>
 </body>
