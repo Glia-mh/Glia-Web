@@ -44,14 +44,18 @@
 			});
 		}
 
+		var save_student = function(studentObj) {
+			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+				var student_code = new Student_Code();
+				student_code.set("email", studentObj.email);
+				student_code.set("code", studentObj.code);
+				student_code.save();
+		}
+
 		var send_email = function (em_arr) {
 			for (var i = 0; i < em_arr.length; i++) {
-				var Student_Code = Parse.Object.extend("Confirmation_Codes");
-				var student_code = new Student_Code();
-				student_code.set("email", em_arr[i].email);
-				student_code.set("code", em_arr[i].code);
-				student_code.save();
-
+				save_student(em_arr[i]);
+				
 				var php_data = "email=" + em_arr[i].email + "&code=" + em_arr[i].code;
 				console.log(php_data);
 				$.ajax({
@@ -68,17 +72,15 @@
 			var num_commas = (email_text.match(/,/g) || []).length;
 			var promise_array = [];
 			for (var i = 0; i < num_commas + 1; i++) {
-				if (email_text.indexOf(',') == -1) {
-					promise_array[i] = generate().then(function (code) {
+				promise_array[i] = generate().then(function (code) {
+					if (email_text.indexOf(',') == -1) {
 						return {email: email_text, code: code};
-					});
-				} else {
-					var email = email_text.substring(0, email_text.indexOf(','));
-					promise_array[i] = generate().then(function (code) {
+					} else {
+						var email = email_text.substring(0, email_text.indexOf(','));
+						email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
 						return {email: email, code: code};
-					});
-					email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
-				}
+					}
+				});
 			}
 
 			Promise.all(promise_array).then(function (email_array) {

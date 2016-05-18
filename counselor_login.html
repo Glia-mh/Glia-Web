@@ -3,7 +3,7 @@
 <head>
 	<!--useless comment-->
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<title>Team Roots</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
@@ -24,7 +24,7 @@
 			<input type="email" name="email" class="form-field" placeholder="Email" required><br>
 			<input type="password" name="password" class="form-field" placeholder="Password" required><br>
 			<input type="submit" class="button" value="Log In"><br>
-			<p><a href="counselor_register.html"><small>Register</small></a></p>
+			<p><a href="counselor_activation.html"><small>Do you have a code?</small></a></p>
 			<p id="note"></p>
 		</form>
 	</div>
@@ -38,9 +38,11 @@
 				      userId: currentUser.id
 				    };
 					window.location = "index.html";
-				}else
-					window.location = "counselor_welcome.html";
+				}
+				//else
+					//window.location = "counselor_welcome.html";
 		}
+
 		document.getElementById("login-form").addEventListener("submit", function (e) {
 			e.preventDefault();
 
