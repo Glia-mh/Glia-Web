@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Team Roots</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+
+	<script>
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+	</script>
+</head>
+<body>
+	<div id="container">
+		<img id="title" src="img/team-roots-logo.png">
+
+		<form id="login-form">
+			<input type="email" name="email" class="form-field" placeholder="Email" required><br>
+			<input type="text" name="code" class="form-field" placeholder="Code" required><br>
+			<p id="note"></p>
+			<input type="button" class="button" value="Activate" id="code-button"><br>
+		</form>
+	</div>
+
+	<script>
+		document.getElementById("code-button").addEventListener("click", function (e) {
+			var email = document.getElementById("login-form").elements["email"].value;
+			var code = document.getElementById("login-form").elements["code"].value;
+
+			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+			var query = new Parse.Query(Student_Code);
+			query.limit(1000); 
+			query.equalTo("email", email);
+			query.equalTo("code", code);
+			query.find().then(function (results) {
+				if (results.length != 0) {
+					for (var i = 0; i < results.length; i++) {
+						var studentObj = results[i];
+						studentObj.destroy();
+	  				}
+					document.getElementById("note").innerHTML = null;
+					if (typeof(Storage) != "undefined") {
+						localStorage.setItem("hasCode", true);
+						window.location = "counselor_register.html";
+					}
+				}
+				else {
+					document.getElementById("note").innerHTML = "This is not a valid code for this email!";
+				}
+			});
+		});
+	</script>
+
+	<div id="footer">
+		<a href="mailto:spencer@teamroots.org" class="get-notified">Contact us</a>
+	</div>
+</body>
+</html>

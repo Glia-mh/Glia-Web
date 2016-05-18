@@ -7,7 +7,11 @@
 	<title>Team Roots</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-	<script src="js/layer.js"></script>
+	
+	<script src='https://cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+  	<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js'></script>
+
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 	</script>
@@ -20,29 +24,44 @@
 			<input type="email" name="email" class="form-field" placeholder="Email" required><br>
 			<input type="password" name="password" class="form-field" placeholder="Password" required><br>
 			<input type="submit" class="button" value="Log In"><br>
-			<p><a href="counselor_register.html"><small>Register</small></a></p>
+			<p><a href="counselor_activation.html"><small>Do you have a code?</small></a></p>
 			<p id="note"></p>
 		</form>
 	</div>
 
 	<script>
+		var currentUser = Parse.User.current();
+    	if (currentUser) {
+				if (currentUser.get("photoURL") && currentUser.get("bio")){
+				    window.layerSampleConfig = {
+				      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
+				      userId: currentUser.id
+				    };
+					window.location = "index.html";
+				}
+				//else
+					//window.location = "counselor_welcome.html";
+		}
+
 		document.getElementById("login-form").addEventListener("submit", function (e) {
 			e.preventDefault();
 
 			var currentUser;
+
 			Parse.User.logIn(this.elements["email"].value, this.elements["password"].value).then(function (user) {
 				currentUser = user;
-				return layer.getNonce();
+				
 			}, function (error) {
 				alert("Error: " + error.code + " " + error.message);
 			})
-			.then(function (nonce) {
-				return layer.authenticate(nonce, currentUser.id);
-			})
-			.then(function (sessionToken) {
-				if (currentUser.get("photoURL") && currentUser.get("bio"))
-					window.location = "./ChatUI/ChatUI.html";
-				else
+			.then(function () {
+				if (currentUser.get("photoURL") && currentUser.get("bio")){
+				    window.layerSampleConfig = {
+				      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
+				      userId: currentUser.id
+				    };
+					window.location = "index.html";
+				}else
 					window.location = "counselor_welcome.html";
 			});
 		});

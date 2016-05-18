@@ -9,6 +9,9 @@
 	<script src="js/layer.js"></script>
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+		if (typeof(Storage) != "undefined") {
+			if (!localStorage.getItem("hasCode")) window.location = "counselor_activation.html";
+		}
 	</script>
 </head>
 <body>

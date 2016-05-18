@@ -234,6 +234,7 @@ textarea {
 
 .button {
 	padding: 9px 20px;
+	margin: 5px;
 	border: solid 1px #51C781;
 	color: white;
 	background-color: rgba(100, 200, 122, 1);
