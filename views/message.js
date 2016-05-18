@@ -70,14 +70,25 @@
      * Render the Message.
      */
     render: function(message) {
+      
+      this.$el.append(
+          '<section class="class-chat-list-container class-from-me">' + '<img src = "../img/id-logo.jpg" class = "id-logo-from-me">' +
+          '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+          '</section>'
+        );
 
+      this.$el.append(
+        '<div class="clear">' + '</div>'
+        );
+
+      /*
       this.$el.append(
         '<div class="class-chat-list-container">' +
           '<span class="name">' + this.getSenderName(message) + '</span>' +
           '<div class="class-from-me class-bubble">' + this.getMessageText(message) + '</div>' +
         '</div>' +
         '<div class="timestamp">' + this.getSentAt(message) + this.getMessageStatus(message) + '</div>'
-      );
+      ); */
 
       message.isRead = true;
     }

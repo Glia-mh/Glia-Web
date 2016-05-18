@@ -20,20 +20,32 @@
       var messages = messages.concat().reverse();
 
       //Append the header with name of coversation
-      console.log("Testing");
       this.$el.append(
         '<section id="chat-content-header">' +
-        '<div id="name-chatting-to-header">' + "Hello" + '</span>' +
+        '<div id="name-chatting-to-header">' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId) + '</span>' +
         '</section>'
       );
 
-      // Render each message view
-      messages.forEach(function(message) {
+      // //Append the chat-wrapper to surround the individual messages
+      // this.$el.append(
+      //   '<section class="chat-content-wrapper">'
+      // );
+
+      this.$el.append(
+
+         // Render each message view
+         messages.forEach(function(message) {
           var messageView = new layerSampleApp.Message();
           messageView.render(message);
 
           this.$el.append(messageView.$el);
-      }, this);
+        }, this)
+      );
+
+      // this.$el.append(
+      //   '</section>'
+      // );
+
 
       // Make sure the user can see the last message in the list
       this.scrollBottom();
