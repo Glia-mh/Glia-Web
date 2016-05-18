@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 
+	<!-- resizing the window/ compacting css -->
 	<style>
 		@media (max-width: 1100px) {
 			.right-sidebar {
@@ -49,6 +50,8 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+
+	<!-- Parse -->
 	<script type="text/javascript">
 
 		// current user info
@@ -79,13 +82,45 @@
 		    $(this).css('height', hiddenDiv.height());
 
 		});
-		});
-	</script>
+		});</script>
+
+	<!-- Backbone and its Dependencies -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js'></script>
+
+	<!-- Layer Web SDK -->
+  <script src='https://cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+
+
+   <!-- Step 1: Config -->
+  <script>
+    window.layerSampleConfig = {
+      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
+      userId: window.prompt('Please enter a user name', 'Tutorial User')
+    };
+    window.layerSampleApp = {};
+  </script>
+
+
+   <!-- Views -->
+  <script src="../views/conversation-list.js"></script>
+  <script src="../views/user-list-dialog.js"></script>
+  <script src="../views/titlebar.js"></script>
+  <script src="../views/conversation-list-header.js"></script>
+  <script src="../views/message.js"></script>
+  <script src="../views/message-list.js"></script>
+  <script src="../views/message-composer.js"></script>
+
+  <!-- Controllers and Utilities -->
+  <script src="../controller.js"></script>
+  <script src="../index.js"></script>
+  <script src="../identity-services.js"></script>
 
 </head>
 
 <body onload = "scrollWindow()">
 
+	<!-- Scroll Window to newest message -->
 	<script> 
 		function scrollWindow() {
 			var element = document.getElementById("chat-content-wrapper");
@@ -110,7 +145,8 @@
 
 <aside class = "sidebar">
 
-	<section class = "user">
+
+	<!--<section class = "user">
 		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name">Aditya Aggarwal </span> <img src = "../img/online-dot.jpg" class = "online"> <span class = "time"> 4:45 PM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
 	</section>
 
@@ -124,7 +160,7 @@
 
 	<section class = "user">
 		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aakash Thumaty </span> <span class = "time"> 11:57 AM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
-	</section>
+	</section>-->
 
 </aside>
 
@@ -134,12 +170,12 @@
 
 
 
-<section class="center-container">
-		<section id="chat-content-header">
-			<div id="name-chatting-to-header"> Bob Miller</span>
-		</section>
+	<section class="center-container">
+		<!--<section id="chat-content-header">
+			<span id="name-chatting-to-header"> Click on a Message </span>
+		</section>-->
 
-		<section id="chat-content-wrapper">
+		<!--<section class="chat-content-wrapper">
 			<br>
 			<span class = "container-time"> SAT 12:43PM </span>
 			<section class="class-chat-list-container class-from-me">
@@ -234,16 +270,16 @@
 
 			</section>
 
-		</section>
+		</section>-->
 
-		<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
+		<!--<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
 
 			<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common"></textarea>
 
 			<input type="submit" class="button" id="#send-button" value="Send" /> 
 		
-		</form>
-</section>
+		</form>-->
+	</section> 
 
 
 

@@ -145,6 +145,14 @@ header {
 	border-bottom: 2px solid #F2F2F2;
 }
 
+.user .selected-user {
+	background-color: red;
+}
+
+.user .unread-messages {
+	background-color: blue;
+}
+
 .user:hover{
 	background-color: #FAFAFA;
 }
@@ -438,7 +446,7 @@ textarea {
 .class-descriptor {
 }
 .clear {clear: both}
-#chat-content-wrapper {	
+.chat-content-wrapper {	
 	background: scroll;
 	overflow:auto;
 	height: calc(100% - 160px);
@@ -448,7 +456,7 @@ textarea {
 #chat-content-header {	
 	height: 35px;
 	margin-top: 60px;
-	padding:0px 30px;
+	padding:0px 0px;
 
 	position: relative;
 	bottom: 0;
