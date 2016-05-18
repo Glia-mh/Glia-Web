@@ -3,6 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Team Roots</title>
+	<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script type="text/javascript">
+		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+	</script>
 </head>
 <body>
 	<form >
@@ -10,8 +15,11 @@
 		<input type="button" value="Finish" id="submit-button">
 	</form>
 
-	<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
+		var check_parse = function (code) {
+			
+		}
+
 		var generate = function () {
 			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 			var code_array = [];
@@ -20,7 +28,34 @@
 				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
 					code_array[i] = code_array[i].toUpperCase();
 			}
-			return code_array.join("");  
+			var code = code_array.join(""); 
+
+			// Check Parse for existing code
+			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+			var queryObject = new Parse.Query(Student_Code);
+			queryObject.limit(1000); 
+			queryObject.equalTo("code", code);
+			queryObject.find({
+			    success: function (results) {
+			    	// Generate a new code if current code exists
+			    	code = generate();
+			    },
+			    error: function (error) {}
+			});
+			return code;
+		}
+
+		var send_email = function (em_arr) {
+			for (var i = 0; i < em_arr.length; i++) {
+				var php_data = "email=" + em_arr[i].email + "&code=" + em_arr[i].code;
+				console.log(php_data);
+				$.ajax({
+					type: "POST",
+					url: 'email.php',
+					data: php_data,
+					success: function() {}
+				});
+			}
 		}
 
 		document.getElementById("submit-button").addEventListener("click", function () {
@@ -34,22 +69,16 @@
 					email_array[i] = {email: email_text.substring(0, email_text.indexOf(',')), code: generate()};
 					email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
 				}
-			}
 
+				// Store code and email in Parse
+				var Student_Code = Parse.Object.extend("Confirmation_Codes");
+				var student_code = new Student_Code();
+				student_code.set("email", email_array[i].email);
+				student_code.set("code", email_array[i].code);
+				student_code.save();
+			}
+			send_email(email_array);
 			console.log(email_array);
-
-			for (var i = 0; i < email_array.length; i++) {
-				var php_data = "email=" + email_array[i].email + "&code=" + email_array[i].code;
-				console.log(php_data);
-				$.ajax({
-					type: "POST",
-					url: 'email.php',
-					data: php_data,
-					success: function() {
-						alert("this worked");
-					}
-				});
-			}
 		});
 	</script>
 </body>
