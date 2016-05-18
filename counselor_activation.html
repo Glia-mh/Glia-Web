@@ -35,8 +35,15 @@
 			query.equalTo("code", code);
 			query.find().then(function (results) {
 				if (results.length != 0) {
-					window.location = "counselor_register.html";
+					for (var i = 0; i < results.length; i++) {
+						var studentObj = results[i];
+						studentObj.destroy();
+	  				}
 					document.getElementById("note").innerHTML = null;
+					if (typeof(Storage) != "undefined") {
+						localStorage.setItem("hasCode", true);
+						window.location = "counselor_register.html";
+					}
 				}
 				else {
 					document.getElementById("note").innerHTML = "This is not a valid code for this email!";
