@@ -24,22 +24,23 @@
 
       // Highlight the selected Conversation
       if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
-          cssClasses.push('selected-user');
+          cssClasses.push('user selected-user');
       }
 
       // Tutorial Step 5: Add Unread Message Highlighting
       if (conversation.unreadCount) {
-        cssClasses.push('unread-messages');
+        cssClasses.push('.unread-messages');
       }
 
-      console.log("hello " + title);
+      console.log(title);
+
 
       var row = $('<div/>', { class: cssClasses.join(' ') });
       row.append(
         '<section class = "user">' +
         '<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name">' + 
         title + 
-        '</span> ' +  '<span class = "time">' + 'Time' + '</span>' + '<br>' + '<span id= "preview-mssg">' + 'This is the preview...' + '</span>' +
+        '</span> ' +  '<span class = "time">' + 'Time' + '</span>' + '<br>' + '<span id= "preview-mssg">' + conversation + '</span>' +
   '</section>');
 
       // Click handler to trigger an event when each conversation is selected

@@ -4,14 +4,15 @@
  */
 (function() {
   window.layerSampleApp.MessageComposer = Backbone.View.extend({
-    el: '.message-composer',
+    el: '.class-message-box-container',
 
     /**
      * Render the static content: Render the input
      */
     initialize: function() {
-      this.$el.append('<input class="message-textarea" placeholder="Enter a message..."></input>');
-      this.$el.find('input').on('keypress', this.inputAction.bind(this));
+      this.$el.append('<textarea id="comments" class="message-box txtstuff" class="common" placeholder="Enter a message..."></textarea>');
+      this.$el.append('<input type="submit" class="button" id="send-button" value="Send"/>')
+      this.$el.find('textarea').on('keypress', this.inputAction.bind(this));
     },
 
     /**
@@ -23,6 +24,7 @@
       if (e.keyCode !== 13 || !text) return true;
 
       this.trigger('message:new', text);
+      console.log("entered");
       this.clear();
     },
 
@@ -30,7 +32,7 @@
      * Clear the text and insure focus remains on the input
      */
     clear: function() {
-      this.$el.find('input').val('').focus();
+      this.$el.find('textarea').val('').focus();
     }
   });
 })();

@@ -72,14 +72,15 @@
     render: function(message) {
       
       this.$el.append(
-          '<section class="class-chat-list-container class-from-me">' + '<img src = "../img/id-logo.jpg" class = "id-logo-from-me">' +
+          '<span class="container-time">' + this.getSentAt(message) + '</span>' +
+          '<section class="class-chat-list-container class-from-me">' +
           '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
-          '</section>'
+          '</section>' + '<br>'
         );
 
-      this.$el.append(
-        '<div class="clear">' + '</div>'
-        );
+      // this.$el.append(
+      //   '<div class="clear">' + '</div>'
+      //   );
 
       /*
       this.$el.append(

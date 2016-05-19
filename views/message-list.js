@@ -6,7 +6,7 @@
 (function() {
   var layerSampleApp = window.layerSampleApp;
   layerSampleApp.MessageList = Backbone.View.extend({
-    el: '.center-container',
+    el: '.chat-content-wrapper',
     initialize: function() {
       this.$el.append("Your messages will go here");
     },
@@ -19,16 +19,11 @@
       // Create a copy of the array and reverse the order so that most recent message is at the bottom
       var messages = messages.concat().reverse();
 
-      //Append the header with name of coversation
-      this.$el.append(
-        '<section id="chat-content-header">' +
-        '<div id="name-chatting-to-header">' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId) + '</span>' +
-        '</section>'
-      );
-
-      // //Append the chat-wrapper to surround the individual messages
+      // //Append the header with name of coversation
       // this.$el.append(
-      //   '<section class="chat-content-wrapper">'
+      //   '<section id="chat-content-header">' +
+      //   '<span id="name-chatting-to-header">' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId) + '</span>' +
+      //   '</section> '
       // );
 
       this.$el.append(
@@ -42,10 +37,11 @@
         }, this)
       );
 
-      // this.$el.append(
-      //   '</section>'
+      // this.$el.append (
+      //   '<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">' +
+      //   '<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common">' + '</textarea>' +
+      //   '<input type="submit" class="button" id="#send-button" value="Send" /> ' + '</form>'
       // );
-
 
       // Make sure the user can see the last message in the list
       this.scrollBottom();

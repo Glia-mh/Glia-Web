@@ -6,7 +6,7 @@
 (function() {
   var layerSampleApp = window.layerSampleApp;
   layerSampleApp.Titlebar = Backbone.View.extend({
-    el: '.conversation-header',
+    el: '#chat-content-header',
 
     /**
      * Render the title for the current Conversation.
@@ -23,7 +23,7 @@
             title = 'Logged in as: ' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
         }
 
-        this.$el.html('<div class="title">' + title + '</div>');
+        this.$el.html('<span id="name-chatting-to-header">' + title + '</span>');
     }
   });
 

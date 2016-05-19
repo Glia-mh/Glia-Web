@@ -7,7 +7,7 @@
   var layerSampleApp = window.layerSampleApp;
   layerSampleApp.Controller = function(client) {
 
-    var titlebarView, conversationListView, conversationListHeaderView,
+    var titlebarView, sidebarView, conversationListView, conversationListHeaderView,
       userListView, activeConversation, conversationQuery,
       messageListView, messageComposerView, messagesQuery;
 

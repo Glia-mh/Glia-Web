@@ -90,7 +90,10 @@ header {
 }
 .container-time {
 	color: grey;
-	font-size: 12px;
+	font-size: 10px;
+	float: left;
+	display: inline;
+
 }
 #id-logo{
 	float: left;
@@ -145,16 +148,17 @@ header {
 	border-bottom: 2px solid #F2F2F2;
 }
 
-.user .selected-user {
-	background-color: red;
+.user.selected-user {
+	background-color: #F6F6F6;
+	border-left: 4px solid green;
 }
 
-.user .unread-messages {
-	background-color: blue;
+.user.unread-messages {
+	font-weight: bold;
 }
 
 .user:hover{
-	background-color: #FAFAFA;
+	background-color: #F5F9F3;
 }
 
 #textarea{
@@ -350,7 +354,6 @@ textarea {
 	font-family: "Helvetica Neue";
 	font-size: 13px;
 	font-weight: normal;
-	margin: 5px auto;
 	line-height: 20px;
 	border-radius:25px;
 	padding:5px 15px;
