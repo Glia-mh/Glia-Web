@@ -3,7 +3,7 @@
 <head>
 	<!--useless comment-->
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="style/style.css">
 	<title>Team Roots</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
@@ -37,12 +37,10 @@
 				      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
 				      userId: currentUser.id
 				    };
-					window.location = "index.html";
-				}
-				//else
-					//window.location = "counselor_welcome.html";
+					window.location = "ChatUI/ChatUI.html";
+				}else
+					window.location = "counselor_welcome.html";
 		}
-
 		document.getElementById("login-form").addEventListener("submit", function (e) {
 			e.preventDefault();
 
@@ -60,7 +58,7 @@
 				      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
 				      userId: currentUser.id
 				    };
-					window.location = "index.html";
+					window.location = "ChatUI/ChatUI.html";
 				}else
 					window.location = "counselor_welcome.html";
 			});

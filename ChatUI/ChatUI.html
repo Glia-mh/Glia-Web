@@ -6,8 +6,9 @@
 	<title>Chat UI</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
 
+	<!-- resizing the window/ compacting css -->
 	<style>
 		@media (max-width: 1100px) {
 			.right-sidebar {
@@ -49,15 +50,35 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+
+	<!-- Backbone and its Dependencies -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js'></script>
+
+	<!-- Layer Web SDK -->
+  <script src='https://cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+
+
+	<!--App Instance Setup-->
 	<script type="text/javascript">
 
-		// current user info
-		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-		var currentUser = Parse.User.current();
-		if (!currentUser) window.location = "../counselor_login.html";
-		console.log(currentUser);
-		console.log(currentUser.attributes);
-		console.log(currentUser.attributes.name);
+	  Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+	    var currentUser = Parse.User.current();
+	    if (!currentUser) window.location = "../counselor_login.html";
+	    window.layerSampleConfig = {
+	      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
+	      userId: currentUser.id
+	    };
+
+	    window.layerSampleApp = {};
+	    $( document ).ready(function() {
+	      $( "#signout" ).click(function() {
+	        Parse.User.logOut();
+	        window.location="../counselor_login.html"
+	      });
+	    });
+
+
 
 		$(window).load(function() {
 		var txt = $('#comments'),
@@ -82,10 +103,60 @@
 		});
 	</script>
 
+	
+	<script>		
+$(window).load(function() {
+		var send_email = function (em_arr) {
+			for (var i = 0; i < em_arr.length; i++) {
+				/*var Student_Code = Parse.Object.extend("Confirmation_Codes");
+				var student_code = new Student_Code();
+				student_code.set("email", em_arr[i].email);
+				student_code.set("code", em_arr[i].code);
+				student_code.save();*/
+				console.log(document.getElementById("notes").value +"test");
+				var email = currentUser.attributes.email;
+				var php_data = "email=" + em_arr[i] + "&second="+ email + "&body=" + document.getElementById("notes").value;
+				console.log(php_data);
+				$.ajax({
+					type: "POST",
+					url: '../reportEmail.php',
+					data: php_data,
+					success: function() {}
+				});
+			}
+		};
+
+		document.getElementById("report").addEventListener("click", function () {
+
+			var email_array=["agga140@usc.edu"];
+			console.log(email_array);
+			send_email(email_array);
+		});
+	}); </script>
+
+
+
+
+
+   <!-- Views -->
+  <script src="../views/conversation-list.js"></script>
+  <script src="../views/user-list-dialog.js"></script>
+  <script src="../views/titlebar.js"></script>
+  <script src="../views/conversation-list-header.js"></script>
+  <script src="../views/message.js"></script>
+  <script src="../views/message-list.js"></script>
+  <script src="../views/message-composer.js"></script>
+
+  <!-- Controllers and Utilities -->
+  <script src="../controller.js"></script>
+  <script src="../index.js"></script>
+  <script src="../identity-services.js"></script>
+
 </head>
 
 <body onload = "scrollWindow()">
 
+	<!-- Scroll Window to newest message -->
 	<script> 
 		function scrollWindow() {
 			var element = document.getElementById("chat-content-wrapper");
@@ -110,22 +181,6 @@
 
 <aside class = "sidebar">
 
-	<section class = "user">
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name">Aditya Aggarwal </span> <img src = "../img/online-dot.jpg" class = "online"> <span class = "time"> 4:45 PM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
-	</section>
-
-	<section class = "user">
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Tanuja Mohan </span> <img src = "../img/online-dot.jpg" class = "online"> <span class = "time"> 4:13 PM </span> <br> <span id= "preview-mssg"> Preview message here... </span>
-	</section>
-
-	<section class = "user">
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Spencer Yen </span> <span class = "time"> 2:07 PM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
-	</section>
-
-	<section class = "user">
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aakash Thumaty </span> <span class = "time"> 11:57 AM </span> <br> <span id= "preview-mssg"> This is the preview... </span>
-	</section>
-
 </aside>
 
 
@@ -134,117 +189,21 @@
 
 
 
-<section class="center-container">
-		<section id="chat-content-header">
-			<div id="name-chatting-to-header"> Bob Miller</span>
+	<section class="center-container">
+		<section id ="chat-content-header">
+			<!--<span class="name-chatting-to-header"> Click on a Message </span>-->
 		</section>
 
-		<section id="chat-content-wrapper">
-			<br>
-			<span class = "container-time"> SAT 12:43PM </span>
-			<section class="class-chat-list-container class-from-me">
-
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Hey there! What's up?
-				</div>
+		<section class="chat-content-wrapper">
 			
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Checking out iOS7 you know..
-				</div>
-				
-				<div class="clear"></div>
 
-			</section>
-			<span class = "container-time"> SAT 12:47PM </span>
-			<section class="class-chat-list-container class-from-them">
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Hey there! What's up?
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..Checking out iOS7 you know..
-				</div>
-				<div class = "clear"></div>
+		</section> 
 
-				<div class="clear"></div>
-			</section>
+		<form style = "overflow: hidden" class="class-message-box-container">
 
-			<section class="class-chat-list-container class-from-me">
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Hey there! What's up?
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Checking out iOS7 you know..
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Adding another chat bubble
-					Bubble 
-					Bubble
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Adding another chat bubble
-					Bubble 
-					Bubble
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-me">
-				<div class="class-bubble">
-					Adding another chat bubble
-					Bubble 
-					Bubble
-				</div>
-				<div class="clear"></div>
-			</section>
-
-			<span class = "container-time"> SAT 12:59PM </span>
-			<section class="class-chat-list-container class-from-them">
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Hey there! What's up?
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Another bubble to test resizing
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Another bubble to test resizing <br>
-					la dida <br>
-					dida dida dida
-				</div>
-				<div class="clear"></div>
-				<img src = "../img/id-logo.jpg" class = "id-logo-from-them">
-				<div class="class-bubble">
-					Another bubble to test resizing
-				</div>
-
-			</section>
-
-		</section>
-
-		<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">
-
-			<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common"></textarea>
-
-			<input type="submit" class="button" id="#send-button" value="Send" /> 
 		
 		</form>
-</section>
-
+	</section> 
 
 
 
@@ -252,14 +211,14 @@
 
 	<section>
 		<br>
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Aditya Aggarwal </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
+		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Participant Name </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
 		<br><br><br>
 		<textarea id = "notes" rows = "8" cols = "35" id = "textarea" placeholder = "Enter notes..."></textarea>
 	</section>
 	<br>
 	<button id = "request">Request ID</button>
 	<br><br>
-	<button id = "report">Report Urgent</button>
+	<button id = "report">Report Urgent</button> 
 </aside>
 
 </body>

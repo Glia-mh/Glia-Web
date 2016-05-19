@@ -90,7 +90,10 @@ header {
 }
 .container-time {
 	color: grey;
-	font-size: 12px;
+	font-size: 10px;
+	float: left;
+	display: inline;
+
 }
 #id-logo{
 	float: left;
@@ -145,8 +148,17 @@ header {
 	border-bottom: 2px solid #F2F2F2;
 }
 
+.user.selected-user {
+	background-color: #F6F6F6;
+	border-left: 4px solid green;
+}
+
+.user.unread-messages {
+	font-weight: bold;
+}
+
 .user:hover{
-	background-color: #FAFAFA;
+	background-color: #F5F9F3;
 }
 
 #textarea{
@@ -234,7 +246,6 @@ textarea {
 
 .button {
 	padding: 9px 20px;
-	margin: 5px;
 	border: solid 1px #51C781;
 	color: white;
 	background-color: rgba(100, 200, 122, 1);
@@ -325,7 +336,6 @@ textarea {
 
 #note {
 	font-size: 12px;
-	padding: 10px;
 }
 
 #footer {
@@ -344,7 +354,6 @@ textarea {
 	font-family: "Helvetica Neue";
 	font-size: 13px;
 	font-weight: normal;
-	margin: 5px auto;
 	line-height: 20px;
 	border-radius:25px;
 	padding:5px 15px;
@@ -440,7 +449,7 @@ textarea {
 .class-descriptor {
 }
 .clear {clear: both}
-#chat-content-wrapper {	
+.chat-content-wrapper {	
 	background: scroll;
 	overflow:auto;
 	height: calc(100% - 160px);
@@ -450,7 +459,7 @@ textarea {
 #chat-content-header {	
 	height: 35px;
 	margin-top: 60px;
-	padding:0px 30px;
+	padding:0px 0px;
 
 	position: relative;
 	bottom: 0;
@@ -497,20 +506,12 @@ textarea {
 	resize: none;
 	overflow: hidden;
 	border: none;
-<<<<<<< HEAD
 
-=======
-	margin-right: 75px;
->>>>>>> fdc4de73033ec1e0def3fa62e55fe58744ffabb3
 }
-#sendbutton {
+#send-button {
+	display: inline;
 	padding-left: 20px;
 	padding-top: 10px;
-	float: right;
-	right: 8px;
-
-	margin-left: 15px;
-	position: absolute;
 }
 
 .txtstuff {

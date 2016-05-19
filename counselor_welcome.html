@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="style/style.css">
 	<title>Team Roots</title>
 	<style>
 		#welcome {
@@ -250,7 +250,7 @@
 				});
 
 				if (currentUser.get("photoURL") && currentUser.get("bio"))
-					window.location = "./ChatUI/ChatUI.html";
+					window.location = "ChatUI/ChatUI.html";
 				else
 					window.alert("You must add a picture and a bio!");
 			});
