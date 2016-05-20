@@ -75,7 +75,7 @@ header {
 	top: 60px;
 	right: 0; bottom: 0;
 	width: 280px;
-	height: 100%;
+	overflow: auto;
 	color: black;
 	border-left: 2px solid #F2F2F2;
 }
@@ -161,7 +161,7 @@ header {
 	background-color: #F5F9F3;
 }
 
-#textarea{
+.sidetextarea{
 	padding: 10px;
 	display: inline-block;
 	padding-top: 10px;
@@ -175,18 +175,21 @@ header {
 
 }
 
-#request{
+#adduser{
 	background-color: rgba(100, 200, 122, 1);
 	padding-top: 7px;
 	padding-bottom: 7px;
-	padding-left: 75px;
-	padding-right: 75px;
+	padding-left: 63px;
+	padding-right: 63px;
 	color: white;
 	border-radius: 7px;
 	font-size: 15px;
 	border: none;
+	text-align: center;
+	margin-bottom: 15px;
+
 }
-#request:hover {
+#adduser:hover {
 	background-color: #5CA759;
 }
 
@@ -201,6 +204,8 @@ header {
 	font-size: 15px;
 	border: none;
 	text-align: center;
+	margin-bottom: 15px;
+
 }
 #report:hover {
 	background-color: #F73939;
@@ -528,6 +533,10 @@ textarea {
 }
 .lbr {
     line-height: 3px;
+}
+
+.bottomborder-sidebar {
+	border-bottom: 2px solid #F2F2F2;
 }
 
 

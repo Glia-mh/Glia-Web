@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Team Roots</title>
-	<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-	<script type="text/javascript">
-		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-	</script>
-</head>
-<body>
-	<form >
-		<textarea id="email-list"></textarea>
-		<input type="button" value="Finish" id="submit-button">
-	</form>
 
-	<script type="text/javascript">
+	<?php 
+
+
+	echo '
+		\'use strict\';
+		
 		var generate = function () {
 			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 			var code_array = [];
@@ -51,7 +40,7 @@
 				student_code.set("code", studentObj.code);
 				student_code.set("counselorType", 1);
 				var currentUser = Parse.User.current();
-				student_code.set("schooType",  )
+				student_code.set("schoolID",  currentUser.attributes.schoolID)
 
 				student_code.save();
 		}
@@ -64,14 +53,10 @@
 				console.log(php_data);
 				$.ajax({
 					type: "POST",
-					url: 'email.php',
+					url: \'../email.php\',
 					data: php_data,
 					success: function() {}
 				});
 			}
-		}
-
-
-	</script>
-</body>
-</html>
+		}';
+		?>

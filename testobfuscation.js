@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Team Roots</title>
-	<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-	<script type="text/javascript">
-		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-	</script>
-</head>
-<body>
-	<form >
-		<textarea id="email-list"></textarea>
-		<input type="button" value="Finish" id="submit-button">
-	</form>
 
-	<script type="text/javascript">
+	
 		var generate = function () {
 			var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 			var code_array = [];
@@ -49,9 +33,9 @@
 				var student_code = new Student_Code();
 				student_code.set("email", studentObj.email);
 				student_code.set("code", studentObj.code);
-				student_code.set("counselorType", 1);
+				student_code.set("codeCounselorType", 1);
 				var currentUser = Parse.User.current();
-				student_code.set("schooType",  )
+				student_code.set("schoolID", currentUser.attributes.schoolID);
 
 				student_code.save();
 		}
@@ -61,17 +45,38 @@
 				save_student(em_arr[i]);
 				
 				var php_data = "email=" + em_arr[i].email + "&code=" + em_arr[i].code;
-				console.log(php_data);
 				$.ajax({
 					type: "POST",
-					url: 'email.php',
+					url: '../email.php',
 					data: php_data,
 					success: function() {}
 				});
 			}
 		}
 
+		$(window).load(function() {
+			if(Parse.User.current().attributes.counselorType != 0){
+				$("#adduserssection").hide();
+			} else {
+					document.getElementById("adduser").addEventListener("click", function () {
+					var email_text = document.getElementById("emails").value.replace(/\s/g, '');
+					var num_commas = (email_text.match(/,/g) || []).length;
+					var promise_array = [];
+					for (var i = 0; i < num_commas + 1; i++) {
+						promise_array[i] = generate().then(function (code) {
+							if (email_text.indexOf(',') == -1) {
+								return {email: email_text, code: code};
+							} else {
+								var email = email_text.substring(0, email_text.indexOf(','));
+								email_text = email_text.substring(email_text.indexOf(',') + 1, email_text.length);
+								return {email: email, code: code};
+							}
+						});
+					}
 
-	</script>
-</body>
-</html>
+					Promise.all(promise_array).then(function (email_array) {
+						send_email(email_array);
+					});
+				});
+			}
+		});
