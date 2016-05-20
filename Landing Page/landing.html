@@ -56,10 +56,12 @@
 		}
 
 		#content {
-			width: 80%;
+			max-width: 1000px;
 			/*background-color: green;*/
 			margin: 0 auto;
-			margin-top: 50px;
+			position: relative;
+  			top: 50%;
+  			transform: translateY(-65%);
 		}
 
 		#content img{
@@ -68,6 +70,7 @@
 
 		#text-content{
 			float: right;
+			padding: 10px;
 		}
 
 		#text-1, #text-2, #text-3, #note {
@@ -105,11 +108,11 @@
 		}
 
 		#go-button{ 
-	   		padding: 9px 15px;  
-	   		background-color: rgba(81, 199, 129, 0.85);  
-	   		border: solid 1px #51C781;  
+	   		padding: 9px 15px; 
+	   		border: solid 1px #51C781;
 	   		border-radius: 5px;
-	   		color: white;  
+	   		color: white;
+	   		background-color: rgba(100, 200, 122, 1);
 	   		font-size: 12px; 
 	   		-webkit-transition: .2s all;
 			-moz-transition: .2s all;
@@ -177,6 +180,23 @@
 			color: rgb(200, 200, 200);
 		}
 
+		#arrow-down {
+			width: 0; 
+			height: 0; 
+			border-left: 20px solid transparent;
+			border-right: 20px solid transparent;
+			border-top: 20px solid rgba(100, 200, 122, 1);
+
+			position: absolute;
+			bottom: 30px;
+			right: 50%;
+		}
+
+		#video {
+			height: 100vh;
+			background-color: steelblue;
+		}
+
 	</style>
 </head>
 <body>
@@ -203,9 +223,15 @@
 					<p id = "note"></p>
 				</form> 
 
-				<p style = "text-align:center; font-size: 11px; color: gray; margin-top: 30px;">Have a counselor code?</p>
+				<p style = "text-align:center; font-size: 14px; color: gray; margin-top: 30px;">Have a counselor code?</p>
 			</div>
 		</div>
+
+		<div id = "arrow-down"></div>
+	</div>
+
+	<div id = "video">
+
 	</div>
 </body>
 </html>
