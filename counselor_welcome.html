@@ -250,7 +250,10 @@
 				});
 
 				if (currentUser.get("photoURL") && currentUser.get("bio"))
-					window.location = "./ChatUI/ChatUI.html";
+					if (typeof(Storage) != "undefined") {
+						localStorage.set("hasCode", false);
+						window.location = "./ChatUI/ChatUI.html";
+					}
 				else
 					window.alert("You must add a picture and a bio!");
 			});
