@@ -13,6 +13,7 @@
       this.$el.append('<textarea id="comments" class="message-box txtstuff" class="common" placeholder="Enter a message..."></textarea>');
       this.$el.append('<input type="submit" class="button" id="send-button" value="Send"/>')
       this.$el.find('textarea').on('keypress', this.inputAction.bind(this));
+      //this.$el.filter('.button').on('click',  this.$el.find('textarea').on('keypress', this.inputAction.bind(this))) ;
     },
 
     /**
@@ -24,7 +25,7 @@
       if (e.keyCode !== 13 || !text) return true;
 
       this.trigger('message:new', text);
-      console.log("entered");
+      //console.log("entered");
       this.clear();
     },
 

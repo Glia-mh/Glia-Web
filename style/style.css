@@ -85,15 +85,20 @@ header {
 	margin-right:280px;
 	min-height: 95vh;
 	height:100vh;
-	position:relative;
+	position: relative;
 	overflow:hidden;
 }
-.container-time {
+.container-time-from-me {
 	color: grey;
-	font-size: 10px;
+	font-size: 9px;
 	float: left;
 	display: inline;
-
+}
+.container-time-from-them {
+	color: grey;
+	font-size: 9px;
+	float: right;
+	display: inline;
 }
 #id-logo{
 	float: left;
@@ -362,13 +367,14 @@ textarea {
 	line-height: 20px;
 	border-radius:25px;
 	padding:5px 15px;
-	max-width: 60%;
-	word-wrap: break-word;
+	max-width: 40%; !important
+	word-wrap: break-word; !important 
 	text-align:left;
 }
 
 .class-chat-list-container {
 	margin: 15px 0.2px;
+	word-wrap: break-word;
 }
 
 .id-logo-from-me{ 
@@ -415,6 +421,7 @@ textarea {
 		height:20px;
 		background:white;
 		border-bottom-left-radius: 10px;
+		word-wrap: break-word;
 	}
 
 
@@ -459,16 +466,13 @@ textarea {
 	overflow:auto;
 	height: calc(100% - 160px);
 	padding:0px 30px;
- 
  }
 #chat-content-header {	
 	height: 35px;
 	margin-top: 60px;
 	padding:0px 0px;
-
 	position: relative;
 	bottom: 0;
-
 	text-align: center;
 	width: 100%;
 	display: table;
@@ -479,6 +483,7 @@ textarea {
 #name-chatting-to-header{
 	display: table-cell;
 	vertical-align: middle;
+	max-width: 100%;
 	text-align: center;
 }
 /*message box */

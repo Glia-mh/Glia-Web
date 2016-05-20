@@ -69,27 +69,31 @@
     /**
      * Render the Message.
      */
-    render: function(message) {
-      
-      this.$el.append(
-          '<span class="container-time">' + this.getSentAt(message) + '</span>' +
+    render: function(message, prevSenderId) {
+
+      if(prevSenderId != message.sender.userId) {
+        console.log("entered the clear div");
+        this.$el.append(
+          '<div class="clear">' + '</div>'
+        );
+      }
+
+      if (message.sender.userId == layerSampleApp.client.userId) {
+        this.$el.append(
+          '<span class="container-time-from-me">' + this.getSentAt(message) + '</span>'+
           '<section class="class-chat-list-container class-from-me">' +
           '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
-          '</section>' + '<br>'
+          '</section>' + '<div class="clear">' + '</div>'
         );
+      } else {
+        this.$el.append(
+          '<span class="container-time-from-them">' + this.getSentAt(message) + '</span>' +
+          '<section class="class-chat-list-container class-from-them">' +
+          '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+          '</section>' + '<div class="clear">' + '</div>'
+        );
+      }
 
-      // this.$el.append(
-      //   '<div class="clear">' + '</div>'
-      //   );
-
-      /*
-      this.$el.append(
-        '<div class="class-chat-list-container">' +
-          '<span class="name">' + this.getSenderName(message) + '</span>' +
-          '<div class="class-from-me class-bubble">' + this.getMessageText(message) + '</div>' +
-        '</div>' +
-        '<div class="timestamp">' + this.getSentAt(message) + this.getMessageStatus(message) + '</div>'
-      ); */
 
       message.isRead = true;
     }

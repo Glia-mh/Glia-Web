@@ -22,7 +22,7 @@
 
 	<!-- resizing the window/ compacting css -->
 	<style>
-		@media (max-width: 1100px) {
+		@media (max-width: 1200px) {
 			.right-sidebar {
 				display: none;
 			}
@@ -34,7 +34,7 @@
 			}
 		}
 
-		@media(max-width: 900px) {
+		@media(max-width: 910px) {
 			.sidebar {
 				width: 70px;
 			}
@@ -55,7 +55,7 @@
 			}
 			.center-container {
 				margin-left: 60px;
-				margin-right: 0px;
+				margin-right: 10px;
 			}
 		}
 	</style>
