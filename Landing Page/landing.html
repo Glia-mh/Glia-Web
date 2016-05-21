@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Team Roots</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="parallax.min.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: SFLight;
+			src: url('SF-UI-Text-Light.otf');
+		}
+		body {
+			margin: 0;
+			padding: 0;		
+			font-family: SFLight;
+		}
+
+		#container {
+			width: 100%;
+			height: 100vh;
+			/*background-color: blue;*/
+		}
+
+		#navbar {
+			width: 80%;
+			/*background-color: red;*/
+			margin: 0 auto;
+		}
+
+		#navbar img {
+			height: 80px;
+			padding: 20px;
+			display: inline;
+		}
+
+		#navbar p {
+			float: left;
+			font-size: 16px;
+		}
+
+		#nav-contact, #nav-about {
+			color: gray;
+			margin: 60px 20px 0px 0px;
+		}
+
+		#nav-login {
+			padding: 9px 20px;
+			margin: 49px 5px 0px 0px;
+			border: solid 1px #51C781;
+			color: white;
+			background-color: rgba(100, 200, 122, 1);
+			border-radius: 5px;
+			-webkit-transition: .2s all;
+			-moz-transition: .2s all;
+			-o-transition: .2s all;
+			transition: .2s all;
+		}
+
+		#content {
+			max-width: 1000px;
+			/*background-color: green;*/
+			margin: 0 auto;
+			position: relative;
+			top: 50%;
+			transform: translateY(-65%);
+		}
+
+		#screenshots {
+			height: 500px;
+			opacity: 0;
+			transform: translateX(-50px);
+			-webkit-transition: .3s all;
+			-moz-transition: .3s all;
+			-o-transition: .3s all;
+			transition: .3s all;
+		}
+
+		#text-content{
+			opacity: 0;
+			float: right;
+			padding: 10px;
+			transform: translateY(-20px);
+			-webkit-transition: .3s all;
+			-moz-transition: .3s all;
+			-o-transition: .3s all;
+			transition: .3s all;
+		}
+
+		#text-1, #text-2, #text-3, #note {
+			text-align: center;
+			color: gray;
+		}
+
+		#text-1 {
+			font-size: 30px;
+			margin-bottom: 0;
+			margin-top: 90px;
+		}
+
+		#text-2 {
+			margin-top: 15px;
+			margin-bottom: 30px;
+			font-size: 18px;
+		}
+
+		#text-3 {
+			margin-top: 60px;
+			font-size: 15px;
+		}
+
+		#enter-email{
+			width: 250px;
+			padding: 10px;  
+			border: solid 1px rgb(210, 210, 210);  
+			outline: 0;  
+			background-color: white;
+			font-size: 12px; 
+			border-radius: 5px;
+			font-family: SFLight;
+		}
+
+		#go-button{ 
+			padding: 9px 15px; 
+			border: solid 1px #51C781;
+			border-radius: 5px;
+			color: white;
+			background-color: rgba(100, 200, 122, 1);
+			font-size: 12px; 
+			-webkit-transition: .2s all;
+			-moz-transition: .2s all;
+			-o-transition: .2s all;
+			transition: .2s all;
+		}
+
+		#go-button:hover{
+			background-color: rgba(81, 199, 129, 1.0);
+			color: white;
+		}
+
+		::-webkit-input-placeholder { /* WebKit browsers */
+			color: rgb(210, 210, 210);
+		}
+
+		:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+			color: rgb(210, 210, 210);
+		}
+
+		::-moz-placeholder { /* Mozilla Firefox 19+ */
+			color: rgb(210, 210, 210);
+		}
+
+		:-ms-input-placeholder { /* Internet Explorer 10+ */
+			color: rgb(210, 210, 210);
+		}
+
+		#note {
+			font-size: 12px;
+		}
+
+		#email-us {
+			width: 350px;
+			margin: 0 auto;
+		}
+
+		a:link {
+			text-decoration: none;
+			color: rgb(200, 200, 200);
+			-webkit-transition: .2s all;
+			-moz-transition: .2s all;
+			-o-transition: .2s all;
+			transition: .2s all;
+		}
+
+		a:hover {
+			text-decoration: none;
+			color: gray;
+		}
+
+		a:visited {
+			text-decoration: none;
+			color: rgb(200, 200, 200);
+		}
+
+		#arrow-down {
+			width: 0; 
+			height: 0; 
+			border-left: 20px solid transparent;
+			border-right: 20px solid transparent;
+			border-top: 20px solid rgba(100, 200, 122, 1);
+			position: absolute;
+			bottom: 30px;
+			right: 50%;
+		}
+
+		#information {
+			background-color: rgba(100, 200, 122, 1);
+		}
+
+		.title {
+			font-size: 42px;
+			color: white;
+			padding: 20px 20px 0 20px;
+			margin: 0;
+			text-align: center;
+		}
+
+		#ytplayer-container {
+			height: 520px;
+			width: 924px;
+			margin: 0 auto;
+			padding: 40px;
+		}
+
+		#contact-icons {
+			width: 500px;
+			background-color: blue;
+			margin: 0 auto;
+		}
+
+		.icon {
+			width: 80px;
+			height: 80px;
+			padding: 20px;
+			display: block;
+			float: left;
+			line-height: 20px;
+			/*transform: translateY(50px);*/
+			opacity: 0;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		$(document).ready(function () {    
+			setContainerWidth();
+		});
+
+		window.onload = function () {
+			document.getElementById("screenshots").style.transform = "translateX(0)";
+			document.getElementById("text-content").style.transform = "translateY(0)";
+			document.getElementById("screenshots").style.opacity = "1";
+			document.getElementById("text-content").style.opacity = "1";   
+		}
+
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/player_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		var player;
+		function onYouTubePlayerAPIReady() {
+			player = new YT.Player('ytplayer', {
+				height: '520',
+				width: '924',
+				playerVars : {
+					autoplay : 0,
+					showinfo: 0,
+					rel: 0
+				},
+				videoId: 'eiUqBpLjKBk'
+
+			});
+		}
+
+		$(window).resize(function() {
+      		setContainerWidth();
+  		});
+
+  		function setContainerWidth() {
+		   	var windowWidth = $(document).getElementById("contact").width();
+		    $('#contact-icons').css('width', 'auto');
+			var blockWidth = $('.icon').outerWidth(true);
+		    var maxBoxPerRow = Math.floor(windowWidth / blockWidth);
+		    $('#contact-icons').width(maxBoxPerRow * blockWidth);
+		}   
+
+
+		$(window).scroll(function() {
+			$("iframe").each(function () {
+				if($(window).scrollTop() > $(this).offset().top - 300) {
+					player.playVideo();
+				} else {
+					player.stopVideo();
+				}
+			}); 
+
+			$(".icon").each(function () {
+				var icons = document.getElementsByClassName("icon");
+				if($(window).scrollTop() > $(this).offset().top - 700) {
+					for (var i = 0; i < icons.length; i++) {
+						icons[i].style.opacity = "1";
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id = "container">
+		<div id = "navbar">
+			<img src = "logo.png"/>
+			<div style="float: right">
+				<p id = "nav-about">About</p>
+				<p id = "nav-contact">Contact</p>
+				<p id = "nav-login">Login as Counselor</p>
+			</div>
+		</div>
+
+		<div id = "content">
+			<img id = "screenshots" src = "screenshots.png"/>
+			<div id = "text-content"> 
+				<p id = "text-1">Safe, anonymous online counseling</br>and support for students.</p>
+				<p id = "text-2">Going through rough times? Chat anonymously with</br>trained counselors from your school, wherever you are.</p>
+				<p id = "text-3">Coming soon to Web, iOS, and Android.</p>
+
+				<form id = "email-us" action="http://teamroots.us11.list-manage.com/subscribe/post?u=aaac4fca4ccf110664b3f2db3&amp;id=7164548836" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+					<input id = "enter-email" type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" onblur="checkTextField(this);" placeholder="Interested? Enter your email." required>
+					<input id = "go-button" type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="button" onclick = "finished()">
+					<p id = "note"></p>
+				</form> 
+
+				<p style = "text-align:center; font-size: 14px; color: gray; margin-top: 30px;">Have a counselor code?</p>
+			</div>
+		</div>
+
+		<div id = "arrow-down"></div>
+	</div>
+
+	<div id = "information">
+		<p class = "title">How it works</p>
+		<div id = "video">
+			<div id="ytplayer-container"><div id="ytplayer" style=""></div></div>
+		</div>
+	</div>
+
+	<div id = "contact" style = "width: 80%; background-color: blue; margin: 0 auto;">
+		<div id = "contact-icons">
+			<img src="facebook.png" class = "icon" style = "-webkit-transition: .5s all; -moz-transition: .5s all; -o-transition: .5s all; transition: .5s all;"/>
+			<img src="twitter.png" class = "icon" style = "-webkit-transition: 1.5s all; -moz-transition: 1.5s all; -o-transition: 1.5s all; transition: 1.5s all;"/>
+			<img src="email.png" class = "icon" style = "-webkit-transition: 2.5s all; -moz-transition: 2.5s all; -o-transition: 2.5s all; transition: 2.5s all;"/>
+			<img src="linkedin.png" class = "icon" style = "-webkit-transition: 3.5s all; -moz-transition: 3.5s all; -o-transition: 3.5s all; transition: 3.5s all;"/>
+		</div>
+	</div>
+</body>
+</html>
