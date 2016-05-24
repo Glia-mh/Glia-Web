@@ -4,9 +4,7 @@ $email = $_POST['email'];
 $body = $_POST['body'];
 $second= $_POST['second'];
 
-echo '<script language="javascript">';
-echo 'alert("message successfully sent")';
-echo '</script>';
+
 
 $subject = "Team Roots Emergency Report";
 

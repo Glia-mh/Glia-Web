@@ -27,8 +27,22 @@
 		document.getElementById("code-button").addEventListener("click", function (e) {
 			var email = document.getElementById("login-form").elements["email"].value;
 			var code = document.getElementById("login-form").elements["code"].value;
+			var currentUser;
+			Parse.User.logIn(email, code).then(function (user) {
+					if (results.length != 0) {
+						document.getElementById("note").innerHTML = null;
+						//if (typeof(Storage) != "undefined") {
+							//localStorage.setItem("hasCode", true);
+							window.location = "counselor_register.html";
+						//}
+					} else {
+					document.getElementById("note").innerHTML = "This is not a valid code for this email!";
+					}
 
-			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+				}, function (error) {
+					alert("Error: " + error.code + " " + error.message);
+			});
+			/*var Student_Code = Parse.Object.extend("Confirmation_Codes");
 			var query = new Parse.Query(Student_Code);
 			query.limit(1000); 
 			query.equalTo("email", email);
@@ -48,7 +62,7 @@
 				else {
 					document.getElementById("note").innerHTML = "This is not a valid code for this email!";
 				}
-			});
+			});*/
 		});
 	</script>
 

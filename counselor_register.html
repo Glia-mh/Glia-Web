@@ -6,12 +6,28 @@
 	<title>Team Roots</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-	<script src="js/layer.js"></script>
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-		if (typeof(Storage) != "undefined") {
-			if (!localStorage.getItem("hasCode")) window.location = "counselor_activation.html";
+		if(Parse.User.current()!=null){
+			if(Parse.User.current().attributes!=null){
+				if(Parse.User.current().attributes.rootsAuthData=="banned")
+					window.location = "counselor_login.php";
+
+
+				alert(Parse.User.current().attributes.rootsAuthData);
+				if(Parse.User.current().attributes.rootsAuthData == null){
+					window.location = "ChatUI/ChatUI.php";
+				}
+			} else {
+				window.location ="counselor_login.php";
+			}
+		} else {
+			window.location ="counselor_login.php";
 		}
+		//if (typeof(Storage) != "undefined") {
+
+			/*if (!localStorage.getItem("hasCode")) window.location = "counselor_activation.html";*/
+		//}
 	</script>
 </head>
 <body>
@@ -19,7 +35,6 @@
 		<img id="title" src="img/team-roots-logo.png">
 
 		<form id="register-form">
-			<input type="email" name="email" class="form-field" placeholder="Email" required><br>
 			<input type="text" name="name" class="form-field" placeholder="Name" required><br>
 			<input type="password" name="password" class="form-field" placeholder="Password" required><br>
 			<p id="note"></p>
@@ -43,19 +58,17 @@
 				document.getElementById("note").innerHTML = "password must contain an uppercase alphabetical character";
 			} else {
 				// store user
-				var user = new Parse.User();
-				user.set("username", this.elements["email"].value);
+				var user = Parse.User.current();
 				user.set("password", this.elements["password"].value);
 				user.set("name", this.elements["name"].value);
-				user.set("email", this.elements["email"].value);
-				user.set("counselorType", "1");
-				user.set("isAvailable", true);
+				user.set("rootsAuthData", null);
+
 
 				//remove note
 				document.getElementById("note").innerHTML = null;
 
 				//send to welcome page
-				user.signUp(null)
+				user.save(null)
 				.then(function (user) {
 					return layer.getNonce();
 				}, function (error) {

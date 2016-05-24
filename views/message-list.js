@@ -18,7 +18,7 @@
       // NOTE: Do NOT modify the query.data i.e. messages array
       // Create a copy of the array and reverse the order so that most recent message is at the bottom
       var messages = messages.concat().reverse();
-
+      var previousSender = 0;
       // //Append the header with name of coversation
       // this.$el.append(
       //   '<section id="chat-content-header">' +
@@ -30,8 +30,13 @@
 
          // Render each message view
          messages.forEach(function(message) {
+
           var messageView = new layerSampleApp.Message();
-          messageView.render(message);
+
+          console.log("sender: " + previousSender);
+          messageView.render(message, previousSender);
+          previousSender = message.sender.userId;
+          
 
           this.$el.append(messageView.$el);
         }, this)
@@ -46,6 +51,19 @@
       // Make sure the user can see the last message in the list
       this.scrollBottom();
     },
+     getSentAt: function(message) {
+      var now = new Date();
+      var date = message.sentAt;
+
+      if (date.toLocaleDateString() === now.toLocaleDateString()) {
+          return date.toLocaleTimeString();
+      }
+      else {
+          return date.toLocaleDateString();
+      }
+    },
+
+
 
     /**
      * Scroll to the bottom of the list so the most recent Message is visible.

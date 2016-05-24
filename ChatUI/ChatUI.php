@@ -1,4 +1,4 @@
-<?php require_once('../vendor/autoload.php'); session_start();
+<?php require_once  __DIR__ . '/../vendor/autoload.php'; session_start();
 	use Parse\ParseClient;
 	use Parse\ParseSessionStorage;
 	use Parse\ParseUser;
@@ -22,7 +22,7 @@
 
 	<!-- resizing the window/ compacting css -->
 	<style>
-		@media (max-width: 1100px) {
+		@media (max-width: 1200px) {
 			.right-sidebar {
 				display: none;
 			}
@@ -34,7 +34,7 @@
 			}
 		}
 
-		@media(max-width: 900px) {
+		@media(max-width: 910px) {
 			.sidebar {
 				width: 70px;
 			}
@@ -55,7 +55,7 @@
 			}
 			.center-container {
 				margin-left: 60px;
-				margin-right: 0px;
+				margin-right: 10px;
 			}
 		}
 	</style>
@@ -76,7 +76,10 @@
 
 	  Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 	    var currentUser = Parse.User.current();
-	    if (!currentUser) window.location = "../counselor_login.html";
+	    if (!currentUser) window.location = "../counselor_login.php";
+	    if(currentUser.get("rootsAuthData")!=null){
+			window.location = "../counselor_register.html";
+		}
 	    window.layerSampleConfig = {
 	      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
 	      userId: currentUser.id
@@ -94,27 +97,46 @@
 
 
 	    // TextArea Resizing 
-		$(window).load(function() {
-		var txt = $('#comments'),
-		    hiddenDiv = $(document.createElement('div')),
-		    content = null;
+	    $(window).load(function() {
 
-		txt.addClass('txtstuff');
-		hiddenDiv.addClass('hiddendiv message-box');
+	    	var observe;
+	    	if (window.attachEvent) {
+	    		observe = function (element, event, handler) {
+	    			element.attachEvent('on'+event, handler);
+	    		};
+	    	}
+	    	else {
+	    		observe = function (element, event, handler) {
+	    			element.addEventListener(event, handler, false);
+	    		};
+	    	}
+	    	function initTextAreaChange () {
+	    		alert("hi");
+	    		var text = document.getElementById('comments');
+	    		function resize () {
+	    			text.style.height = 'auto';
+	    			text.style.height = text.scrollHeight+'px';
+	    			console.log(text.scrollHeight+'px');
+	    		}
+	    		/* 0-timeout to get the already changed text */
+	    		function delayedResize () {
+	    			window.setTimeout(resize, 0);
+	    		}
+	    		observe(text, 'change',  resize);
+	    		observe(text, 'cut',     delayedResize);
+	    		observe(text, 'paste',   delayedResize);
+	    		observe(text, 'drop',    delayedResize);
+	    		observe(text, 'keydown', delayedResize);
 
-		$('class-message-box-container').append(hiddenDiv);
+	    		text.focus();
+	    		text.select();
+	    		resize();
+	    	}
+	    	
 
-		txt.on('keyup', function () {
+	    });
 
-		    content = $(this).val();
 
-		    content = content.replace(/\n/g, '<br>');
-		    hiddenDiv.html(content + '<br class="lbr">');
-
-		    $(this).css('height', hiddenDiv.height());
-
-		});
-		});
 
 
 
@@ -128,16 +150,33 @@
 
 
 
+
+
+<script>
+
 	
-	<script>		
-$(window).load(function() {
-		var send_email = function (em_arr) {
+
+
+	$(window).load(function() {
+		
+		// When the user clicks on <span> (x), close the modal
+		$("#close").click(function() {
+			var modal = document.getElementById("myModal");
+			modal.style.display = "none";
+			document.getElementById("OKModal").style.display="inline";
+		});
+
+		$("#cancelModal").click(function() {
+			var modal = document.getElementById("myModal");
+			modal.style.display = "none";
+			document.getElementById("OKModal").style.display="inline";
+		});
+	});
+
+
+	$(window).load(function() {
+		var send_email_report = function (em_arr) {
 			for (var i = 0; i < em_arr.length; i++) {
-				/*var Student_Code = Parse.Object.extend("Confirmation_Codes");
-				var student_code = new Student_Code();
-				student_code.set("email", em_arr[i].email);
-				student_code.set("code", em_arr[i].code);
-				student_code.save();*/
 				console.log(document.getElementById("notes").value +"test");
 				var email = currentUser.attributes.email;
 				var php_data = "email=" + em_arr[i] + "&second="+ email + "&body=" + document.getElementById("notes").value;
@@ -150,19 +189,210 @@ $(window).load(function() {
 				});
 			}
 		};
-
 		document.getElementById("report").addEventListener("click", function () {
 
-			var email_array=["agga140@usc.edu"];
-			console.log(email_array);
-			send_email(email_array);
+			var email_array=[currentUser.attributes.schoolID];
+			var Schools = Parse.Object.extend("SchoolIDs");
+			var query = new Parse.Query(Schools); 
+			console.log(currentUser.attributes.schoolID);
+			console.log(currentUser.attributes.schoolID.id);
+			query.get(currentUser.attributes.schoolID.id, {
+  				success: function(school) {
+    				var modal = document.getElementById("myModal");
+    				document.getElementById("modal-text").innerHTML= "Are you sure you want to report this conversation? You reveal the student's identity and conversation history to you organizations' admin.";
+					document.getElementById("OKModal").value="Report";
+					document.getElementById("OKModal").style.border="solid 1px #e60000";
+					document.getElementById("OKModal").style.backgroundColor="#ff0000";
+					$("#OKModal").hover(function(){
+					    $(this).css("background-color", "#cc0000");
+					    }, function(){
+					    $(this).css("background-color", "#ff0000");
+					});
+					modal.style.display = "block";
+
+
+					$( "#OKModal").unbind("click");
+					//OK Button
+					$("#OKModal").click(function() {
+						modal.style.display = "none";
+						console.log(school);
+						email_array=[school.attributes.SchoolEmails];
+    					send_email_report(email_array);
+    					document.getElementById("notes").value="";
+					});
+
+
+    				
+  				},
+  				error: function(object, error) {
+    				// The object was not retrieved successfully.
+    				// error is a Parse.Error with an error code and message.
+    				document.getElementById("OKModal").style.display="none";
+			    	document.getElementById("modal-text").innerHTML= 'Error making the report! Email us at <a href="mailto:teamroots@teamroots.org">teamroots@teamroots.org</a>  to share the problem. Or try again.';
+			    	var modal = document.getElementById('myModal');
+			    	modal.style.display="block";
+  				}
+			});
+
 		});
-	}); </script>
+	}); 
+
+</script>
+
+
+
+
+
+	
+	
 
 <?php 	$currentUser= ParseUser::getCurrentUser();
 		if (strcmp($currentUser->get("counselorType"), "0")==0){
-			//echo '<script language="javascript"> alert("' . $currentUser->getObjectId() . '"); alert("hi"); </script>';
-			echo '<script language="javascript"> var _0x9dae=["","\x73\x70\x6C\x69\x74","\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6A\x6B\x6C\x6D\x6E\x6F\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7A","\x72\x61\x6E\x64\x6F\x6D","\x66\x6C\x6F\x6F\x72","\x74\x6F\x55\x70\x70\x65\x72\x43\x61\x73\x65","\x6A\x6F\x69\x6E","\x43\x6F\x6E\x66\x69\x72\x6D\x61\x74\x69\x6F\x6E\x5F\x43\x6F\x64\x65\x73","\x65\x78\x74\x65\x6E\x64","\x4F\x62\x6A\x65\x63\x74","\x6C\x69\x6D\x69\x74","\x63\x6F\x64\x65","\x65\x71\x75\x61\x6C\x54\x6F","\x6C\x65\x6E\x67\x74\x68","\x53\x6F\x6D\x65\x74\x68\x69\x6E\x67\x20\x62\x61\x64\x20\x68\x61\x73\x20\x68\x61\x70\x70\x65\x6E\x65\x64\x21","\x74\x68\x65\x6E","\x66\x69\x6E\x64","\x65\x6D\x61\x69\x6C","\x73\x65\x74","\x63\x6F\x64\x65\x43\x6F\x75\x6E\x73\x65\x6C\x6F\x72\x54\x79\x70\x65","\x63\x75\x72\x72\x65\x6E\x74","\x55\x73\x65\x72","\x73\x63\x68\x6F\x6F\x6C\x49\x44","\x61\x74\x74\x72\x69\x62\x75\x74\x65\x73","\x73\x61\x76\x65","\x65\x6D\x61\x69\x6C\x3D","\x26\x63\x6F\x64\x65\x3D","\x50\x4F\x53\x54","\x2E\x2E\x2F\x65\x6D\x61\x69\x6C\x2E\x70\x68\x70","\x61\x6A\x61\x78","\x63\x6F\x75\x6E\x73\x65\x6C\x6F\x72\x54\x79\x70\x65","\x68\x69\x64\x65","\x23\x61\x64\x64\x75\x73\x65\x72\x73\x73\x65\x63\x74\x69\x6F\x6E","\x63\x6C\x69\x63\x6B","\x72\x65\x70\x6C\x61\x63\x65","\x76\x61\x6C\x75\x65","\x65\x6D\x61\x69\x6C\x73","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x6D\x61\x74\x63\x68","\x2C","\x69\x6E\x64\x65\x78\x4F\x66","\x73\x75\x62\x73\x74\x72\x69\x6E\x67","\x61\x6C\x6C","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x61\x64\x64\x75\x73\x65\x72","\x6C\x6F\x61\x64"];var generate=function(){var _0x1ca2x2=_0x9dae[2][_0x9dae[1]](_0x9dae[0]);var _0x1ca2x3=[];for(var _0x1ca2x4=0;_0x1ca2x4<15;_0x1ca2x4++){_0x1ca2x3[_0x1ca2x4]=_0x1ca2x2[Math[_0x9dae[4]](Math[_0x9dae[3]]()*10)];if(Math[_0x9dae[4]]((Math[_0x9dae[3]]()*2)+1)%2==0){_0x1ca2x3[_0x1ca2x4]=_0x1ca2x3[_0x1ca2x4][_0x9dae[5]]()}};var _0x1ca2x5=_0x1ca2x3[_0x9dae[6]](_0x9dae[0]);var _0x1ca2x6=Parse[_0x9dae[9]][_0x9dae[8]](_0x9dae[7]);var _0x1ca2x7= new Parse.Query(_0x1ca2x6);_0x1ca2x7[_0x9dae[10]](1000);_0x1ca2x7[_0x9dae[12]](_0x9dae[11],_0x1ca2x5);return _0x1ca2x7[_0x9dae[16]]()[_0x9dae[15]](function(_0x1ca2x8){if(_0x1ca2x8[_0x9dae[13]]!=0){return generate()}else {return _0x1ca2x5}},function(_0x1ca2x9){alert(_0x9dae[14])})};var save_student=function(_0x1ca2xb){var _0x1ca2x6=Parse[_0x9dae[9]][_0x9dae[8]](_0x9dae[7]);var _0x1ca2xc= new _0x1ca2x6();_0x1ca2xc[_0x9dae[18]](_0x9dae[17],_0x1ca2xb[_0x9dae[17]]);_0x1ca2xc[_0x9dae[18]](_0x9dae[11],_0x1ca2xb[_0x9dae[11]]);_0x1ca2xc[_0x9dae[18]](_0x9dae[19],1);var _0x1ca2xd=Parse[_0x9dae[21]][_0x9dae[20]]();_0x1ca2xc[_0x9dae[18]](_0x9dae[22],_0x1ca2xd[_0x9dae[23]][_0x9dae[22]]);_0x1ca2xc[_0x9dae[24]]()};var send_email=function(_0x1ca2xf){for(var _0x1ca2x4=0;_0x1ca2x4<_0x1ca2xf[_0x9dae[13]];_0x1ca2x4++){save_student(_0x1ca2xf[_0x1ca2x4]);var _0x1ca2x10=_0x9dae[25]+_0x1ca2xf[_0x1ca2x4][_0x9dae[17]]+_0x9dae[26]+_0x1ca2xf[_0x1ca2x4][_0x9dae[11]];$[_0x9dae[29]]({type:_0x9dae[27],url:_0x9dae[28],data:_0x1ca2x10,success:function(){}})}};$(window)[_0x9dae[45]](function(){if(Parse[_0x9dae[21]][_0x9dae[20]]()[_0x9dae[23]][_0x9dae[30]]!=0){$(_0x9dae[32])[_0x9dae[31]]()}else {document[_0x9dae[37]](_0x9dae[44])[_0x9dae[43]](_0x9dae[33],function(){var _0x1ca2x11=document[_0x9dae[37]](_0x9dae[36])[_0x9dae[35]][_0x9dae[34]](/\s/g,_0x9dae[0]);var _0x1ca2x12=(_0x1ca2x11[_0x9dae[38]](/,/g)||[])[_0x9dae[13]];var _0x1ca2x13=[];for(var _0x1ca2x4=0;_0x1ca2x4<_0x1ca2x12+1;_0x1ca2x4++){_0x1ca2x13[_0x1ca2x4]=generate()[_0x9dae[15]](function(_0x1ca2x5){if(_0x1ca2x11[_0x9dae[40]](_0x9dae[39])== -1){return {email:_0x1ca2x11,code:_0x1ca2x5}}else {var _0x1ca2x14=_0x1ca2x11[_0x9dae[41]](0,_0x1ca2x11[_0x9dae[40]](_0x9dae[39]));_0x1ca2x11=_0x1ca2x11[_0x9dae[41]](_0x1ca2x11[_0x9dae[40]](_0x9dae[39])+1,_0x1ca2x11[_0x9dae[13]]);return {email:_0x1ca2x14,code:_0x1ca2x5}}})};Promise[_0x9dae[42]](_0x1ca2x13)[_0x9dae[15]](function(_0x1ca2x15){send_email(_0x1ca2x15)})})}}) </script>';
+			
+			echo '<script language="javascript"> 
+	
+		var generate = function () {
+			var alphabet = "abcdefghijklmnopqrstuvwxyz".split(\'\');
+			var code_array = [];
+			for (var i = 0; i < 15; i++) {
+				code_array[i] = alphabet[Math.floor(Math.random() * 10)];
+				if (Math.floor((Math.random() * 2) + 1) % 2 == 0)
+					code_array[i] = code_array[i].toUpperCase();
+			}
+			var code = code_array.join("");
+
+			// Check Parse for existing code
+			var Student_Code = Parse.Object.extend("Confirmation_Codes");
+			var query = new Parse.Query(Student_Code);
+			query.limit(1000); 
+			query.equalTo("code", code);
+			return query.find().then(function (results) {
+				if (results.length != 0) {
+					return generate();
+				}
+				else {
+					return code;
+				}
+			},
+			function (err) {
+					document.getElementById("OKModal").style.display="none";
+			    	document.getElementById("modal-text").innerHTML= \'There seems to be a problem with our website. Email us at <a href="mailto:teamroots@teamroots.org">teamroots@teamroots.org</a>. With the following information: <br>  Error \' +err.code + \' \' + err.message + \'.\';
+			    	var modal = document.getElementById(\'myModal\');
+			    	modal.style.display="block";
+			});
+		}
+		var save_student = function(studentObj) {
+			var sessionToken = Parse.User.current().getSessionToken();
+			var user = new Parse.User();
+			user.set("username", studentObj.email);
+			user.set("password", studentObj.code);
+			user.set("email", studentObj.email);
+			user.set("counselorType", "1");
+			user.set("schoolID" , currentUser.attributes.schoolID);
+			user.set("isAvailable", true);
+			user.set("rootsAuthData", studentObj.code);
+
+			user.signUp(null, {
+			  success: function(user) {
+			    Parse.User.become(sessionToken);
+			    var php_data = "email=" + studentObj.email + "&code=" + studentObj.code;
+			    $.ajax({
+						type: "POST",
+						url: \'../email.php\',
+						data: php_data,
+						success: function() {}
+				});
+			  },
+			  error: function(user, error) {
+			    // Show the error message somewhere and let the user try again.
+			    if(error.code=202){
+			    	document.getElementById("OKModal").style.display="none";
+			    	document.getElementById("modal-text").innerHTML= \'<a href="mailto:\' +studentObj.email + \'">\' + studentObj.email + \'</a>  has already been added as a counselor.\';
+			    	var modal = document.getElementById(\'myModal\');
+			    	modal.style.display="block";
+			    } else {
+			    	document.getElementById("OKModal").style.display="none";
+			    	document.getElementById("modal-text").innerHTML= \'There seems to be a problem with our website. Email us at <a href="mailto:teamroots@teamroots.org">teamroots@teamroots.org</a>. With the following information: <br>  Error \' +error.code + \' \' + error.message + \'.\';
+			    	var modal = document.getElementById(\'myModal\');
+			    	modal.style.display="block";
+			    }
+			  }
+			});
+
+		}
+
+
+		var send_email = function (em_arr) {
+			for (var i = 0; i < em_arr.length; i++) {
+				save_student(em_arr[i]);
+			}
+		}
+
+		$(window).load(function() {
+			if(Parse.User.current().attributes.counselorType != 0){
+				$("#adduserssection").hide();
+			} else {
+				document.getElementById("adduser").addEventListener("click", function () {
+					var modal = document.getElementById(\'myModal\');
+					
+
+					
+
+
+
+					document.getElementById("modal-text").innerHTML= "Are you sure you want to add these emails as counselors?";
+					document.getElementById("OKModal").value="Add Users";
+					document.getElementById("OKModal").style.border="solid 1px #51C781";
+					document.getElementById("OKModal").style.backgroundColor="#64c87a";
+					$("#OKModal").hover(function(){
+					    $(this).css("background-color", "#5CA759");
+					    }, function(){
+					    $(this).css("background-color", "#64c87a");
+					});
+				
+					$( "#OKModal").unbind("click");
+
+					//OK Button
+					$("#OKModal").click(function() {
+						var email_text = document.getElementById("emails").value.replace(/\s/g, \'\');
+						var num_commas = (email_text.match(/,/g) || []).length;
+						var promise_array = [];
+						alert("reset");
+						for (var i = 0; i < num_commas + 1; i++) {
+							promise_array[i] = generate().then(function (code) {
+								if (email_text.indexOf(\',\') == -1) {
+									return {email: email_text, code: code};
+								} else {
+									var email = email_text.substring(0, email_text.indexOf(\',\'));
+									email_text = email_text.substring(email_text.indexOf(\',\') + 1, email_text.length);
+									return {email: email, code: code};
+								}
+							}, function(reason) {
+	  							console.log(reason); // Error!
+							});
+						}
+						modal.style.display = "none";
+						Promise.all(promise_array).then(function (email_array) {
+							console.log(promise_array);
+							console.log(email_array);
+							send_email(email_array);
+							document.getElementById("emails").value="";
+						});
+					});
+
+					//show modal
+					modal.style.display = "block";
+
+						
+
+						
+
+					
+					
+					
+				});
+			}
+		});</script>';
 		} else {
 			echo '<script language="javascript"> $(window).load(function() {$("#adduserssection").hide();}); </script> ';
 		}
@@ -189,18 +419,25 @@ $(window).load(function() {
 
 </head>
 
-<body onload = "scrollWindow()">
+<body>
 
-	<!-- Scroll Window to newest message -->
-	<script> 
-		function scrollWindow() {
-			var element = document.getElementById("chat-content-wrapper");
-			element.scrollTop = element.scrollHeight;
-		}
-	</script>
+	
 
 
+<div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" id="close">×</span>
+    <br>
+    <p id="modal-text">Some text in the Modal..</p>
+     <br>
+	<div class="modal-options">
+		<input type="submit" class="button" id="OKModal" value="Ok">
+		<input type="submit" class="button-subtheme" id="cancelModal" value="Cancel">
+	</div>
+  </div>
+</div>
 <header>
 
 	<img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
@@ -279,6 +516,8 @@ $(window).load(function() {
 	
 
 </aside>
+
+
 
 </body>
 

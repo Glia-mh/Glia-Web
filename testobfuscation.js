@@ -27,18 +27,23 @@
 				alert("Something bad has happened!");
 			});
 		}
-
+		
 		var save_student = function(studentObj) {
-			var Student_Code = Parse.Object.extend("Confirmation_Codes");
-				var student_code = new Student_Code();
-				student_code.set("email", studentObj.email);
-				student_code.set("code", studentObj.code);
-				student_code.set("codeCounselorType", 1);
-				var currentUser = Parse.User.current();
-				student_code.set("schoolID", currentUser.attributes.schoolID);
-
-				student_code.save();
+			alert("I am here");
+			var sessionToken = Parse.User.current().getSessionToken();
+			var user = new Parse.User();
+			user.set("username", studentObj.email);
+			user.set("password", studentObj.code);
+			user.set("email", studentObj.email);
+			user.set("counselorType", "1");
+			user.set("schoolID" , currentUser.attributes.schoolID);
+			user.set("isAvailable", true);
+			user.set("authData", studentObj.code());
+			user.signUp(null).then(function(newUser){
+				Parse.User.become(sessionToken);
+			});
 		}
+
 
 		var send_email = function (em_arr) {
 			for (var i = 0; i < em_arr.length; i++) {

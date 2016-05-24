@@ -53,6 +53,7 @@
 
 		var currentUser = Parse.User.current();
 		if (!currentUser) window.location = "counselor_login.php";
+		if(currentUser.attributes.rootsAuthData) window.location = "counselor_register.html";
 	</script>
 </head>
 <body>
@@ -250,7 +251,11 @@
 				});
 
 				if (currentUser.get("photoURL") && currentUser.get("bio"))
-					window.location = "ChatUI/ChatUI.html";
+					/*if (typeof(Storage) != "undefined") {
+						localStorage.set("hasCode", false);
+						
+					}*/
+					window.location = "./ChatUI/ChatUI.php";
 				else
 					window.alert("You must add a picture and a bio!");
 			});
