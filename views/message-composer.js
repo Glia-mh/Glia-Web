@@ -27,12 +27,26 @@
           };
         }
         function initTextAreaChange () {
-          alert("hi");
+          var form=document.querySelectorAll("class-message-box-container")[0];
+          var textWrapper= document.querySelectorAll("chat-content-wrapper")[0];
+          
+          var height=$(".center-container").height() - $("#chat-content-header").height()-$(".class-message-box-container").height()-75;
+          console.log(height+ " height");
+          $('.chat-content-wrapper').height(height);
+          $(window).resize(function(){
+            var height=$(".center-container").height() - $("#chat-content-header").height()-$(".class-message-box-container").height()-75;
+            $('.chat-content-wrapper').height(height);
+          });
+
           var text = document.getElementById('comments');
           function resize () {
             text.style.height = 'auto';
             text.style.height = text.scrollHeight+'px';
             console.log(text.scrollHeight+'px');
+            var height=$(".center-container").height() - $("#chat-content-header").height()-$(".class-message-box-container").height()-75;
+            console.log(height+ " height");
+            $('.chat-content-wrapper').height(height);
+
           }
           /* 0-timeout to get the already changed text */
           function delayedResize () {

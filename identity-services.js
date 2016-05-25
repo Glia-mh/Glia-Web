@@ -12,7 +12,7 @@
   var layerSampleApp = window.layerSampleApp;
 
   var sampleIdentities = {
-    '107070': 'User 1'
+    
   };
 
   /**

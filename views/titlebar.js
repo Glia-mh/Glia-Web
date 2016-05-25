@@ -17,7 +17,7 @@
         var title = '';
 
         if (conversation) {
-            title = betterTitle(conversation);
+            title = conversation.metadata.student.name;
         }
         else {
             title = 'Logged in as: ' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);

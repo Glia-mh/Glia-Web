@@ -30,7 +30,7 @@
 				margin-right: 10px;
 			}
 			.message-box {
-				width: calc(100% - 80px);
+				width: calc(100% - 90px);
 			}
 		}
 
@@ -51,11 +51,11 @@
 				display: none;
 			}
 			.class-message-box-container {
-				margin-left: 22px;
+				
 			}
 			.center-container {
-				margin-left: 60px;
-				margin-right: 10px;
+				margin-left: 70px;
+				margin-right: 0px;
 			}
 		}
 	</style>
@@ -99,39 +99,7 @@
 	    // TextArea Resizing 
 	    $(window).load(function() {
 
-	    	var observe;
-	    	if (window.attachEvent) {
-	    		observe = function (element, event, handler) {
-	    			element.attachEvent('on'+event, handler);
-	    		};
-	    	}
-	    	else {
-	    		observe = function (element, event, handler) {
-	    			element.addEventListener(event, handler, false);
-	    		};
-	    	}
-	    	function initTextAreaChange () {
-	    		alert("hi");
-	    		var text = document.getElementById('comments');
-	    		function resize () {
-	    			text.style.height = 'auto';
-	    			text.style.height = text.scrollHeight+'px';
-	    			console.log(text.scrollHeight+'px');
-	    		}
-	    		/* 0-timeout to get the already changed text */
-	    		function delayedResize () {
-	    			window.setTimeout(resize, 0);
-	    		}
-	    		observe(text, 'change',  resize);
-	    		observe(text, 'cut',     delayedResize);
-	    		observe(text, 'paste',   delayedResize);
-	    		observe(text, 'drop',    delayedResize);
-	    		observe(text, 'keydown', delayedResize);
-
-	    		text.focus();
-	    		text.select();
-	    		resize();
-	    	}
+	    	
 	    	
 
 	    });

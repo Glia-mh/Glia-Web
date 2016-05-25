@@ -63,15 +63,25 @@
        * Create the Conversation List Query
        */
       conversationQuery = client.createQuery({
-        model: layer.Query.Conversation
+        model: layer.Query.Conversation,
+        sortBy: [{'lastMessage.sentAt': 'desc'}]
       });
 
       /**
        * Any time a Conversation is created, deleted, or its participants changed,
        * rerender the conversation list
        */
-      conversationQuery.on('change', function() {
+      conversationQuery.on('change', function(evt) {
+
         conversationListView.render(conversationQuery.data);
+        if (evt.type === 'remove') {
+          var removedItem = evt.target;
+          if(removedItem==conversationListView.selectedConversation) {
+            titlebarView.render(null);
+          } 
+          
+          conversationListView.removeFromTreeNames(removedItem.metadata.student.name);
+        }
       });
 
       // Tutorial Step 3: Setup the Message Query here

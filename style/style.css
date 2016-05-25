@@ -65,6 +65,7 @@ header {
 	height: 100%;
 	color: black;
 	border-right: 2px solid #F2F2F2;
+	overflow: auto;
 }
 
 .condensed-sidebar {
@@ -141,12 +142,21 @@ header {
 .time {
 	font-size: 10px;
 	float: right;
-	padding: 20px;
+	padding-top: 20px;
+	padding-right: 10px;
 }
 #preview-mssg{
 	color: gray;
 	float: left;
 	font-size: 12px;
+	white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+   	display:inline-block;
+   	width: 180px;
+   	text-align: left;
+
+
 }
 
 .user {
@@ -161,6 +171,12 @@ header {
 
 .user.unread-messages {
 	font-weight: bold;
+	font-family: Helvetica;
+}
+
+.unread-messages {
+	font-weight: bold;
+	font-family: Helvetica;
 }
 
 .user:hover{
@@ -405,7 +421,6 @@ textarea {
 	padding-left: 10px;
 }
 .id-logo-from-them{
-
 	float: left;
 	display: inherit;
 	width: 30px;
@@ -483,7 +498,6 @@ textarea {
 .chat-content-wrapper {	
 	background: scroll;
 	overflow:auto;
-	height: calc(100% - 170px);
 	padding:0px 30px;
 
  
@@ -513,7 +527,6 @@ textarea {
 
 .class-message-box-container {
 	background: #FFF;
-	padding-top: 10px;
 	padding-left: 5px;
 	position: absolute;
 	bottom: 0px;
@@ -521,15 +534,15 @@ textarea {
 	border-top: 2px solid #F2F2F2;
 	border-left: 2px solid #F2F2F2;
 	text-align:left;
-	vertical-align:top;
 	right:0px;
 	left:0px;
+	
 }
 
 .message-box {
 	padding: 10px;
 	font-size: 12px;
-	width: 85%;
+	width: calc(100% - 90px);
 	border: solid 1px black;
 	outline: 0;
 	border-radius: 5px;
@@ -542,9 +555,13 @@ textarea {
 
 }
 #send-button {
-	display: inline;
+
 	padding-left: 20px;
-	padding-top: 10px;
+	position: absolute;
+  	top: 50%;
+  	transform: translateY(-50%);
+  	right:10px;
+
 }
 
 .txtstuff {
