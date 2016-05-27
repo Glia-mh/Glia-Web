@@ -77,21 +77,38 @@
           '<div class="clear">' + '</div>'
         );
       }
+      
 
-      if (message.sender.userId == layerSampleApp.client.userId) {
-        this.$el.append(
-          '<span class="container-time-from-me">' + this.getSentAt(message) + '</span>'+
-          '<section class="class-chat-list-container class-from-me">' +
-          '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
-          '</section>' + '<div class="clear">' + '</div>'
-        );
+      if(Parse.User.current().attributes.counselorType!=0) {
+        if (message.sender.userId == layerSampleApp.client.userId) {
+          this.$el.append(
+            '<section class="class-chat-list-container class-from-me">' +
+            '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+            '</section>' + '<div class="clear">' + '</div>'
+          );
+        } else {
+          this.$el.append(
+            '<section class="class-chat-list-container class-from-them">' +
+            '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+            '</section>' + '<div class="clear">' + '</div>'
+          );
+        }
       } else {
-        this.$el.append(
-          '<span class="container-time-from-them">' + this.getSentAt(message) + '</span>' +
-          '<section class="class-chat-list-container class-from-them">' +
-          '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
-          '</section>' + '<div class="clear">' + '</div>'
-        );
+        if (message.sender.userId == layerSampleApp.client.getConversation(message.conversationId).metadata.counselor.ID) {
+          
+          
+          this.$el.append(
+            '<section class="class-chat-list-container class-from-me">' +
+            '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+            '</section>' + '<div class="clear">' + '</div>'
+          );
+        } else if (message.sender.userId == layerSampleApp.client.getConversation(message.conversationId).metadata.student.ID) {
+          this.$el.append(
+            '<section class="class-chat-list-container class-from-them">' +
+            '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
+            '</section>' + '<div class="clear">' + '</div>'
+          );
+        }
       }
 
       // this.$el.append(

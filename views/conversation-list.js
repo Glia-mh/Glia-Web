@@ -12,7 +12,10 @@
     el: '.sidebar',
 
     initialize: function() {
-      this.$el.append("Your conversation list goes here");
+       
+    },
+    getSelectedConversation: function(){
+      return this.selectedConversation;
     },
 
     betterTitle: function(participants) {
@@ -34,7 +37,12 @@
         }
       }
     },
-    
+    checkifSelectedConversation: function(conversation){
+      if(this.selectedConversation)
+        return conversation.id===this.selectedConversation.id;
+      else 
+        return false;
+    },
     removeFromTreeNames: function(treeName){
       if (!Array.prototype.remove) {
         Array.prototype.remove = function(val) {
@@ -44,7 +52,6 @@
       }
 
       treeNames.remove(treeName);
-      console.log(treeNames);
     },
     setStudentName: function(conversations, conversation){
       
@@ -52,7 +59,6 @@
         conversations.forEach(function(conversation){
           if(treeNames.indexOf(conversation.metadata.student.name)==-1 && conversation.metadata.student.name!="")
               treeNames.push(conversation.metadata.student.name);
-          console.log("affirmation");
         });
       var randomName = treenameA[Math.floor(Math.random() * treenameA.length)] + " " + treenameB[Math.floor(Math.random() * treenameB.length)];
       
@@ -78,37 +84,91 @@
     },
     
     buildConversationRow: function(conversation) {
+
       var metadata=conversation.metadata;
       var title = metadata.student.name;
       //console.log(metadata);
       var cssClasses = ['user'];
       var innerTextClasses = "";
 
-      // Highlight the selected Conversation
-      if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
-          cssClasses.push('user selected-user');
-      }
-
+      
       // Tutorial Step 5: Add Unread Message Highlighting
       if (conversation.unreadCount != 0) {
-        console.log("unread count recognized");
         cssClasses.push('.unread-messages');
         innerTextClasses="unread-messages";
-      } else {
-        console.log("I am running");
       }
 
+
+
       
 
-      var latestMessage= conversation.lastMessage;
+      var currentUser=Parse.User.current();
+
+
+      var row;
+
+
+      if(currentUser.attributes.counselorType==="0"){
+
+
+        title=metadata.student.ID  + ", " + metadata.counselor.name;
+        
+        // Highlight the selected Conversation
+        if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
+            cssClasses.push('user selected-user');
+            $("#logo-sidebar").css("display", "block");
+            //$("#preview-mssg-sidebar").css("display", "inline");
+            $("#chat-name-sidebar").css("display", "inline-block");
+            $('#chat-name-sidebar').html(title);
+            $("#logo-sidebar").attr("src", conversation.metadata.counselor.avatarString);
+            //$('#preview-mssg-sidebar').html('');
+        }
+
+        var latestMessage= conversation.lastMessage;
+        
+        row = $('<div/>', { class: cssClasses.join(' ') });
+        row.append(
+          '<section class = "user">' +
+          '<div class= "circle-crop"> <img src = "'+ metadata.counselor.avatarString +'" class="logo"> </div> <span  class="chat-name ' +  innerTextClasses + ' ">' + 
+          title + 
+          '</span> ' +  '<span class = "time">' + this.getSentAt(latestMessage) + '</span>' + '<br>' + '<span  class="preview-mssg ' +  innerTextClasses + '">' + this.getMessageText(latestMessage) + '</span>' +
+          '</section>');
+      } else {
+
+
+          // Highlight the selected Conversation
+        if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
+            cssClasses.push('user selected-user');
+            $("#logo-sidebar").css("display", "block");
+            //$("#preview-mssg-sidebar").css("display", "inline");
+            $("#chat-name-sidebar").css("display", "inline-block");
+            $('#chat-name-sidebar').html(title);
+            $("#logo-sidebar").attr("src", conversation.metadata.student.avatarString);
+            //$('#preview-mssg-sidebar').html('');
+        }
+
+        var latestMessage= conversation.lastMessage;
+              
+              var row = $('<div/>', { class: cssClasses.join(' ') });
+              row.append(
+                '<section class = "user">' +
+                '<div class= "circle-crop"> <img src = "'+ metadata.student.avatarString +'" class="logo"> </div> <span  class="chat-name ' +  innerTextClasses + ' ">' + 
+                title + 
+                '</span> ' +  '<span class = "time">' + this.getSentAt(latestMessage) + '</span>' + '<br>' + '<span  class="preview-mssg ' +  innerTextClasses + '">' + this.getMessageText(latestMessage) + '</span>' +
+          '</section>');
+
+
+      }
+
+
+
+
+
       
-      var row = $('<div/>', { class: cssClasses.join(' ') });
-      row.append(
-        '<section class = "user">' +
-        '<img src = "'+ metadata.student.avatarString +'" id = "id-logo"> <span id = "chat-name" class="' +  innerTextClasses + ' ">' + 
-        title + 
-        '</span> ' +  '<span class = "time">' + this.getSentAt(latestMessage) + '</span>' + '<br>' + '<span id= "preview-mssg" class="' +  innerTextClasses + '">' + this.getMessageText(latestMessage) + '</span>' +
-  '</section>');
+
+      
+
+      
 
       // Click handler to trigger an event when each conversation is selected
       row.on('click', function(evt) {
@@ -122,6 +182,7 @@
     render: function(conversations) {
       var prependBool=false;
       if (conversations) this.conversations = conversations;
+      //console.log("conversations length: " + this.conversations.length);
       this.conversations.forEach(function(conversation){
         if(conversation.metadata!=null) {
           if(conversation.metadata.student.name==""){
@@ -134,16 +195,21 @@
         }
       }, this);
       
+      
       if (!prependBool) {
         this.$el.empty();
         // Iterate through conversations and append HTML Rows
         this.conversations.forEach(function(conversation) {
-            var row = this.buildConversationRow(conversation);
-            this.$el.append(row);
+            if(conversation.participants.length!=0) {
+              var row = this.buildConversationRow(conversation);
+              this.$el.append(row);
+            }
         }, this);
       } else { //prepend was added for efficiency but may cause problems on simultaneous messages or other edge cases, if so 
               //use web sdk tutorial app by layer for reference 
-        this.$el.prepend(this.buildConversationRow(this.conversations[0]));
+        if(this.conversations[0].participants.length!=0) {
+          this.$el.prepend(this.buildConversationRow(this.conversations[0]));
+        }
       }
       
     }

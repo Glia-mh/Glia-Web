@@ -18,9 +18,15 @@
 
         if (conversation) {
             title = conversation.metadata.student.name;
+
         }
         else {
-            title = 'Logged in as: ' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
+            //Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+            //title = 'Logged in as: ' + Parse.User.current().attributes.name;
+            title= '';
+              $("#logo-sidebar").css("display", "none");
+              $("#preview-mssg-sidebar").css("display", "none");
+              $("#chat-name-sidebar").css("display", "none");
         }
 
         this.$el.html('<span id="name-chatting-to-header">' + title + '</span>');

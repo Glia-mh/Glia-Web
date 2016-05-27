@@ -31,7 +31,6 @@ window.addEventListener('load', function() {
    * Client ready. Initialize controller.
    */
   client.once('ready', function() {
-    console.log("test");
     layerSampleApp.Controller(layerSampleApp.client);
   });
 });

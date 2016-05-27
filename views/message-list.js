@@ -12,30 +12,57 @@
     },
 
     render: function(messages) {
+
+
       // Tutorial Step 3: Render messages here
       this.$el.empty();
+
+      if(messages==null || messages.length==0)
+        return;
 
       // NOTE: Do NOT modify the query.data i.e. messages array
       // Create a copy of the array and reverse the order so that most recent message is at the bottom
       var messages = messages.concat().reverse();
-      var previousSender = 0;
+      var previousSender = messages[0].sender.userId;
+      console.log(messages);
+      var previousTime = messages[0].sentAt;
       // //Append the header with name of coversation
       // this.$el.append(
       //   '<section id="chat-content-header">' +
       //   '<span id="name-chatting-to-header">' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId) + '</span>' +
       //   '</section> '
       // );
-
+      this.$el.append(
+          '<div class="container-time">' + this.getSentAt(messages[0]) + '</div>'
+      );
       this.$el.append(
 
          // Render each message view
          messages.forEach(function(message) {
 
           var messageView = new layerSampleApp.Message();
+          
+          var diffMs= message.sentAt - previousTime;
+         
+          var diffHrs = Math.round((diffMs % 86400000) / 3600000); 
+          var diffDays = Math.round(diffMs / 86400000);
+          
+          console.log("Diff Hrs: " + diffHrs);
+          console.log("Diff Days: " + diffDays);
 
+          if(diffHrs>1 || diffDays>0){
+            this.$el.append(
+              '<div class="container-time">' + this.getSentAt(message) + '</div>'
+            );
+          }
           console.log("sender: " + previousSender);
+          if(previousSender!=message.sender.userId)
+            this.$el.append(
+              '<div class="separator">' +  '</div>'
+            );
           messageView.render(message, previousSender);
           previousSender = message.sender.userId;
+          previousTime = message.sentAt; 
           
 
           this.$el.append(messageView.$el);

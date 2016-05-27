@@ -39,9 +39,10 @@ header {
 #profile-logo{
 	height: 40px;
 	width: 40px;
-	padding: 10px;
-	padding-left: 0px;
-	border-radius: 25px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-left: 0px;
+	border-radius: 50%;
 	float: right;
 }
 #signout {
@@ -88,37 +89,45 @@ header {
 	position:relative;
 	overflow:hidden;
 }
-.container-time-from-me {
+.container-time {
 	color: grey;
-	font-size: 9px;
-	float: left;
-	display: inline;
+	font-size: 12px;
+	
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-family: "Helvetica Neue";
+
 
 }
 
-.container-time-from-them {
+.separator {
 	color: grey;
-	font-size: 9px;
-	float: right;
-	display: inline;
- }
-#id-logo{
+	
+	display: block;
+	width: 100%;
+	height: 15px;
+
+
+}
+
+.logo{
 	float: left;
 	width: 45px;
 	height: 45px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	border-radius: 50%;
 	caption-side: right;
 }
 
-#id-logo-side {
-	width: 45px;
-	height: 45px;
-	float: left;
-	padding-left: 20px;
-	padding-top: 20px;
-	padding-right: 20px;
+#logo-sidebar {
+	margin-bottom: 10px;
+	display: none;
+
 }
 
 #user-name{
@@ -128,11 +137,20 @@ header {
 	float: right;
 }
 
-#chat-name{
+.chat-name{
 	padding-top: 17px;
 	text-align: left;
 	float: left;
+	overflow:hidden !important;
+	white-space: nowrap;
+    text-overflow: ellipsis;
 	font-size: 16px;
+	width: 200px;
+}
+
+#chat-name-sidebar{
+	padding-top: 25px;
+	display: none;
 }
 
 .online{
@@ -142,10 +160,14 @@ header {
 .time {
 	font-size: 10px;
 	float: right;
-	padding-top: 20px;
-	padding-right: 10px;
+	padding-top: 5px;
+	position: absolute;
+	right: 10px;
 }
-#preview-mssg{
+
+
+/* the code for these two should roughly be the same*/
+.preview-mssg{
 	color: gray;
 	float: left;
 	font-size: 12px;
@@ -155,7 +177,9 @@ header {
    	display:inline-block;
    	width: 180px;
    	text-align: left;
+}
 
+#preview-mssg-sidebar{
 
 }
 
@@ -191,7 +215,7 @@ header {
 	resize: auto;
 }
 
-#notes {
+#notes, #emails {
 	max-width: 85%;
 	max-height: 70%;
 
@@ -215,7 +239,7 @@ header {
 	background-color: #5CA759;
 }
 
-#report{
+#report, #banuser{
 	background-color: #F45454;
 	padding-top: 7px;
 	padding-bottom: 7px;
@@ -229,9 +253,30 @@ header {
 	margin-bottom: 15px;
 
 }
-#report:hover {
+#report:hover, #banuser:hover {
 	background-color: #F73939;
 }
+
+
+#unreport {
+	border: solid 1px #999999;
+	background-color: rgba(179, 179, 179, 1);
+	padding-top: 7px;
+	padding-bottom: 7px;
+	width: 72%;
+	color: white;
+	border-radius: 7px;
+	font-size: 15px;
+	border: none;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#unreport:hover {
+	background-color: #999999;
+}
+
+
 
 a:link {
 	color: rgb(200, 200, 200);
@@ -345,27 +390,7 @@ textarea {
 	cursor: pointer;
 }
 
-/*.modal {
-	position: absolute;
-	top: 10%;
-	left: 0; right: 0;
-	margin: auto;
-	padding: 20px;
-	background: white;
-	width: 50%;
-	border-radius: 5px;
-}
 
-.modal .close {
-	float: right;
-	margin-bottom: 20px;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.modal .close + * {
-	clear: both;
-}*/
 
 #container {
 	display: table-cell;
@@ -582,6 +607,10 @@ textarea {
 
 .bottomborder-sidebar {
 	border-bottom: 2px solid #F2F2F2;
+}
+
+#bottomborder-sidebar-top {
+	height: 65px;
 }
 
 

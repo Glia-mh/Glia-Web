@@ -43,7 +43,6 @@
       }
     }, function(result) {
       var data = result.data;
-      console.log(data);
       // data.atlas_identities.forEach(function(item) {
       //     sampleIdentities[item.id] = item.name;
       // });
@@ -51,19 +50,9 @@
     });
   }
 
-  function getIdentityDisplayName(userId) {
-    console.log(userId);
-    return sampleIdentities[userId] || 'User ' + userId;
-  }
 
-  function getIdentityList() {
-    return Object.keys(sampleIdentities).map(function(userId) {
-      return {id: userId, name: sampleIdentities[userId]};
-    });
-  }
+  
   layerSampleApp.Identities = {
-    getList: getIdentityList,
-    getDisplayName: getIdentityDisplayName,
     getIdentityToken: getIdentityToken
   };
 })();

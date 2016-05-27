@@ -11,25 +11,21 @@
 			margin: 0 auto 60px;
 			color: gray;
 		}
-
 		#profile-form .preview {
 			width: 100px;
 			height: 100px;
 			border-radius: 50px;
 		}
-
 		#crop-form .crop-container {
 			position: relative;
 			overflow: hidden;
 			cursor: pointer;
 		}
-
 		#crop-form img {
 			display: block;
 			width: 100%;
 			pointer-events: none;
 		}
-
 		#crop-form .crop-circle {
 			position: absolute;
 			top: 0; left: 0;
@@ -38,7 +34,6 @@
 			border-radius: 50%;
 			cursor: move;
 		}
-
 		#crop-form .crop-circle .handle {
 			position: absolute;
 			right: 0; bottom: 0;
@@ -46,14 +41,46 @@
 			border-top: 10px solid transparent;
 			cursor: se-resize;
 		}
+
+		.crop-modal {
+			position: absolute;
+			top: 10%;
+			left: 0; right: 0;
+			margin: auto;
+			padding: 20px;
+			background: white;
+			width: 50%;
+			border-radius: 5px;
+		}
+
+		.crop-modal .close {
+			float: right;
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.crop-modal .close + * {
+			clear: both;
+		}
+
+		.crop-modal-container {
+			opacity: 1;
+			transition: opacity 0.3s;
+		}
+
+		.crop-modal-container.hidden {
+			display: block !important;
+			visibility: hidden;
+			opacity: 0;
+			transition: opacity 0.3s, visibility 0s 0.3s;
+		}
 	</style>
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-
 		var currentUser = Parse.User.current();
 		if (!currentUser) window.location = "counselor_login.php";
-		if(currentUser.attributes.rootsAuthData) window.location = "counselor_register.html";
 	</script>
 </head>
 <body>
@@ -79,9 +106,9 @@
 			<p id="note"></p>
 		</form>
 
-		<div id="crop-modal" class="modal-container hidden">
+		<div id="crop-modal" class="crop-modal-container hidden">
 			<div class="overlay" onclick="this.parentNode.classList.add('hidden')"></div>
-			<div class="modal">
+			<div class="crop-modal">
 				<a href="#" class="close" onclick="this.parentNode.parentNode.classList.add('hidden')">&times;</a>
 				<form id="crop-form">
 					<div class="crop-container">
@@ -100,25 +127,20 @@
 	<script>
 		// display counselor name
 		document.getElementById("counselor-name").textContent = currentUser.get("name");
-
 		(function () {
 			var form = document.getElementById("profile-form");
 			var preview = form.getElementsByClassName("preview")[0];
-
 			var cropModal = document.getElementById("crop-modal");
 			var cropImg = cropModal.getElementsByTagName("img")[0];
 			var cropContainer = cropModal.getElementsByClassName("crop-container")[0];
 			var cropCircle = cropModal.getElementsByClassName("crop-circle")[0];
-
 			var reader = new FileReader();
 			reader.onload = function () { cropImg.src = this.result; };
-
 			document.getElementById("image-icon").addEventListener("click", function () {
 				if (!form.elements["image"].files[0]) return;
 					cropModal.classList.remove("hidden");
 					reader.readAsDataURL(form.elements["image"].files[0]);
 			});
-
 			$("#profile").on("change", function() {
 				document.getElementById("upload-button").value = "Upload";
 				var value = this.value.split(/[\/\\]/).pop();
@@ -127,104 +149,81 @@
 					cropModal.classList.remove("hidden");
 					reader.readAsDataURL(form.elements["image"].files[0]);
 			});
-
 			document.getElementById("upload-button").addEventListener("click", function () {
 				document.getElementById("profile").click();
 			});
-
 			// initialize crop circle on image load
 			cropImg.addEventListener("load", function () {
 				var size = Math.min(cropImg.width, cropImg.height);
-
 				cropCircle.style.width = size + "px";
 				cropCircle.style.height = size + "px";
 				cropCircle.style.left = (cropImg.width - size) / 2 + "px";
 				cropCircle.style.top = (cropImg.height - size) / 2 + "px";
 			});
-
 			// make crop circle draggable
 			(function (draggable, container) {
 				var x, y, top, left, maxTop, maxLeft;
-
 				var doDrag = function (e) {
 					var newTop = top + e.clientY - y;
 					var newLeft = left + e.clientX - x;
-
 					if (newTop < 0) newTop = 0;
 					else if (newTop > maxTop) newTop = maxTop;
 					if (newLeft < 0) newLeft = 0;
 					else if (newLeft > maxLeft) newLeft = maxLeft;
-
 					draggable.style.top = newTop + "px";
 					draggable.style.left = newLeft + "px";
 				};
-
 				var stopDrag = function () {
 					container.removeEventListener("mousemove", doDrag);
 					container.removeEventListener("mouseup", stopDrag);
 				};
-
 				draggable.addEventListener("mousedown", function (e) {
 					var style = window.getComputedStyle(this);
 					var containerStyle = window.getComputedStyle(container);
-
 					x = e.clientX;
 					y = e.clientY;
 					top = parseFloat(style.top, 10);
 					left = parseFloat(style.left, 10);
 					maxTop = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.height, 10));
 					maxLeft = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.width, 10));
-
 					container.addEventListener("mousemove", doDrag);
 					container.addEventListener("mouseup", stopDrag);
 				});
 			})(cropCircle, cropContainer);
-
 			// make crop circle resizable
 			(function (resizable, handle, container) {
 				var x, y, width, maxWidth, maxHeight;
-
 				var doResize = function (e) {
 					var newWidth = width + e.clientX - x;
 					newHeight = newWidth;
-
 					if (newWidth < 10) newWidth = newHeight = 10;
 					else if (newWidth > maxWidth) newWidth = newHeight = maxWidth;
 					if (newHeight < 10) newWidth = newHeight = 10;
 					else if (newHeight > maxHeight) newWidth = newHeight = maxHeight;
-
 					resizable.style.width = newWidth + "px";
 					resizable.style.height = newHeight + "px";
 				};
-
 				var stopResize = function () {
 					container.removeEventListener("mousemove", doResize);
 					container.removeEventListener("mouseup", stopResize);
 				};
-
 				handle.addEventListener("mousedown", function (e) {
 					e.stopPropagation();
-
 					var style = window.getComputedStyle(resizable);
 					var containerStyle = window.getComputedStyle(container);
-
 					x = e.clientX;
 					y = e.clientY;
 					width = parseFloat(style.width, 10);
 					maxWidth = Math.round(parseFloat(containerStyle.width, 10) - parseFloat(style.left, 10));
 					maxHeight = Math.round(parseFloat(containerStyle.height, 10) - parseFloat(style.top, 10));
-
 					container.addEventListener("mousemove", doResize);
 					container.addEventListener("mouseup", stopResize);
 				});
 			})(cropCircle, cropCircle.getElementsByClassName("handle")[0], cropContainer);
-
 			// handle crop form
 			document.getElementById("crop-form").addEventListener("submit", function (e) {
 				e.preventDefault();
-
 				var ratio = cropImg.naturalWidth / cropImg.width;
-
 				var canvas = document.createElement('canvas');
 				canvas.width = 500;
 				canvas.height = 500;
@@ -234,30 +233,19 @@
 						Math.round(parseFloat(cropCircle.style.width, 10) * ratio),
 						Math.round(parseFloat(cropCircle.style.height, 10) * ratio),
 						0, 0, 500, 500);
-
 				preview.src = canvas.toDataURL("image/jpeg");
 				cropModal.getElementsByClassName("close")[0].click();
 			});
-
 			// handle form submit
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
-
 				currentUser.set("photoURL", preview.src);
 				currentUser.set("bio", form.elements["bio"].value);
 				currentUser.save(null)
 				.then(function (user) {
 					form.reset();
+					window.location="ChatUI/ChatUI.php"
 				});
-
-				if (currentUser.get("photoURL") && currentUser.get("bio"))
-					/*if (typeof(Storage) != "undefined") {
-						localStorage.set("hasCode", false);
-						
-					}*/
-					window.location = "./ChatUI/ChatUI.php";
-				else
-					window.alert("You must add a picture and a bio!");
 			});
 		})();
 	</script>

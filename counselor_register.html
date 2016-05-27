@@ -8,14 +8,12 @@
 	<script src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	<script>
 		Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
+		//alert(Parse.User.current().attributes.rootsAuthData);
 		if(Parse.User.current()!=null){
 			if(Parse.User.current().attributes!=null){
 				if(Parse.User.current().attributes.rootsAuthData=="banned")
 					window.location = "counselor_login.php";
-
-
-				alert(Parse.User.current().attributes.rootsAuthData);
-				if(Parse.User.current().attributes.rootsAuthData == null){
+				if(Parse.User.current().attributes.rootsAuthData != "notverified"){
 					window.location = "ChatUI/ChatUI.php";
 				}
 			} else {
@@ -70,15 +68,9 @@
 				//send to welcome page
 				user.save(null)
 				.then(function (user) {
-					return layer.getNonce();
+					window.location = "counselor_login.php"
 				}, function (error) {
 					alert("Error: " + error.code + " " + error.message);
-				})
-				.then(function (nonce) {
-					return layer.authenticate(nonce, user.id)
-				})
-				.then(function (sessionToken) {
-					window.location = "counselor_welcome.html";
 				});
 			}
 		});

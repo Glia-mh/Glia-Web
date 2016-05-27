@@ -77,9 +77,11 @@
 	  Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
 	    var currentUser = Parse.User.current();
 	    if (!currentUser) window.location = "../counselor_login.php";
-	    if(currentUser.get("rootsAuthData")!=null){
+	    if(currentUser.attributes.rootsAuthData=="banned"){
+	    	window.location = "../counselor_login.php";
+	    } else if (currentUser.attributes.rootsAuthData=="notverified") {
 			window.location = "../counselor_register.html";
-		}
+		} 
 	    window.layerSampleConfig = {
 	      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
 	      userId: currentUser.id
@@ -142,68 +144,7 @@
 	});
 
 
-	$(window).load(function() {
-		var send_email_report = function (em_arr) {
-			for (var i = 0; i < em_arr.length; i++) {
-				console.log(document.getElementById("notes").value +"test");
-				var email = currentUser.attributes.email;
-				var php_data = "email=" + em_arr[i] + "&second="+ email + "&body=" + document.getElementById("notes").value;
-				console.log(php_data);
-				$.ajax({
-					type: "POST",
-					url: '../reportEmail.php',
-					data: php_data,
-					success: function() {}
-				});
-			}
-		};
-		document.getElementById("report").addEventListener("click", function () {
-
-			var email_array=[currentUser.attributes.schoolID];
-			var Schools = Parse.Object.extend("SchoolIDs");
-			var query = new Parse.Query(Schools); 
-			console.log(currentUser.attributes.schoolID);
-			console.log(currentUser.attributes.schoolID.id);
-			query.get(currentUser.attributes.schoolID.id, {
-  				success: function(school) {
-    				var modal = document.getElementById("myModal");
-    				document.getElementById("modal-text").innerHTML= "Are you sure you want to report this conversation? You reveal the student's identity and conversation history to you organizations' admin.";
-					document.getElementById("OKModal").value="Report";
-					document.getElementById("OKModal").style.border="solid 1px #e60000";
-					document.getElementById("OKModal").style.backgroundColor="#ff0000";
-					$("#OKModal").hover(function(){
-					    $(this).css("background-color", "#cc0000");
-					    }, function(){
-					    $(this).css("background-color", "#ff0000");
-					});
-					modal.style.display = "block";
-
-
-					$( "#OKModal").unbind("click");
-					//OK Button
-					$("#OKModal").click(function() {
-						modal.style.display = "none";
-						console.log(school);
-						email_array=[school.attributes.SchoolEmails];
-    					send_email_report(email_array);
-    					document.getElementById("notes").value="";
-					});
-
-
-    				
-  				},
-  				error: function(object, error) {
-    				// The object was not retrieved successfully.
-    				// error is a Parse.Error with an error code and message.
-    				document.getElementById("OKModal").style.display="none";
-			    	document.getElementById("modal-text").innerHTML= 'Error making the report! Email us at <a href="mailto:teamroots@teamroots.org">teamroots@teamroots.org</a>  to share the problem. Or try again.';
-			    	var modal = document.getElementById('myModal');
-			    	modal.style.display="block";
-  				}
-			});
-
-		});
-	}); 
+	
 
 </script>
 
@@ -258,12 +199,13 @@
 			user.set("counselorType", "1");
 			user.set("schoolID" , currentUser.attributes.schoolID);
 			user.set("isAvailable", true);
-			user.set("rootsAuthData", studentObj.code);
+			user.set("rootsAuthData", "notverified");
 
 			user.signUp(null, {
 			  success: function(user) {
 			    Parse.User.become(sessionToken);
 			    var php_data = "email=" + studentObj.email + "&code=" + studentObj.code;
+			    console.log(php_data);
 			    $.ajax({
 						type: "POST",
 						url: \'../email.php\',
@@ -300,6 +242,8 @@
 			if(Parse.User.current().attributes.counselorType != 0){
 				$("#adduserssection").hide();
 			} else {
+				$("#reporturgentsection").hide();
+				$("#class-message-box-container-mainchat").hide();
 				document.getElementById("adduser").addEventListener("click", function () {
 					var modal = document.getElementById(\'myModal\');
 					
@@ -362,7 +306,7 @@
 			}
 		});</script>';
 		} else {
-			echo '<script language="javascript"> $(window).load(function() {$("#adduserssection").hide();}); </script> ';
+			echo '<script language="javascript"> $(window).load(function() {$("#adduserssection").hide(); $("#unreportsection").hide()}); </script> ';
 		}
 
 		
@@ -410,7 +354,14 @@
 
 	<img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
 	<span id = "user-name"></span>
+
 	<img src = "../img/id-logo.jpg" id = "profile-logo">
+	<script type="text/javascript">
+		if(Parse.User.current())
+			if(Parse.User.current().attributes.photoURL)
+				$(window).load(function() { $("#profile-logo").attr("src", Parse.User.current().attributes.photoURL)});
+		
+	</script>
 	<img src = "../img/team-roots-logo.png" id = "header-logo">
 	
 </header>
@@ -439,7 +390,7 @@
 
 		</section> 
 
-		<form style = "overflow: hidden" class="class-message-box-container">
+		<form style = "overflow: hidden" id="class-message-box-container-mainchat" class="class-message-box-container">
 
 		
 		</form>
@@ -450,19 +401,19 @@
 <aside class = "right-sidebar">
 
 	<section>
-		<section class="bottomborder-sidebar">
-		<br>
-		<img src = "../img/id-logo.jpg" id = "id-logo"> <span id = "chat-name"> Participant Name </span> <br> <span id= "preview-mssg"> University of Southern California </span> 
-		<br>
-		<br>
-		<br>
+		<section class="bottomborder-sidebar" id="bottomborder-sidebar-top">
+
+		<img src = "../img/id-logo.jpg" class = "logo" id="logo-sidebar"> <span id= "chat-name-sidebar" class= "chat-name"> Participant Name </span> <!--<br> <span id="preview-mssg-sidebar" class= "preview-mssg"> University of Southern California </span> -->
+		
+
 		</section>
 
-		<section class="bottomborder-sidebar">
+		<section id="reporturgentsection" class="bottomborder-sidebar">
 			<br>
 			<textarea id = "notes" rows = "8" cols = "35" class="sidetextarea" placeholder = "Enter notes..."></textarea>
 			<br><br>
 			<button id = "report">Report Urgent</button> 
+
 			<br>
 		</section>
 
@@ -471,9 +422,14 @@
 			<textarea id = "emails" rows = "8" cols = "35" class="sidetextarea" placeholder = "Enter emails..."></textarea>
 			<br><br>
 			<button id = "adduser">Add Users</button> 
+			<button id = "banuser">Ban Users</button> 
 			<br>
 		</section>
-
+		<section id="unreportsection" class="bottomborder-sidebar">
+			<br>
+			<button id = "unreport">Undo Report</button> 
+			<br>
+		</section>
 
 
 

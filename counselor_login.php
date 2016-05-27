@@ -64,18 +64,23 @@
 				}, function (error) {
 					document.getElementById("note").innerHTML = "This is not a login! Try again.";
 				})
-				.then(function () {
-					if(currentUser.get("rootsAuthData")){
+				.then(function () {	
+					if(currentUser.get("rootsAuthData")=="banned") {
+						Parse.User.logOut();
+						window.location="counselor_login.php";
+					} else if(currentUser.get("rootsAuthData")=="notverified") {
 						window.location = "counselor_register.html";
+					} else {
+						if (currentUser.get("photoURL") && currentUser.get("bio")){
+						    window.layerSampleConfig = {
+						      appId: \'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0\',
+						      userId: currentUser.id
+						    };
+							window.location = "ChatUI/ChatUI.php";
+						} else {
+							window.location = "counselor_welcome.html";
+						}
 					}
-					if (currentUser.get("photoURL") && currentUser.get("bio")){
-					    window.layerSampleConfig = {
-					      appId: \'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0\',
-					      userId: currentUser.id
-					    };
-						window.location = "ChatUI/ChatUI.php";
-					}else
-						window.location = "counselor_welcome.html";
 				}); </script>';
 			} catch (ParseException $error) {
 	  			// The login failed. Check error to see why.
@@ -87,17 +92,22 @@
 	<script>
 		var currentUser = Parse.User.current();
     	if (currentUser) {
-    			if(currentUser.get("rootsAuthData")!=null){
+    			console.log(currentUser.get("rootsAuthData"));
+					if(currentUser.get("rootsAuthData")=="banned") {
+						Parse.User.logOut();
+					} else if(currentUser.get("rootsAuthData")=="notverified") {
 						window.location = "counselor_register.html";
+					} else {
+					if (currentUser.get("photoURL") && currentUser.get("bio")){
+					    window.layerSampleConfig = {
+					      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
+					      userId: currentUser.id
+					    };
+						window.location = "ChatUI/ChatUI.php";
+					}else {
+						window.location = "counselor_welcome.html";
+					}
 				}
-				if (currentUser.get("photoURL") && currentUser.get("bio")){
-				    window.layerSampleConfig = {
-				      appId: 'layer:///apps/staging/e25bc8da-9f52-11e4-97ea-142b010033d0',
-				      userId: currentUser.id
-				    };
-					window.location = "ChatUI/ChatUI.php";
-				}else
-					window.location = "counselor_welcome.html";
 		}
 		
 	</script>
