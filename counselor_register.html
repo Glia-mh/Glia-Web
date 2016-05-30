@@ -35,6 +35,8 @@
 		<form id="register-form">
 			<input type="text" name="name" class="form-field" placeholder="Name" required><br>
 			<input type="password" name="password" class="form-field" placeholder="Password" required><br>
+			<input type="password" name="retypepassword" class="form-field" placeholder="Retype Password" required> <br>
+
 			<p id="note"></p>
 			<input type="submit" class="button" value="Next">
 		</form>
@@ -54,6 +56,8 @@
 				document.getElementById("note").innerHTML = "password must contain a lowercase alphabetical character";
 			} else if (!(/[A-Z]/.test(password_input))) {
 				document.getElementById("note").innerHTML = "password must contain an uppercase alphabetical character";
+			} else  if(password_input != this.elements["retypepassword"].value) {
+				document.getElementById("note").innerHTML = "your retyped password does not match.";
 			} else {
 				// store user
 				var user = Parse.User.current();

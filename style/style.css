@@ -215,6 +215,16 @@ header {
 	resize: auto;
 }
 
+.add-admins-textarea{
+	padding: 10px;
+	display: inline-block;
+	padding-top: 10px;
+	border-radius: 10px;
+	width: 350px;
+	height: 150px;
+	resize: none;
+}
+
 #notes, #emails {
 	max-width: 85%;
 	max-height: 70%;
@@ -455,6 +465,17 @@ textarea {
 .class-from-me {
 	color: white; 
 }
+
+.class-from-me a {
+	color: white;
+	text-decoration: underline;
+}
+
+.class-from-me a:hover {
+	color:white;
+	text-decoration: underline;
+	background-color: rgba(255, 255, 255, 0.2);
+}
 .class-from-me .class-bubble {
 	background: rgba(100, 200, 122, 1);
 	float:right;
@@ -482,6 +503,8 @@ textarea {
 		border-bottom-left-radius: 10px;
 		word-wrap: break-word;max-width: 100%;
 	}
+
+
 
 
 
@@ -517,6 +540,21 @@ textarea {
 		background:white;
 		border-bottom-right-radius: 10px;
 	}
+
+.class-from-them a {
+	color: black;
+	text-decoration: underline;
+}
+
+	.class-from-them a:hover {
+	color:black;
+	text-decoration: underline;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.class-from-me .class-bubble {
+	background: rgba(100, 200, 122, 1);
+	float:right;
+}
 .class-descriptor {
 }
 .clear {clear: both}
@@ -661,6 +699,27 @@ textarea {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.welcome {
+	position: absolute;
+	top: 35%;
+	width: 100%;
+	text-align: center;
+
+}
+
+.welcometext {
+	margin-top: 25px;
+	font-size: 18px;
+	font-size: 20px;
+
+	width: 100%;
+
+}
+.rootsicon {
+	height: 200px;
+	width: 200px;
 }
 
 

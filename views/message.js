@@ -86,6 +86,7 @@
             '<div class="class-bubble">' + this.getMessageText(message) + '</div>' + 
             '</section>' + '<div class="clear">' + '</div>'
           );
+
         } else {
           this.$el.append(
             '<section class="class-chat-list-container class-from-them">' +
@@ -110,20 +111,6 @@
           );
         }
       }
-
-      // this.$el.append(
-      //   '<div class="clear">' + '</div>'
-      //   );
-
-      /*
-      this.$el.append(
-        '<div class="class-chat-list-container">' +
-          '<span class="name">' + this.getSenderName(message) + '</span>' +
-          '<div class="class-from-me class-bubble">' + this.getMessageText(message) + '</div>' +
-        '</div>' +
-        '<div class="timestamp">' + this.getSentAt(message) + this.getMessageStatus(message) + '</div>'
-      ); */
-
       message.isRead = true;
     }
 

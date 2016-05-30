@@ -8,7 +8,8 @@
   layerSampleApp.MessageList = Backbone.View.extend({
     el: '.chat-content-wrapper',
     initialize: function() {
-      this.$el.append("Your messages will go here");
+
+      this.$el.append('<div class="welcome"> <img class="rootsicon" src="../img/teamrootsicon.png"/> <div class="welcometext" id="welcometext">  </div> </div>');
     },
 
     render: function(messages) {
@@ -67,16 +68,15 @@
 
           this.$el.append(messageView.$el);
         }, this)
+
       );
 
-      // this.$el.append (
-      //   '<form onkeyup = "textAreaAdjust(this)" style = "overflow: hidden" class="class-message-box-container">' +
-      //   '<textarea id="comments" class="message-box txtstuff" placeholder="Type many lines of texts in here and you will see magic stuff" class="common">' + '</textarea>' +
-      //   '<input type="submit" class="button" id="#send-button" value="Send" /> ' + '</form>'
-      // );
-
-      // Make sure the user can see the last message in the list
+    
       this.scrollBottom();
+      console.log("this runs");
+      $(".class-bubble").linkify({
+        target: "_blank"
+      });
     },
      getSentAt: function(message) {
       var now = new Date();
