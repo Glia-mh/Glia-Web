@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Team Roots</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel="stylesheet" media="screen and (max-width: 999px)" href="style/small.css" />
+	<link rel="stylesheet" media="screen and (min-width: 1000px)" href="style/large.css" />
+
+	<script type="text/javascript">
+		$(document).ready(function () {    
+			setContainerWidth();
+		});
+		window.onload = function () {
+			if($(window).width()<999) {
+							$(window).unbind('scroll');
+							var context = document.getElementById("text-content"); // BTW. numeric IDs are not valid
+							var parent = context.parentNode;
+							var _1st = parent.firstChild;
+
+							parent.insertBefore(context, _1st);
+
+
+							if(getMobileOperatingSystem()=="iOS") {
+								document.getElementById("getit").src = "img/getitapple.png";
+							} else if (getMobileOperatingSystem()=="Android") {
+								document.getElementById("getit").src = "img/getitgoogle.png";
+							}
+
+						}
+			document.getElementById("screenshots").style.transform = "translateX(0)";
+			document.getElementById("text-content").style.transform = "translateY(0)";
+			document.getElementById("screenshots").style.opacity = "1";
+			document.getElementById("text-content").style.opacity = "1";  
+			document.getElementById("text-1").style.transform = "translateY(0)"; 
+			document.getElementById("text-1").style.opacity = "1"; 
+			setTimeout(function() { 			
+				document.getElementById("text-2").style.transform = "translateY(0)"; 
+				document.getElementById("text-2").style.opacity = "1"; 
+			}, 500); 
+
+			setTimeout(function() { 			
+				
+				document.getElementById("text-3").style.opacity = "1";  
+				document.getElementById("email-us").style.opacity = "1";  
+			}, 1000); 
+
+
+
+		}
+
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/player_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		var player;
+		function onYouTubePlayerAPIReady() {
+			player = new YT.Player('ytplayer', {
+				height: '520',
+				width: '924',
+				playerVars : {
+					autoplay : 0,
+					showinfo: 0,
+					rel: 0
+				},
+				videoId: 'eiUqBpLjKBk'
+
+			});
+		}
+
+		$(window).load(function(){ 
+			$("#arrow-down").click(function() {
+		  		$("html, body").animate({ scrollTop: $(window).height() }, 1500);
+			});
+
+
+
+		});	
+
+		function getMobileOperatingSystem() {
+				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+				if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+				{
+					return 'iOS';
+
+				}
+				else if( userAgent.match( /Android/i ) )
+				{
+
+					return 'Android';
+				}
+				else
+				{
+					return 'unknown';
+				}
+			}	
+
+		$(window).scroll(function() {
+
+    		$("#arrow-down").css("opacity", 1 - $(window).scrollTop() / 250);
+ 			$("#container").css("opacity", 1 - $(window).scrollTop() / 250);	
+			$("iframe").each(function () {
+				if($(window).scrollTop() > $(this).offset().top - $(window).height()) {
+					document.getElementById("title").style.transform = "translateY(0)"; 
+					document.getElementById("title").style.opacity = "1"; 
+					player.playVideo();
+				} else {
+					player.stopVideo();
+				}
+			}); 
+
+			$(".icon").each(function () {
+				var icons = document.getElementsByClassName("icon");
+				if($(window).scrollTop() > $(this).offset().top - $(window).height()) {
+					for (var i = 0; i < icons.length; i++) {
+						icons[i].style.opacity = "1";
+					}
+				}
+			});
+		});
+		
+		$(window).resize(function() {
+			if($(window).width()<999) {
+				$(window).unbind('scroll');
+				var context = document.getElementById("text-content"); // BTW. numeric IDs are not valid
+				var parent = context.parentNode;
+				var _1st = parent.firstChild;
+
+				parent.insertBefore(context, _1st);
+			} else {
+
+					$(window).scroll(function() {
+
+		    		$("#arrow-down").css("opacity", 1 - $(window).scrollTop() / 250);
+		 			$("#container").css("opacity", 1 - $(window).scrollTop() / 250);	
+					$("iframe").each(function () {
+						if($(window).scrollTop() > $(this).offset().top - $(window).height()) {
+							document.getElementById("title").style.transform = "translateY(0)"; 
+							document.getElementById("title").style.opacity = "1"; 
+							player.playVideo();
+						} else {
+							player.stopVideo();
+						}
+					}); 
+
+					$(".icon").each(function () {
+						var icons = document.getElementsByClassName("icon");
+						if($(window).scrollTop() > $(this).offset().top - $(window).height()) {
+							for (var i = 0; i < icons.length; i++) {
+								icons[i].style.opacity = "1";
+							}
+						}
+					});
+				});
+			}
+		});
+
+
+	</script>
+</head>
+<body>
+	<div id = "navbar">
+			<img class="logo-image"/>
+			<div style="float: right">
+				<p id = "nav-about"><a href="#info"><span>About </span> </a></p>
+				<p id = "nav-contact"><a href="mailto:teamroots@teamroots.org" target="_blank"><span> Contact</span></a></p>
+				<a href="counselor_login.php"  target="_blank"><p id = "nav-login">Login as Counselor</p></a>
+			</div>
+		</div>
+	<div id = "container">
+		
+		<div id="downloadbutton"> <img src="" id="getit" width="35%"/> </div>
+		<div id = "content">
+
+			<div id="screenshotsdiv"><img id = "screenshots" src = "img/screenshots.png"/></div>
+			<div id = "text-content"> 
+				<p id = "text-1">Safe, anonymous online counseling</br>and support for students.</p>
+				<p id = "text-2">Going through rough times? Chat anonymously with</br>trained counselors from your school, wherever you are.</p>
+				<p id = "text-3">Coming soon to Web, iOS, and Android.</p>
+
+				<form id = "email-us" action="http://teamroots.us11.list-manage.com/subscribe/post?u=aaac4fca4ccf110664b3f2db3&amp;id=7164548836" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+					<input id = "enter-email" type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" onblur="checkTextField(this);" placeholder="Interested? Enter your email." required>
+					<input id = "go-button" type="submit"  value="Submit" name="subscribe" id="mc-embedded-subscribe" class="button" onclick = "finished()">
+					<p id = "note"></p>
+					
+					<p id="counselor_code_prompt" style = "text-align:center; font-size: 12px; color: gray; margin-top: 30px;"> <a href="counselor_login.php" target="_blank"> Have a counselor code? </a></p>
+				</form> 
+
+				
+			</div>
+		</div>
+
+		<div id = "arrow-down"></div>
+	</div>
+
+	<div id = "information">
+		<a name="info"> </a>
+		<div class="inner">
+			<p id = "title">How it works</p>
+			<div id = "video">
+				<div id="ytplayer-container"><div id="ytplayer" style=""></div></div>
+			</div>
+
+				<center>
+			
+					<a href="https://www.facebook.com/teamroots.org/" target="_blank"><img src="img/facebook.png" class = "icon" style = "-webkit-transition: .5s all; -moz-transition: .5s all; -o-transition: .5s all; transition: .5s all;"/> </a>
+					<a href="https://twitter.com/TeamRoots1" target="_blank"> <img src="img/twitter.png" class = "icon" style = "-webkit-transition: 1.5s all; -moz-transition: 1.5s all; -o-transition: 1.5s all; transition: 1.5s all;"/> </a>
+					<a href="mailto:teamroots@teamroots.org" target="_blank"><img src="img/email.png" class = "icon" style = "-webkit-transition: 2.5s all; -moz-transition: 2.5s all; -o-transition: 2.5s all; transition: 2.5s all;"/> </a>
+					<a href="https://www.linkedin.com/company/team-roots" target="_blank"><img src="img/linkedin.png" class = "icon" style = "-webkit-transition: 3.5s all; -moz-transition: 3.5s all; -o-transition: 3.5s all; transition: 3.5s all;"/>
+					</center>
+			
+		</div>
+	</div>
+
+	
+</body>
+</html>
