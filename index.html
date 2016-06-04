@@ -37,9 +37,6 @@
 				document.getElementById("text-3").style.opacity = "1";  
 				document.getElementById("email-us").style.opacity = "1";  
 			}, 1000); 
-
-
-
 		}
 
 		var tag = document.createElement('script');
@@ -64,7 +61,7 @@
 
 		$(window).load(function(){ 
 			$("#arrow-down").click(function() {
-		  		$("html, body").animate({ scrollTop: $(window).height() }, 1500);
+		  		$("html, body").animate({ scrollTop: $(window).height()*2 }, 1500);
 			});
 		});		
 
@@ -91,8 +88,17 @@
 				}
 			});
 		});
+
+		function setContainerWidth() {
+		   	var windowWidth = $(document).getElementById("contact").width();
+		    $('#contact-icons').css('width', 'auto');
+			var blockWidth = $('.icon').outerWidth(true);
+		    var maxBoxPerRow = Math.floor(windowWidth / blockWidth);
+		    $('#contact-icons').width(maxBoxPerRow * blockWidth);
+		}  
 		
 		$(window).resize(function() {
+			setContainerWidth();
 			if($(window).width()<926) {
 				$(window).unbind('scroll');
 				var context = document.getElementById("text-content"); // BTW. numeric IDs are not valid
@@ -130,7 +136,8 @@
 	</script>
 </head>
 <body>
-	<div id = "navbar">
+	<div id = "navbar-container">
+		<div id = "navbar">
 			<img class="logo-image"/>
 			<div style="float: right">
 				<p id = "nav-about"><a href="#info"><span>About </span> </a></p>
@@ -138,11 +145,11 @@
 				<a href="counselor_login.php"  target="_blank"><p id = "nav-login">Login as Counselor</p></a>
 			</div>
 		</div>
+	</div>
+
 	<div id = "container">
-		
 		<div id="downloadbutton"> <img src="img/getitgoogle.png" width="35%"/> </div>
 		<div id = "content">
-
 			<div id="screenshotsdiv"><img id = "screenshots" src = "img/screenshots.png"/></div>
 			<div id = "text-content"> 
 				<p id = "text-1">Safe, anonymous online counseling</br>and support for students.</p>
@@ -154,10 +161,8 @@
 					<input id = "go-button" type="submit"  value="Submit" name="subscribe" id="mc-embedded-subscribe" class="button" onclick = "finished()">
 					<p id = "note"></p>
 					
-					<p style = "text-align:center; font-size: 12px; color: gray; margin-top: 30px;"> <a href="counselor_login.php" target="_blank"> Have a counselor code? </a></p>
+					<p id = "counselor-code-msg" style = ""> <a href="counselor_login.php" target="_blank"> Have a counselor code? </a></p>
 				</form> 
-
-				
 			</div>
 		</div>
 
@@ -172,13 +177,14 @@
 				<div id="ytplayer-container"><div id="ytplayer" style=""></div></div>
 			</div>
 
-				<center>
-			
+			<div id = "contact" style = "width: 80%; background-color: blue; margin: 0 auto;">
+				<div id = "contact-icons">
 					<a href="https://www.facebook.com/teamroots.org/" target="_blank"><img src="img/facebook.png" class = "icon" style = "-webkit-transition: .5s all; -moz-transition: .5s all; -o-transition: .5s all; transition: .5s all;"/> </a>
 					<a href="https://twitter.com/TeamRoots1" target="_blank"> <img src="img/twitter.png" class = "icon" style = "-webkit-transition: 1.5s all; -moz-transition: 1.5s all; -o-transition: 1.5s all; transition: 1.5s all;"/> </a>
 					<a href="mailto:teamroots@teamroots.org" target="_blank"><img src="img/email.png" class = "icon" style = "-webkit-transition: 2.5s all; -moz-transition: 2.5s all; -o-transition: 2.5s all; transition: 2.5s all;"/> </a>
-					<a href="https://www.linkedin.com/company/team-roots" target="_blank"><img src="img/linkedin.png" class = "icon" style = "-webkit-transition: 3.5s all; -moz-transition: 3.5s all; -o-transition: 3.5s all; transition: 3.5s all;"/>
-					</center>
+					<a href="https://www.linkedin.com/company/team-roots" target="_blank"><img src="img/linkedin.png" class = "icon" style = "-webkit-transition: 3.5s all; -moz-transition: 3.5s all; -o-transition: 3.5s all; transition: 3.5s all;"/></a>
+				</div>
+			</div>
 			
 		</div>
 	</div>

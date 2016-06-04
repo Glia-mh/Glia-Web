@@ -1,4 +1,4 @@
-@font-face {
+		@font-face {
 			font-family: SFLight;
 			src: url('../fonts/SF-UI-Text-Light.otf');
 		}
@@ -27,16 +27,19 @@
 			/*background-color: blue;*/
 		}
 
+		#navbar-container {
+			width: 100%;
+			position: fixed;
+			top: 0px;
+			z-index: 1;
+		}
+
 		#navbar {
 			width: 80%;
 			/*background-color: red;*/
 			margin: 0 auto;
-			position: fixed;
-			top: 0px;
-			width: 100%;
-			background-color: rgba(255, 255, 255, 0.9);
-			z-index: 1;
 		}
+
 		#navbar p a span {
 			padding-bottom: 5px;
 		}
@@ -87,7 +90,8 @@
 			top: 50%;
 			transform: translateY(-65%);
 		}
-#screenshotsdiv {
+
+		#screenshotsdiv {
 			display: inline;
 		}
 
@@ -161,6 +165,13 @@
 			font-size: 12px; 
 			border-radius: 5px;
 			font-family: SFLight;
+		}
+
+		#counselor-code-msg {
+			text-align:center;
+			font-size: 12px;
+			color: gray;
+			margin-top: 30px;
 		}
 
 		#go-button{ 
@@ -284,31 +295,29 @@
 			
 		}
 
+		#contact-icons {
+			width: 500px;
+			margin: 0 auto;
+		}
 
 		.icon {
 			width: 65px;
 			height: 65px;
-			border-radius: 50%;
-			
-			
-			margin: 20px;
-			text-align: center;
-
-			/*transform: translateY(50px);*/
+			padding: 20px;
+			display: block;
+			float: left;
+			line-height: 20px;
 			opacity: 0;
 		}
 
 		.icon:hover {
-			width: 65px;
-			height: 65px;
-			border-radius: 50%;
-			margin: 20px;
-			background-color: rgba(179, 179, 179, 0.4);			
+			border-radius: 50%;	
 			
 			text-align: center;
 
 			/*transform: translateY(50px);*/
-			opacity: 0;
+			width: 55px;
+			height: 55px;
 		}
 
 		.inner{
