@@ -95,14 +95,17 @@
         model: layer.Query.Conversation,
         sortBy: [{'lastMessage.sentAt': 'desc'}]
       });
-
-      if(conversationQuery.data.length==0) {
-        onboardingdisplaytext=true;
-        // console.log(conversationQuery.data);
-      } else {
-        onboardingdisplaytext=false;
-      }
-
+      setTimeout(function() {
+        if(conversationQuery.data.length==0) {
+          onboardingdisplaytext=true;
+          document.getElementById("welcometext").innerHTML="Good news. No one's in trouble yet. You have no messages.";
+          // console.log(conversationQuery.data);
+        } else {
+          onboardingdisplaytext=false;
+          console.log(conversationQuery.data);
+          document.getElementById("welcometext").innerHTML= "Tap a conversation to the left to start changing people's lives. :)";
+        }
+      }, 500);
 
       //this.initializeViews();
       /**
@@ -110,10 +113,10 @@
        * rerender the conversation list
        */
       conversationQuery.on('change', function(evt) {
-        if(conversationQuery.data.length!=0) {
+        /*if(conversationQuery.data.length!=0) {
             if(document.getElementById("welcometext"))
                 document.getElementById("welcometext").innerHTML= "Tap a conversation to the left to start changing people's lives. :)";
-        }
+        }*/
         conversationQuery.data.forEach(function(conversation){
           if(conversation.participants.length==0 && conversationListView.checkifSelectedConversation(conversation)) {
             titlebarView.render(null);
@@ -222,11 +225,11 @@
     initializeViews();
 
 
-    if(onboardingdisplaytext) {
-      document.getElementById("welcometext").innerHTML="Good news. No one's in trouble yet. You have no messages.";
-    } else {
-      document.getElementById("welcometext").innerHTML= "Tap a conversation to the left to start changing people's lives. :)";
-    }
+    // if(onboardingdisplaytext) {
+    //   document.getElementById("welcometext").innerHTML="Good news. No one's in trouble yet. You have no messages.";
+    // } else {
+    //   document.getElementById("welcometext").innerHTML= "Tap a conversation to the left to start changing people's lives. :)";
+    // }
 
 //         $(window).load(function() {
           
