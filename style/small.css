@@ -1,4 +1,4 @@
-@font-face {
+		@font-face {
 			font-family: SFLight;
 			src: url('../fonts/SF-UI-Text-Light.otf');
 		}
@@ -11,17 +11,12 @@
 		.logo-image{
 			content:url("../img/teamrootsicon.png");
 		}
+
 		.logo-image:after {
     		content:url("../img/teamrootsicon.png");
-
-
-
   		}
 
 		#container {
-			
-			
-			/*background-color: blue;*/
 		}
 
 		#navbar {
@@ -178,7 +173,7 @@
 		#go-button{ 
 			padding: 9px 15px; 
 			border: solid 1px #51C781;
-			border-radius: 2px;
+			border-radius: 5px;
 			color: white;
 			background-color: rgba(100, 200, 122, 1);
 			font-size: 20px; 
@@ -188,6 +183,14 @@
 		#counselor_code_prompt {
 			display: none;
 		}
+
+		#counselor-code-msg {
+			text-align:center;
+			font-size: 24px;
+			color: gray;
+			margin-top: 30px;
+		}
+
 
 		#go-button:hover{
 			background-color: rgba(81, 199, 129, 1.0);
@@ -283,6 +286,7 @@
 		}
 
 
+<<<<<<< HEAD
 		#social-media {
 			float: right; 
 			display: inline; 
@@ -318,6 +322,24 @@
 			
 			text-align: center;
 
+=======
+		#contact-icons {
+			width: 500px;
+			margin: 0 auto;
+		}
+
+		.icon {
+			width: 200px;
+			height: 200px;
+			padding: 20px;
+			display: block;
+			float: left;
+			line-height: 20px;
+		}
+
+		.icon:hover {		
+			display: block;
+>>>>>>> 6432790cfe570bc12ad46d43adfb605046190a0c
 			/*transform: translateY(50px);*/
 			opacity: 1;
 		}
