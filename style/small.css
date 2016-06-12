@@ -12,10 +12,20 @@
 			content:url("../img/teamrootsicon.png");
 		}
 		.logo-image:after {
-    		content:url("../img/teamrootsicon.png");
+    		background-image: url('../img/teamrootsicon.png');
+			background-size: 100% 100%;
+			padding: 75px;
+			margin-top: 40px;
+			display: inline-flex;
 
 
-
+  		}
+  		.logo-image:before {
+			background-image: url('../img/teamrootsicon.png');
+			background-size: 100% 100%;
+			padding: 75px;
+			margin-top: 40px;
+			display: inline-flex;
   		}
 
 		#container {
