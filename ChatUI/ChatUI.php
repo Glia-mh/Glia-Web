@@ -291,9 +291,9 @@
 
 		<section id="reporturgentsection" class="bottomborder-sidebar">
 			<br>
-			<textarea id = "notes" rows = "8" cols = "35" class="sidetextarea" placeholder = "Enter notes..."></textarea>
+			<textarea id = "notes" rows = "8" cols = "35" class="sidetextarea" placeholder = "Explain your report..."></textarea>
 			<br><br>
-			<button id = "report">Report Urgent</button> 
+			<button id = "report">Report User</button> 
 
 			<br>
 		</section>
@@ -302,13 +302,13 @@
 			<br>
 			<textarea id = "emails" rows = "8" cols = "35" class="sidetextarea" placeholder = "Enter emails..."></textarea>
 			<br><br>
-			<button id = "adduser">Add Users</button> 
-			<button id = "banuser">Ban Users</button> 
+			<button id = "adduser">Add Counselor</button> 
+			<button id = "banuser">Ban Counselor</button> 
 			<br>
 		</section>
 		<section id="unreportsection" class="bottomborder-sidebar">
 			<br>
-			<button id = "unreport">Undo Report</button> 
+			<button id = "unreport">Undo Report   </button> 
 			<br>
 		</section>
 

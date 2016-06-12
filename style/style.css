@@ -273,7 +273,7 @@ header {
 	background-color: rgba(179, 179, 179, 1);
 	padding-top: 7px;
 	padding-bottom: 7px;
-	width: 72%;
+	width: 82%;
 	color: white;
 	border-radius: 7px;
 	font-size: 15px;
@@ -443,7 +443,7 @@ textarea {
 }
 
 .class-chat-list-container {
-	margin: 15px 0.2px;
+	margin: 4px 0.2px;
 	word-wrap: break-word;
 }
 
