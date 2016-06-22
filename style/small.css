@@ -27,6 +27,32 @@
 			margin-top: 40px;
 			display: inline-flex;
   		}
+  		
+  		#footer {
+			text-align: center;
+			margin-bottom: 20px;
+			margin-top: 5vh;
+			line-height: 25px;
+			
+		}
+		#footer a {
+			color:#333333;
+			text-decoration: underline;
+		}
+		
+		#interested {
+			font-weight: bold;
+			display: inline;
+			text-align: center;
+			color: gray;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: gray;
+			font-weight: bold;
+			font-size: 16px;
+		}
 
 		#container {
 			
@@ -134,7 +160,7 @@
 			margin-bottom: 100px;
 		}
 
-		#text-1, #text-2, #text-3, #note {
+		#text-1, #text-2, #text-3, #note, #interested {
 			text-align: center;
 			color: gray;
 		}

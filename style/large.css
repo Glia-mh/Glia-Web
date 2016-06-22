@@ -2,7 +2,13 @@
 			font-family: SFLight;
 			src: url('../fonts/SF-UI-Text-Light.otf');
 		}
-		
+		#footer {
+			text-align: center;
+			margin-bottom: 20px;
+			margin-top: 5vh;
+			line-height: 25px;
+			
+		}
 		body {
 			margin: 0;
 			padding: 0;		
@@ -22,8 +28,9 @@
   		}
   		
 		#container {
-			height: 100vh;
-			margin-top: 124px;
+			height: 600px;
+			
+			
 			/*background-color: blue;*/
 		}
 
@@ -31,10 +38,8 @@
 			width: 80%;
 			/*background-color: red;*/
 			margin: 0 auto;
-			position: fixed;
-			top: 0px;
 			width: 100%;
-			background-color: rgba(255, 255, 255, 0.9);
+			background-color: rgba(255, 255, 255, 0.0);
 			z-index: 1;
 		}
 		#navlinks {
@@ -55,7 +60,7 @@
 
 		#navbar .logo-image {
 			height: 80px;
-			padding: 20px;
+			padding: 25px;
 			display: inline;
 			margin-left: 25px;
 		}
@@ -84,14 +89,14 @@
 		}
 
 		#content {
-			max-width: 1000px;
+			max-width: 1050px;
 			/*background-color: green;*/
 			margin: 0 auto;
-			position: relative;
-			top: 50%;
-			transform: translateY(-65%);
+			height: 100%;
+			vertical-align: center;
 		}
-#screenshotsdiv {
+		
+		#screenshotsdiv {
 			display: inline;
 		}
 
@@ -110,7 +115,7 @@
 			float: right;
 			padding: 10px;
 			width: 60%;
-			margin-top: 80px;
+			margin-top: 10px;
 			transform: translateY(-20px);
 			-webkit-transition: .3s all;
 			-moz-transition: .3s all;
@@ -118,15 +123,34 @@
 			transition: .3s all;
 		}
 
-		#text-1, #text-2, #text-3, #note {
+		#text-1, #text-2, #text-3, #note #interested {
 			text-align: center;
 			color: gray;
 		}
-
+		
+		#interested {
+			font-weight: bold;
+			display: inline;
+			text-align: center;
+			color: gray;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: gray;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		#footer a {
+			color:#333333;
+			text-decoration: underline;
+		}
+		
 		#text-1 {
 			font-size: 42px;
 			margin-bottom: 0;
 			margin-top: 0px;
+			padding-top: 0px;
 			opacity: 0;
 			transform: translateY(20px);
 			-webkit-transition: 1s all;
@@ -247,6 +271,7 @@
 			position: absolute;
 			bottom: 30px;
 			right: 50%;
+			display: none;
 		}
 
 		#arrow-down:hover {
@@ -263,25 +288,21 @@
 
 		#information {
 			//background-color: rgba(100, 200, 122, 1);
-			height: 100vh;
+			height: 600px;
 			display: table;
 			width: 100%;
 		}
 
 		#title {
-			font-size: 42px;
+			font-size: 50px;
 			padding: 20px 20px 0 20px;
-			margin-bottom: 40px;
-
+			margin: 0;
 			text-align: center;
-			opacity: 0;
-			transform: translateY(20px);
-			-webkit-transition: 4s all;
-			-moz-transition: 4s all;
-			-o-transition: 4s all;
-			transition: 4s all;
+			margin-bottom: 100px;
+			margin-top: 150px;
 			color: gray;
 		}
+
 
 		#ytplayer-container {
 			text-align: center;
@@ -298,7 +319,7 @@
  			text-align:center;
  			font-size: 12px;
  			color: gray;
- 			margin-top: 30px;
+ 			margin-top: 25px;
  		}
 
 

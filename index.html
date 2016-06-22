@@ -21,6 +21,10 @@
  		}  
 
 		window.onload = function () {
+			console.log($(window).height() + "window height");
+			if($(window).height()<650 || $(window).height()>880) {
+				$("#arrow-down").hide();
+			}
 			if($(window).width()<999) {
 							$(window).unbind('scroll');
 							var context = document.getElementById("text-content"); // BTW. numeric IDs are not valid
@@ -82,7 +86,6 @@
 				height: '520',
 				width: '924',
 				playerVars : {
-					autoplay : 0,
 					showinfo: 0,
 					rel: 0
 				},
@@ -93,7 +96,7 @@
 
 		$(window).load(function(){ 
 			$("#arrow-down").click(function() {
-		  		$("html, body").animate({ scrollTop: $(window).height()*2 }, 1500);
+		  		$("html, body").animate({ scrollTop:  $("#navbar").height() +  $("#container").height() + 70}, 1500);
 			});
 
 
@@ -127,9 +130,7 @@
 				if($(window).scrollTop() > $(this).offset().top - $(window).height()) {
 					document.getElementById("title").style.transform = "translateY(0)"; 
 					document.getElementById("title").style.opacity = "1"; 
-					player.playVideo();
 				} else {
-					player.stopVideo();
 				}
 			}); 
 
@@ -144,7 +145,15 @@
 		});
 		
 		$(window).resize(function() {
-			setContainerWidth();
+			
+			if($(window).height()<650 || $(window).height()>880) {
+				$("#arrow-down").hide();
+			} else {
+				$("#arrow-down").show();
+			}
+			
+			//setContainerWidth();
+			
 			if($(window).width()<999) {
 				$(window).unbind('scroll');
 				var context = document.getElementById("text-content"); // BTW. numeric IDs are not valid
@@ -248,13 +257,22 @@
 	<div id = "information">
 		<a name="info"> </a>
 		<div class="inner">
-			<p id = "title">How it works</p>
+			<p id = "title">How it Works</p>
 			<div id = "video">
 				<div id="ytplayer-container"><div id="ytplayer" style=""></div></div>
 			</div>
+		<div id="footer">
+			
+			<p id="interested"> Interested in Learning More?</p> Contact us at <a href="mailto:teamroots@teamroots.org" target="_blank"> teamroots@teamroots.org</a> <br>
+			  </div>
+			  <p class="copyright">	&#x24B8; Team Roots</p>
 		</div>
+		</div>
+	
 	</div>
-
+		
+		
+	
 	
 </body>
 </html>
