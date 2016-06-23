@@ -306,7 +306,7 @@
                     // The object was not retrieved successfully.
                     // error is a Parse.Error with an error code and message.
                     document.getElementById("OKModal").style.display="none";
-                    document.getElementById("modal-text").innerHTML= 'Error making the report! Email us at <a href="mailto:teamroots@teamroots.org">teamroots@teamroots.org</a>  to share the problem. Or try again.';
+                    document.getElementById("modal-text").innerHTML= 'Error making the report! Email us at <a href="mailto:team@teamroots.org">team@teamroots.org</a>  to share the problem. Or try again.';
                     var modal = document.getElementById('myModal');
                     modal.style.display="block";
                   }
