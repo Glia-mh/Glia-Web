@@ -75,9 +75,16 @@
 	<script type="text/javascript">
 
 	  Parse.initialize("pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl", "nsAogGRd3LmObBE5jk1E3pilVTDbPGAEHpTZwvob");
-	  	Parse.User.current().fetch();
+	  	
 	    var currentUser = Parse.User.current();
-	    if (!currentUser) window.location = "../counselor_login.php";
+	    if (!currentUser) {
+	    	window.location = "../counselor_login.php";
+	    	// console.log("Redirect not working");
+	    } else {
+	    	// console.log(currentUser);
+	    	Parse.User.current().fetch(); //used to update information for initial verification/registration
+	    	var currentUser = Parse.User.current();
+	    }
 	    if(currentUser.attributes.rootsAuthData=="banned"){
 	    	window.location = "../counselor_login.php";
 	    } else if (currentUser.attributes.rootsAuthData=="notverified") {
@@ -228,7 +235,10 @@ var _0x325c=["","\x73\x70\x6C\x69\x74","\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6A
 	<img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
 	<span id = "user-name"></span>
 
-	<img src = "../img/id-logo.jpg" id = "profile-logo">
+	<!--TODO: Identity dummy image source to place in this element-->
+	<img id = "profile-logo">
+	
+
 	<script type="text/javascript">
 		if(Parse.User.current())
 			if(Parse.User.current().attributes.photoURL)
@@ -276,8 +286,8 @@ var _0x325c=["","\x73\x70\x6C\x69\x74","\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6A
 	<section>
 		<section class="bottomborder-sidebar" id="bottomborder-sidebar-top">
 
-		<img src = "../img/id-logo.jpg" class = "logo" id="logo-sidebar"> <span id= "chat-name-sidebar" class= "chat-name"> Participant Name </span> <!--<br> <span id="preview-mssg-sidebar" class= "preview-mssg"> University of Southern California </span> -->
-		
+		<img class = "logo" id="logo-sidebar"> <span id= "chat-name-sidebar" class= "chat-name"> Participant Name </span> <!--<br> <span id="preview-mssg-sidebar" class= "preview-mssg"> University of Southern California </span> -->
+		<!--TODO: Identity dummy image source to place in this element-->
 
 		</section>
 

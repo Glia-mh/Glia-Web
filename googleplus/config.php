@@ -5,8 +5,8 @@ include_once("src/contrib/Google_Oauth2Service.php");
 ######### edit details ##########
 $clientId = '878193191958-ol01mfir21ubo13lvj68c50j56e79qpu.apps.googleusercontent.com'; //Google CLIENT ID
 $clientSecret = 'aOqV-lKGildi6_US5-R5J9xL'; //Google CLIENT SECRET
-$redirectUrl = 'http://adityaaggarwal.com/Team-Roots-Web/googleplus/index.php';  //return url (url to script)
-$homeUrl = 'http://adityaaggarwal.com/Team-Roots-Web/googleplus/index.php';  //return to home
+$redirectUrl = 'http://teamroots.org/googleplus/index.php';  //return url (url to script)
+$homeUrl = 'http://teamroots.org/googleplus/index.php';  //return to home
 
 ##################################
 

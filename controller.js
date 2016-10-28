@@ -96,7 +96,13 @@
         sortBy: [{'lastMessage.sentAt': 'desc'}]
       });
       setTimeout(function() {
-        if(conversationQuery.data.length==0) {
+        var currentConvs=0;
+        conversationQuery.data.forEach(function(conv){
+          if (!(conv.participants.length == 0))
+            ++currentConvs;
+        });
+          
+        if(currentConvs==0) {
           onboardingdisplaytext=true;
           document.getElementById("welcometext").innerHTML="Good news. No one's in trouble yet. You have no messages.";
           // console.log(conversationQuery.data);

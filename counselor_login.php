@@ -113,7 +113,7 @@
 	</script>
 
 	<div id="footer">
-		<a href="mailto:spencer@teamroots.org" class="get-notified">Contact us</a>
+		<a href="mailto:team@teamroots.org" class="get-notified">Contact us</a>
 	</div>
 </body>
 </html>
