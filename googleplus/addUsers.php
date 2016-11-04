@@ -1,7 +1,10 @@
 <?php session_start();
 if(!isset($_SESSION['google_data_teamroots'])):header("Location:index.php");endif;
-
+ 
+  
   unset($_SESSION['token']);
+   $name =  $_SESSION['google_data_teamroots']['name'];
+  $picture = $_SESSION['google_data_teamroots']['picture'];
   unset($_SESSION['google_data_teamroots']); //Google session data unset
 
   if(isset($gClient)){
@@ -10,16 +13,51 @@ if(!isset($_SESSION['google_data_teamroots'])):header("Location:index.php");endi
   session_destroy();
 ?>
 
+
+
+
 	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
+<?php 
+
+echo '
+<header>
+
+  <img src = "https://cdn2.iconfinder.com/data/icons/power-symbol/512/powe_symbol_4-512.png" id = "signout">
+  <span id = "user-name">'.$name.'</span>
+
+  <img id = "profile-logo" src="'.$picture.'">
+  
+
+ 
+  <img src = "../img/team-roots-logo.png" id = "header-logo">
+  <script type="text/javascript">
+  console.log("Team Roots, Debug Aditya Nov 3, 2016")
+  console.log("'.$_SESSION['google_data_teamroots'].'")
+  $( "#signout" ).click(function() {
+  
+          window.location="logout.php?logout"
+        });
+</script>
+</header>';
+?>
+
+
+
+
   <body style="display:table; height:100%;">
 	<form style="display:table-cell; vertical-align:middle;">
 		<textarea class="add-admins-textarea" id="email-list" placeholder = "Enter emails..."></textarea> <br> <br>
 		<input type="text" name="school" id="schoolinput" class="form-field" placeholder="School Name" required>
 		<input type="button" value="Finish" class="button" id="submit-button">
 	</form>
+  
+
+
+
 </body>
 
 

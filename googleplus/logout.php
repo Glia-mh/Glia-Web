@@ -5,5 +5,5 @@ if(array_key_exists('logout',$_GET)) {
 	unset($_SESSION['google_data_teamroots']); //Google session data unset
 	$gClient->revokeToken();
 	session_destroy();
-	header("Location:index.php");
+	header("Location:../counselor_login.php");
 }
